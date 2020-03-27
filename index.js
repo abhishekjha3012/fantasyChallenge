@@ -7,9 +7,8 @@ const triggerTimer = () => {
     const diffHours = Math.floor((diffTime / 36e2) % 24 ); 
     const diffMinute= Math.floor((diffTime / 60) % 60 ); 
     const diffSecond = Math.floor(diffTime % 60);
-    const timerHtml = `${diffDays} days : ${diffHours} hrs : ${diffMinute} minutes : ${diffSecond} seconds`;
+    const timerHtml = `${diffDays} days :: ${diffHours} hrs :: ${diffMinute} minutes :: ${diffSecond} seconds`;
     document.getElementsByClassName('time-left')[0].innerHTML = timerHtml;  
-    console.log(present, end)
 }
 
 const domLoaded = () => {
