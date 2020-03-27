@@ -1,0 +1,26 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    color: #FFFFFF;
+    font-family: 'Baloo Thambi 2', cursive;
+}
+.container {
+    width: 100%;
+    height: 100vh;
+    background-color: rgb(55, 57, 66);
+    display: grid;
+    /* grid-template-rows: 1fr 1fr; */
+    justify-content: center;
+    align-content: center;
+}
+.label {
+    margin: 0;
+    color: rgb(142, 181, 13);
+    font-size: 5vw;
+    text-align: center;
+}
+.time-left {
+    color: rgb(142, 181, 13);
+    font-size: 5vw;
+    text-align: center ;
+}
