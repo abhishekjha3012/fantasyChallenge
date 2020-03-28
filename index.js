@@ -20,7 +20,7 @@ const triggerBar = () => {
     const present = new Date();
     const totalDiff =  Math.abs(end - start);
     const presentDiff = Math.abs(present - start);
-    document.getElementsByClassName('percent-value')[0].innerHTML = `${(presentDiff/totalDiff * 100).toFixed(5)} %`;
+    document.getElementsByClassName('percent-value')[0].innerHTML = `${(presentDiff/totalDiff * 100).toFixed(4)} %`;
     document.getElementsByClassName('child-bar')[0].style.width = `${(presentDiff/totalDiff * 100).toFixed(0)}%`;
 }
 
