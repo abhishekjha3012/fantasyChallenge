@@ -18,14 +18,14 @@ html, body {
 .label {
     margin: 0;
     color: rgb(142, 181, 13);
-    font-size: 10vw;
+    font-size: 8vw;
     text-align: center;
     text-decoration: underline;
 }
 .value {
     margin: 0;
     color: white;
-    font-size: 6vw;
+    font-size: 5vw;
     text-align: center ;
 }
 
