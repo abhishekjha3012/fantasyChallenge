@@ -12,7 +12,7 @@ p{
     height: 100vh;
     padding: 0 20px;
     display: grid;
-    grid-template-rows: 60px auto 1fr 150px;
+    grid-template-rows: 40px auto 1fr 75px;
     grid-gap: 30px;
     justify-content: center;
 }
