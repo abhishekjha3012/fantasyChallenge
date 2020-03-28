@@ -7,7 +7,10 @@ const triggerTimer = () => {
     const diffHours = Math.floor((diffTime / 36e2) % 24 ); 
     const diffMinute= Math.floor((diffTime / 60) % 60 ); 
     const diffSecond = Math.floor(diffTime % 60);
-    const timerHtml = `${diffDays} days :: ${diffHours} hrs :: ${diffMinute} minutes :: ${diffSecond} seconds`;
+    const timerHtml = `<div><span class='t-value'>${diffDays}</span><br/> days</div>
+        <div><span class='t-value'>${diffHours}</span><br/> hrs</div>
+        <div><span class='t-value'>${diffMinute}</span><br/> minutes</div>
+        <div><span class='t-value'>${diffSecond}</span><br/> seconds</div>`;
     document.getElementsByClassName('time-left')[0].innerHTML = timerHtml;  
 }
 
@@ -22,7 +25,8 @@ const triggerBar = () => {
 }
 
 const domLoaded = () => {
-    setInterval(triggerTimer, 1000)
+    //setInterval(triggerTimer, 1000)
+    triggerTimer();
     setInterval(triggerBar, 1000)
 }
 
