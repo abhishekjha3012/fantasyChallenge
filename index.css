@@ -1,26 +1,39 @@
 html, body {
     margin: 0;
     padding: 0;
-    color: #FFFFFF;
     font-family: 'Baloo Thambi 2', cursive;
 }
 .container {
-    width: 100%;
+    width: calc(100% - 40px);
     height: 100vh;
+    padding: 0 20px;
     background-color: rgb(55, 57, 66);
     display: grid;
-    /* grid-template-rows: 1fr 1fr; */
+    grid-template-rows: 100px 1fr 1fr 100px;
+    grid-gap: 30px;
     justify-content: center;
     align-content: center;
 }
+
 .label {
     margin: 0;
     color: rgb(142, 181, 13);
-    font-size: 5vw;
+    font-size: 10vw;
     text-align: center;
+    text-decoration: underline;
 }
-.time-left {
-    color: rgb(142, 181, 13);
-    font-size: 5vw;
+.value {
+    margin: 0;
+    color: white;
+    font-size: 6vw;
     text-align: center ;
 }
+
+@media all and (min-width: 769px) {
+    .label {
+        font-size: 5vw;
+    }
+    .value {
+        font-size: 3vw;
+    }
+  }
