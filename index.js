@@ -9,8 +9,8 @@ const triggerTimer = () => {
     const diffSecond = Math.floor(diffTime % 60);
     const timerHtml = `<div><span class='t-value'>${diffDays}</span><br/> days</div>
         <div><span class='t-value'>${diffHours}</span><br/> hrs</div>
-        <div><span class='t-value'>${diffMinute}</span><br/> minutes</div>
-        <div><span class='t-value'>${diffSecond}</span><br/> seconds</div>`;
+        <div><span class='t-value'>${diffMinute}</span><br/> mins</div>
+        <div><span class='t-value'>${diffSecond}</span><br/> secs</div>`;
     document.getElementsByClassName('time-left')[0].innerHTML = timerHtml;  
 }
 
