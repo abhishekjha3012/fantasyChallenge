@@ -25,8 +25,7 @@ const triggerBar = () => {
 }
 
 const domLoaded = () => {
-    //setInterval(triggerTimer, 1000)
-    triggerTimer();
+    setInterval(triggerTimer, 1000)
     setInterval(triggerBar, 1000)
 }
 
