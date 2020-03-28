@@ -29,6 +29,23 @@ html, body {
     text-align: center ;
 }
 
+.bar-box{
+    width: 80%;
+    margin: 0 auto;
+    border: 1px solid white;
+    border-radius: 30px;
+    height: 50px;
+}
+
+.child-bar {
+    background-color: rgb(142, 181, 13);
+    width: 0%;
+    height: 50px;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    transition: width 2s;
+}
+
 @media all and (min-width: 769px) {
     .label {
         font-size: 5vw;
