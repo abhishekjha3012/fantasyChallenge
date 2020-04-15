@@ -36,14 +36,14 @@ p {
 }
 
 .value {
-    font-size: 3vh;
+    font-size: 4vh;
     border: 2px solid rgb(142, 181, 13);;
     color: white;
 }
 
 .time-left {
     display: grid;
-    grid-template-columns: 1fr 25% 25% 25%;
+    grid-template-columns: 1fr 1fr;
     grid-gap: 10px;
     padding: 30px 10px;
 }
@@ -80,5 +80,8 @@ p {
     }
     .value {
         font-size: 3vw;
+    }
+    .time-left{
+        grid-template-columns: 1fr 25% 25% 25%;
     }
   }
