@@ -28,5 +28,3 @@ const domLoaded = () => {
     setInterval(triggerTimer, 1000)
     setInterval(triggerBar, 1000)
 }
-
-document.addEventListener('DOMContentLoaded', domLoaded, false);
