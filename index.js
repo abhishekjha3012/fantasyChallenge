@@ -83,6 +83,7 @@ const formatTableData = data => {
         const recoveredPercent = confirmed === 0? 0.00 : Math.round(recovered * 100 / confirmed);
         const deceasedPercent =confirmed === 0 ? 0.00 : Math.round(deceased * 100 / confirmed);
         formattedRowData.push({
+            rowId: key,
             state: STATE_NAMES[key],
             confirmed,
             active: `${active} (${activePercent}%)` ,
@@ -93,8 +94,8 @@ const formatTableData = data => {
     return formattedRowData;
 };
 
-const paintDetail = () => {
-    const detailData = rowData['TT'];
+const paintDetail = stateCode => {
+    const detailData = rowData[stateCode];
     const { confirmed=0, recovered=0, deceased=0, tested=0, migrated=0 } = detailData.total;
     const { confirmed: dconfirmed = 0, 
             recovered:drecovered = 0, 
@@ -143,6 +144,7 @@ const paintTable = async () => {
         defaultColDef,
         animateRows:true,
         postSort,
+        onRowClicked,
         rowClass: 'custom-row-class',
         rowData: formattedRowData,
         onFirstDataRendered,
@@ -159,9 +161,13 @@ const postSort = rowNodes => {
         }
     }
 };
+
+const onRowClicked = rowNode => {
+    paintDetail(rowNode.data.rowId);
+}
     
 document.addEventListener('DOMContentLoaded', async () => {    
     await paintTable();  
     paintNews(); 
-    paintDetail();
+    paintDetail('TT');
 });
