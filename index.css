@@ -38,10 +38,11 @@ h3{
 .detail-body{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: 20px;
+    grid-gap: 15px;
 }
 .detail{
     padding: 10px 20px;
+    border-radius: 10px;
 }
 .detail h2 {
     margin: 0;
@@ -93,6 +94,10 @@ h3{
 .news-box:first-child{
     margin-top: 0;
 }
+.news-box:last-child{
+    margin-bottom: 0;
+}
+
 .update{
     color: white;
     margin: 0;
@@ -103,3 +108,13 @@ h3{
     text-align: right;
 }
 /*News Styling end */
+
+
+/*Mobile specific style*/
+@media only screen and (max-width: 600px) {
+    .dashboard{
+        grid-template-columns: 1fr;
+        grid-gap: 20px;
+        padding: 0 20px;
+    }
+}
