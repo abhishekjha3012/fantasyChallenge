@@ -24,7 +24,39 @@
 
 <body>
     <div class="dashboard">
-        <div id="myGrid" style="height: 100vh; width:100%" class="ag-theme-alpine-dark"></div>
+        <div id="myGrid">
+            <h3> Latest Count</h3>
+            <div class='data-table ag-theme-alpine-dark'></div>
+        </div>
+        <div id="details">
+                <h3> Latest Details</h3>
+                <div class="detail-body">
+                    <div class="detail detail-confirmed">
+                        <h2>CONFIRMED</h2>
+                        <div class="count"></div>
+                    </div>
+                    <div class="detail detail-active">
+                        <h2>ACTIVE</h2>
+                        <div class="count"></div>
+                    </div>
+                    <div class="detail detail-recovered">
+                        <h2>RECOVERED</h2>
+                        <div class="count"></div>
+                    </div>
+                    <div class="detail detail-deceased">
+                        <h2>DECEASED</h2>
+                        <div class="count"></div>
+                    </div>
+                    <div class="detail detail-tested">
+                        <h2>TESTED</h2>
+                        <div class="count"></div>
+                    </div>
+                    <div class="detail detail-migrated">
+                        <h2>MIGRATED</h2>
+                        <div class="count"></div>
+                    </div>
+                </div>
+            </div>
         <div id="news">
             <h3> Latest Update</h3>
             <div class="news-body"></div>

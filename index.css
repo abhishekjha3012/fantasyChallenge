@@ -1,9 +1,9 @@
+/*General Styling start */
 body{
     margin: 0;
     padding: 0;
     font-family: monospace
 }
-
 .dashboard{
     display: grid;
     grid-template-columns: 50% 25% 1fr;
@@ -11,23 +11,86 @@ body{
     grid-gap: 20px;
     background: black;
 }
-
-#news h3{
+h3{
     font-size: 20px;
     line-height: 20px;
+    padding-left: 20px;
     border-bottom: 1px solid rgb(142, 181, 13);
     color:rgb(142, 181, 13);
 }
+/*General Styling end */
 
+
+
+/*Datatable Styling start */
+.data-table{
+    height: calc( 100vh - 61px); 
+    width: 100%;
+}
+.data-table .ag-root .custom-row-class{
+    background: black;
+}
+/*Datatable Styling end */
+
+
+
+/*Detail Styling start */
+.detail-body{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+}
+.detail{
+    padding: 10px 20px;
+}
+.detail h2 {
+    margin: 0;
+    text-decoration: underline;
+}
+.count{
+    font-size: 16px;
+}
+.detail-confirmed{
+    color:#ff073a;
+    border: 1px solid #ff073a; 
+}
+.detail-active{
+    color:#007bff;
+    border: 1px solid #007bff; 
+}
+.detail-recovered{
+    color:#28a745;
+    border: 1px solid #28a745; 
+}
+.detail-deceased{
+    color:#6c757d;
+    border: 1px solid #6c757d; 
+}
+.detail-tested{
+    color:#201aa2;
+    border: 1px solid #201aa2; 
+}
+.detail-migrated{
+    color:#ffffff;
+    border: 1px solid #ffffff; 
+}
+/*Detail Styling end */
+
+
+
+/*News Styling start */
 .news-body{
     overflow-y: scroll;
-    height: calc(100vh - 20px);
+    height: calc(100vh - 61px);
 }
 .news-box {
     border: 1px solid white;
     padding: 5px 20px;
     margin: 10px 0;
     font-family: monospace;
+}
+.news-box:first-child{
+    margin-top: 0;
 }
 .update{
     color: white;
@@ -38,3 +101,4 @@ body{
     color: white;
     text-align: right;
 }
+/*News Styling end */
