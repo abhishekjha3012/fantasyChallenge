@@ -1,4 +1,5 @@
 const tableUrl = 'https://api.covid19india.org/v3/min/data.min.json';
+const newsUrl = ' https://api.covid19india.org/updatelog/log.json';
 
 const STATE_NAMES = {
     AP: 'Andhra Pradesh',
@@ -42,26 +43,31 @@ const STATE_NAMES = {
 };
 
 const defaultColDef = {
-    width: 125,
+    width: 140,
     sortable: true,
 };
 
 const columnDefs = [
-    {headerName: "State/UT", field: "state", width: '200'},
+    {headerName: "State/UT", field: "state", width: '180'},
     {headerName: "Confirmed", field: "confirmed", sort:'desc'},
-    {headerName: "Active", field: "active"},
-    {headerName: "Active %", field: "activePercent"},
-    {headerName: "Recovered", field: "recovered"},
-    {headerName: "Recovered %", field: "recoveredPercent"},
-    {headerName: "Deceased", field: "deceased" },
-    {headerName: "Deceased %", field: "deceasedPercent"},
+    {headerName: "Active (%) ", field: "active"},
+    {headerName: "Recovered(%)", field: "recovered"},
+    {headerName: "Deceased (%)", field: "deceased" },
     
 ];
+
+const fetchNewsData = () => {
+    return fetch(newsUrl)
+    .then(resp => resp.json())
+    .then(response => response)
+    .catch(error => console.log(error));
+};
 
 const fetchTableData = () => {
     return fetch(tableUrl)
     .then(resp => resp.json())
-    .then(response => response);
+    .then(response => response)
+    .catch(error => console.log(error));
 };
 
 const formatTableData = data => {
@@ -69,27 +75,34 @@ const formatTableData = data => {
     for(const [key,{ total = {} } ] of Object.entries(data)){
         const { confirmed=0, recovered=0, deceased=0 } = total
         const active = confirmed-recovered-deceased;
+        const activePercent = confirmed === 0 ? 0.00 : Math.round(active* 100 / confirmed);
+        const recoveredPercent = confirmed === 0? 0.00 : Math.round(recovered * 100 / confirmed);
+        const deceasedPercent =confirmed === 0 ? 0.00 : Math.round(deceased * 100 / confirmed);
         formattedRowData.push({
             state: STATE_NAMES[key],
             confirmed,
-            active,
-            recovered,
-            deceased,
-            activePercent: confirmed === 0 ? 0.00 : Math.round(active* 100 / confirmed),
-            recoveredPercent: confirmed === 0? 0.00 : Math.round(recovered * 100 / confirmed),
-            deceasedPercent: confirmed === 0 ? 0.00 : Math.round(deceased * 100 / confirmed),
+            active: `${active} (${activePercent}%)` ,
+            recovered: `${recovered} (${recoveredPercent}%)`,
+            deceased: `${deceased} (${deceasedPercent}%)`,
         })
     };
     return formattedRowData;
-}
+};
 
-const postSort = rowNodes => {
-    console.log(rowNodes);
-}
-    
-document.addEventListener('DOMContentLoaded', async function() {
-    let rowData = await fetchTableData();
-    let formattedRowData= formatTableData(rowData);   
+const paintNews = async () => {
+    let newsData = await fetchNewsData();
+    const newsHtml = newsData.map(item => (
+        `<div class='news-box'>
+            <p class='update'>${item.update}</p>
+            <p class='time'>${moment(item.timestamp).format('DD/MM/YYYY hh:mm a')}</p>
+        </div>`
+    ));
+    document.querySelector('#news .news-body').innerHTML= newsHtml.join(',');
+};
+
+const paintTable = async () => {
+    const rowData = await fetchTableData();
+    const formattedRowData= formatTableData(rowData);   
     const gridDiv = document.querySelector('#myGrid');
     const gridOptions = {
         columnDefs,
@@ -99,4 +112,13 @@ document.addEventListener('DOMContentLoaded', async function() {
         rowData: formattedRowData
     };
     new agGrid.Grid(gridDiv, gridOptions);
+};
+
+const postSort = rowNodes => {
+    console.log(rowNodes);
+};
+    
+document.addEventListener('DOMContentLoaded', function() {
+    paintNews();
+    paintTable();    
 });
