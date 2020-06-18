@@ -98,19 +98,29 @@ const paintDetail = () => {
     const { confirmed=0, recovered=0, deceased=0, tested=0, migrated=0 } = detailData.total;
     const { confirmed: dconfirmed = 0, 
             recovered:drecovered = 0, 
-            deceased:ddeceased = 0, 
+            deceased: ddeceased = 0, 
             tested: dtested = 0, 
-            migrated:dmigrated = 0 } = detailData.delta;
+            migrated: dmigrated = 0 } = detailData.delta;
     const active = confirmed-recovered-deceased;
     const dactive = dconfirmed-drecovered-ddeceased;
 
-    document.querySelector('.detail-confirmed .count').innerHTML = `${confirmed} (${dconfirmed}) `;
-    document.querySelector('.detail-active .count').innerHTML = `${active} (${dactive})`;
-    document.querySelector('.detail-recovered .count').innerHTML = `${recovered} (${drecovered})`;
-    document.querySelector('.detail-deceased .count').innerHTML = `${deceased} (${ddeceased})`;
-    document.querySelector('.detail-tested .count').innerHTML = `${tested} (${dtested})`;
-    document.querySelector('.detail-migrated .count').innerHTML = `${migrated} (${dmigrated})`;
+    document.querySelector('.detail-confirmed .total-count').innerHTML = confirmed;
+    document.querySelector('.detail-confirmed .today-count').innerHTML = dconfirmed;
+
+    document.querySelector('.detail-active .total-count').innerHTML = active;
+    document.querySelector('.detail-active .today-count').innerHTML = dactive;
     
+    document.querySelector('.detail-recovered .total-count').innerHTML = recovered;
+    document.querySelector('.detail-recovered .today-count').innerHTML = drecovered;
+
+    document.querySelector('.detail-deceased .total-count').innerHTML = deceased;
+    document.querySelector('.detail-deceased .today-count').innerHTML = ddeceased;
+
+    document.querySelector('.detail-tested .total-count').innerHTML = tested;
+    document.querySelector('.detail-tested .today-count').innerHTML = dtested;
+
+    document.querySelector('.detail-migrated .total-count').innerHTML = migrated;
+    document.querySelector('.detail-migrated .today-count').innerHTML = dmigrated;
 }
 
 const paintNews = async () => {

@@ -37,15 +37,19 @@ h3{
 /*Detail Styling start */
 .detail-body{
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     grid-gap: 15px;
 }
 .detail{
     padding: 10px 20px;
     border-radius: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 5px
 }
 .detail h2 {
     margin: 0;
+    grid-column: 1/3;
     text-decoration: underline;
 }
 .count{
