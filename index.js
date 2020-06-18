@@ -94,7 +94,7 @@ const formatTableData = data => {
     return formattedRowData;
 };
 
-const paintDetail = stateCode => {
+const paintDetail = (stateCode, stateName) => {
     const detailData = rowData[stateCode];
     const { confirmed=0, recovered=0, deceased=0, tested=0, migrated=0 } = detailData.total;
     const { confirmed: dconfirmed = 0, 
@@ -104,6 +104,8 @@ const paintDetail = stateCode => {
             migrated: dmigrated = 0 } = detailData.delta;
     const active = confirmed-recovered-deceased;
     const dactive = dconfirmed-drecovered-ddeceased;
+
+    document.querySelector('.selected-state').innerHTML = stateName;
 
     document.querySelector('.detail-confirmed .total-count').innerHTML = confirmed;
     document.querySelector('.detail-confirmed .today-count').innerHTML = dconfirmed;
@@ -162,12 +164,12 @@ const postSort = rowNodes => {
     }
 };
 
-const onRowClicked = rowNode => {
-    paintDetail(rowNode.data.rowId);
+const onRowClicked = ({data}) => {
+    paintDetail(data.rowId, data.state);
 }
     
 document.addEventListener('DOMContentLoaded', async () => {    
     await paintTable();  
     paintNews(); 
-    paintDetail('TT');
+    paintDetail('TT', 'ALL STATES');
 });
