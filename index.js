@@ -142,7 +142,7 @@ const paintTable = async () => {
         columnDefs,
         defaultColDef,
         animateRows:true,
-        postSort: postSort(),
+        postSort,
         rowClass: 'custom-row-class',
         rowData: formattedRowData,
         onFirstDataRendered,
@@ -151,7 +151,13 @@ const paintTable = async () => {
 };
 
 const postSort = rowNodes => {
-    console.log(rowNodes);
+    let nextInsertPos = 0;
+    for (let i = 0; i < rowNodes.length; i++) {
+        if (rowNodes[i].data.state === 'Total') {
+            rowNodes.splice(nextInsertPos, 0, rowNodes.splice(i, 1)[0]);
+            nextInsertPos++;
+        }
+    }
 };
     
 document.addEventListener('DOMContentLoaded', async () => {    
