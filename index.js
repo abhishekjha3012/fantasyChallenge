@@ -1,30 +1,102 @@
+const tableUrl = 'https://api.covid19india.org/v3/min/data.min.json';
 
-const triggerTimer = () => {
-    const present = new Date();
-    const end = new Date(2020, 4, 3, 23, 59, 59);
-    const diffTime = Math.abs(end - present)/1000;
-    const diffDays = Math.floor(diffTime / ( 36e2 * 24)); 
-    const diffHours = Math.floor((diffTime / 36e2) % 24 ); 
-    const diffMinute= Math.floor((diffTime / 60) % 60 ); 
-    const diffSecond = Math.floor(diffTime % 60);
-    const timerHtml = `<div><span class='t-value'>${diffDays}</span><br/> days</div>
-        <div><span class='t-value'>${diffHours}</span><br/> hrs</div>
-        <div><span class='t-value'>${diffMinute}</span><br/> mins</div>
-        <div><span class='t-value'>${diffSecond}</span><br/> secs</div>`;
-    document.getElementsByClassName('time-left')[0].innerHTML = timerHtml;  
+const STATE_NAMES = {
+    AP: 'Andhra Pradesh',
+    AR: 'Arunachal Pradesh',
+    AS: 'Assam',
+    BR: 'Bihar',
+    CT: 'Chhattisgarh',
+    GA: 'Goa',
+    GJ: 'Gujarat',
+    HR: 'Haryana',
+    HP: 'Himachal Pradesh',
+    JH: 'Jharkhand',
+    KA: 'Karnataka',
+    KL: 'Kerala',
+    MP: 'Madhya Pradesh',
+    MH: 'Maharashtra',
+    MN: 'Manipur',
+    ML: 'Meghalaya',
+    MZ: 'Mizoram',
+    NL: 'Nagaland',
+    OR: 'Odisha',
+    PB: 'Punjab',
+    RJ: 'Rajasthan',
+    SK: 'Sikkim',
+    TN: 'Tamil Nadu',
+    TG: 'Telangana',
+    TR: 'Tripura',
+    UT: 'Uttarakhand',
+    UP: 'Uttar Pradesh',
+    WB: 'West Bengal',
+    AN: 'Andaman and Nicobar Islands',
+    CH: 'Chandigarh',
+    DN: 'Dadra and Nagar Haveli and Daman and Diu',
+    DL: 'Delhi',
+    JK: 'Jammu and Kashmir',
+    LA: 'Ladakh',
+    LD: 'Lakshadweep',
+    PY: 'Puducherry',
+    TT: 'Total',
+    UN: 'Unassigned',
+};
+
+const defaultColDef = {
+    width: 125,
+    sortable: true,
+};
+
+const columnDefs = [
+    {headerName: "State/UT", field: "state", width: '200'},
+    {headerName: "Confirmed", field: "confirmed", sort:'desc'},
+    {headerName: "Active", field: "active"},
+    {headerName: "Active %", field: "activePercent"},
+    {headerName: "Recovered", field: "recovered"},
+    {headerName: "Recovered %", field: "recoveredPercent"},
+    {headerName: "Deceased", field: "deceased" },
+    {headerName: "Deceased %", field: "deceasedPercent"},
+    
+];
+
+const fetchTableData = () => {
+    return fetch(tableUrl)
+    .then(resp => resp.json())
+    .then(response => response);
+};
+
+const formatTableData = data => {
+    let formattedRowData = [];
+    for(const [key,{ total = {} } ] of Object.entries(data)){
+        const { confirmed=0, recovered=0, deceased=0 } = total
+        const active = confirmed-recovered-deceased;
+        formattedRowData.push({
+            state: STATE_NAMES[key],
+            confirmed,
+            active,
+            recovered,
+            deceased,
+            activePercent: confirmed === 0 ? 0.00 : Math.round(active* 100 / confirmed),
+            recoveredPercent: confirmed === 0? 0.00 : Math.round(recovered * 100 / confirmed),
+            deceasedPercent: confirmed === 0 ? 0.00 : Math.round(deceased * 100 / confirmed),
+        })
+    };
+    return formattedRowData;
 }
 
-const triggerBar = () => {
-    const start = new Date(2020, 2, 25, 00, 00, 00);
-    const end = new Date(2020, 4, 3, 23, 59, 59);
-    const present = new Date();
-    const totalDiff =  Math.abs(end - start);
-    const presentDiff = Math.abs(present - start);
-    document.getElementsByClassName('percent-value')[0].innerHTML = `${(presentDiff/totalDiff * 100).toFixed(4)} %`;
-    document.getElementsByClassName('child-bar')[0].style.width = `${(presentDiff/totalDiff * 100).toFixed(0)}%`;
+const postSort = rowNodes => {
+    console.log(rowNodes);
 }
-
-const domLoaded = () => {
-    setInterval(triggerTimer, 1000)
-    setInterval(triggerBar, 1000)
-}
+    
+document.addEventListener('DOMContentLoaded', async function() {
+    let rowData = await fetchTableData();
+    let formattedRowData= formatTableData(rowData);   
+    const gridDiv = document.querySelector('#myGrid');
+    const gridOptions = {
+        columnDefs,
+        defaultColDef,
+        animateRows:true,
+        postSort: postSort(),
+        rowData: formattedRowData
+    };
+    new agGrid.Grid(gridDiv, gridOptions);
+});
