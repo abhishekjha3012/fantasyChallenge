@@ -97,7 +97,7 @@ const paintNews = async () => {
             <p class='time'>${moment(item.timestamp).format('DD/MM/YYYY hh:mm a')}</p>
         </div>`
     ));
-    document.querySelector('#news .news-body').innerHTML= newsHtml.join(',');
+    document.querySelector('#news .news-body').innerHTML= newsHtml.join('');
 };
 
 const paintTable = async () => {
