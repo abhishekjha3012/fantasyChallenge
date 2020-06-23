@@ -48,12 +48,33 @@ const defaultColDef = {
     sortable: true,
 };
 
+const numberComparator = (num1 , num2 ) => {
+    return num1 - num2;
+};
+
+const customConfirmedCellRenderer =  ({data}) => {
+    return `${data.confirmed} <br/><span class='confirmed'>${data.dconfirmed}</span>`;
+};
+
+const customActiveCellRenderer =  ({data}) => {
+    return `${data.active} (${data.activePercent}%) <br/><span class='active'><span class=${data.dactive>0?'arrow-up':'arrow-down'}></span>${data.dactive}</span>`;
+};
+
+const customRecoveredCellRenderer =  ({data}) => {
+    return `${data.recovered} (${data.recoveredPercent}%) <br/><span class='recovered'>${data.drecovered}</span>`;
+};
+
+const customDeceasedCellRenderer =  ({data}) => {
+    return `${data.deceased} (${data.deceasedPercent}%) <br/><span class='deceased'>${data.ddeceased}</span>`;
+};
+
 const columnDefs = [
-    {headerName: "State/UT", field: "state", width: '100'},
-    {headerName: "Confirmed", field: "confirmed", sort:'desc'},
-    {headerName: "Active (%) ", field: "active"},
-    {headerName: "Recovered(%)", field: "recovered"},
-    {headerName: "Deceased (%)", field: "deceased" },    
+    { headerName: "State/UT", field: "state", width: '100' },   
+    { headerName: "Confirmed", field: "confirmed", sort:'desc', comparator: numberComparator, cellRenderer: customConfirmedCellRenderer },
+    { headerName: "Active (%) ", field: "active" , comparator: numberComparator, cellRenderer: customActiveCellRenderer },
+    { headerName: "Recovered(%)", field: "recovered", comparator: numberComparator, cellRenderer: customRecoveredCellRenderer },
+    { headerName: "Deceased (%)", field: "deceased", comparator: numberComparator, cellRenderer: customDeceasedCellRenderer }
+ 
 ];
 
 const onFirstDataRendered = (params) => {
@@ -76,62 +97,45 @@ const fetchTableData = () => {
 
 const formatTableData = data => {
     let formattedRowData = [];
-    for(const [key,{ total = {} } ] of Object.entries(data)){
+    for(const [key,{ total = {} , delta = {} }] of Object.entries(data)){
         const { confirmed=0, recovered=0, deceased=0 } = total
+        const { confirmed: dconfirmed = 0, 
+            recovered:drecovered = 0, 
+            deceased: ddeceased = 0, 
+            tested: dtested = 0, 
+            migrated: dmigrated = 0 } = delta;
         const active = confirmed-recovered-deceased;
+        const dactive = dconfirmed-drecovered-ddeceased;
         const activePercent = confirmed === 0 ? 0.00 : Math.round(active* 100 / confirmed);
         const recoveredPercent = confirmed === 0? 0.00 : Math.round(recovered * 100 / confirmed);
-        const deceasedPercent =confirmed === 0 ? 0.00 : Math.round(deceased * 100 / confirmed);
+        const deceasedPercent =confirmed === 0 ? 0.00 : Math.round(deceased * 100 / confirmed);      
         formattedRowData.push({
             rowId: key,
             state: STATE_NAMES[key],
             confirmed,
-            active: `${active} (${activePercent}%)` ,
-            recovered: `${recovered} (${recoveredPercent}%)`,
-            deceased: `${deceased} (${deceasedPercent}%)`,
+            active ,
+            activePercent,
+            recovered,
+            recoveredPercent,
+            deceased,
+            deceasedPercent,
+            dactive,
+            dconfirmed,
+            drecovered,
+            ddeceased,
+            dtested
         })
     };
     return formattedRowData;
 };
 
-const paintDetail = (stateCode, stateName) => {
-    const detailData = rowData[stateCode];
-    const { confirmed=0, recovered=0, deceased=0, tested=0, migrated=0 } = detailData.total;
-    const { confirmed: dconfirmed = 0, 
-            recovered:drecovered = 0, 
-            deceased: ddeceased = 0, 
-            tested: dtested = 0, 
-            migrated: dmigrated = 0 } = detailData.delta;
-    const active = confirmed-recovered-deceased;
-    const dactive = dconfirmed-drecovered-ddeceased;
-
-    document.querySelector('.selected-state').innerHTML = stateName;
-
-    document.querySelector('.detail-confirmed .total-count').innerHTML = confirmed;
-    document.querySelector('.detail-confirmed .today-count').innerHTML = dconfirmed;
-
-    document.querySelector('.detail-active .total-count').innerHTML = active;
-    document.querySelector('.detail-active .today-count').innerHTML = dactive;
-    
-    document.querySelector('.detail-recovered .total-count').innerHTML = recovered;
-    document.querySelector('.detail-recovered .today-count').innerHTML = drecovered;
-
-    document.querySelector('.detail-deceased .total-count').innerHTML = deceased;
-    document.querySelector('.detail-deceased .today-count').innerHTML = ddeceased;
-
-    document.querySelector('.detail-tested .total-count').innerHTML = tested;
-    document.querySelector('.detail-tested .today-count').innerHTML = dtested;
-
-    document.querySelector('.detail-migrated .total-count').innerHTML = migrated;
-    document.querySelector('.detail-migrated .today-count').innerHTML = dmigrated;
-}
-
 const paintNews = async () => {
     let newsData = await fetchNewsData();
+    newsData = newsData.reverse();
     const newsHtml = newsData.map((item, index) => (
         `<div class='news-box'>
             <p class='update'>${index+1}. ${item.update}</p>
-            <p class='time'>${moment(item.timestamp).format('DD/MM/YYYY hh:mm a')}</p>
+            <p class='time'>${moment(item.timestamp*1000).format('DD/MM/YYYY hh:mm a')}</p>
         </div>`
     ));
     document.querySelector('.news-body').innerHTML= newsHtml.join('');
@@ -145,6 +149,7 @@ const paintTable = async () => {
         columnDefs,
         defaultColDef,
         animateRows:true,
+        rowHeight : 70,
         postSort,
         onRowClicked,
         rowClass: 'custom-row-class',
@@ -171,5 +176,4 @@ const onRowClicked = ({data}) => {
 document.addEventListener('DOMContentLoaded', async () => {    
     await paintTable();  
     paintNews(); 
-    paintDetail('TT', 'ALL STATES');
 });
