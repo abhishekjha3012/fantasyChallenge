@@ -117,7 +117,10 @@ body{
 /*Datatable Styling end */
 
 /*Chart Styling start */
-
+.chart-box{
+    height: 80vh;
+    overflow-y: scroll;
+}
 .filter-chart{
     display: flex;
     color: white;
@@ -136,8 +139,9 @@ body{
 .active-range {
     text-decoration: underline;
 }
-.cases-chart {
-    width:97%; 
+.cases-chart,
+.dir-chart {
+    width:95%; 
     height:80vh;
     margin: 0 auto;
 }

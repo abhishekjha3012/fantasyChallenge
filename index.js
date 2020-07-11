@@ -188,6 +188,9 @@ const postSort = rowNodes => {
 };
 
 const changeDisplayMode = event => {
+    if(event.target.classList.contains('link-container')){
+        return false;
+    }
     document.querySelector('.active-link').classList.remove('active-link');
     event.target.classList.add('active-link');
     if(event.target.innerText === 'Chart') {
@@ -207,16 +210,34 @@ const paintCharts = (startDate='2020/01/01') => {
     const yAxisActiveData = [];
     const yAxisRecoveredData = [];
     const yAxisDeceasedData = [];
+    const yAxisDirData = [];
+    let previousActiveValue = 0;
     for (const [key, {total: {confirmed = 0, recovered = 0, deceased = 0}}] of Object.entries(statedata.dates)){
         if(moment(key) >= moment(startDate)){
             xAxisData.push(key);
+            const active = confirmed-recovered-deceased
             yAxisConfirmedData.push(confirmed);
-            yAxisActiveData.push(confirmed-recovered-deceased);
+            yAxisActiveData.push(active);
             yAxisRecoveredData.push(recovered);
             yAxisDeceasedData.push(deceased);
+            yAxisDirData.push(previousActiveValue==0?0:(active-previousActiveValue)/previousActiveValue);
+            previousActiveValue = active
         }
     }
-    const chartData ={
+    const dirChartData ={
+        ...INITIAL_CHART_DATA,
+        title:{
+            text: 'DIR Chart'
+        },
+        series:[ {
+            name: 'DIR',
+            data: yAxisDirData
+        }],
+        xAxis: {
+            categories: xAxisData,
+        },
+    }
+    const casesChartData ={
         ...INITIAL_CHART_DATA,
         series:[ {
             name: 'Confirmed',
@@ -235,8 +256,8 @@ const paintCharts = (startDate='2020/01/01') => {
             categories: xAxisData,
         },
     }
-    Highcharts.chart('casesChart', chartData)
-
+    Highcharts.chart('casesChart', casesChartData);
+    Highcharts.chart('dirChart', dirChartData)
 }
 
 const updateChartRange = () => {
