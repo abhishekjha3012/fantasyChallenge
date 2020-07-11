@@ -3,7 +3,8 @@ const newsUrl = ' https://api.covid19india.org/updatelog/log.json';
 const timeseriesUrl = 'https://api.covid19india.org/v4/min/timeseries.min.json';
 
 let rowData = [];
-let timeSeriesData = []
+let timeSeriesData = [];
+let newsData = [];
 const STATE_NAMES = {
     AP: 'Andhra Pradesh',
     AR: 'Arunachal Pradesh',
@@ -82,6 +83,7 @@ const customRecoveredCellRenderer =  ({data}) => {
 const customDeceasedCellRenderer =  ({data}) => {
     return `${data.deceased} (${data.deceasedPercent}%) <br/><span class='deceased'>${data.ddeceased}</span>`;
 };
+
 const customTestedCellRenderer =  ({data}) => {
     return `${data.tested} (${data.positvityRatio}%)<br/><span class='tested'>${data.dtested}</span>`;
 };
@@ -148,10 +150,9 @@ const formatTableData = data => {
     return formattedRowData;
 };
 
-const paintNews = async () => {
-    let newsData = await fetchNewsData();
-    newsData = newsData.reverse();
-    const newsHtml = newsData.map((item, index) => (
+const paintNews = () => {
+    const newsDataReverse = newsData.reverse();
+    const newsHtml = newsDataReverse.map((item, index) => (
         `<div class='news-box'>
             <p class='update'>${index+1}. ${item.update}</p>
             <p class='time'>${moment(item.timestamp*1000).format('DD/MM/YYYY hh:mm a')}</p>
@@ -160,8 +161,7 @@ const paintNews = async () => {
     document.querySelector('.news-body').innerHTML= newsHtml.join('');
 };
 
-const paintTable = async () => {
-    rowData = await fetchTableData();
+const paintTable = () => {
     const formattedRowData = formatTableData(rowData);   
     const gridDiv = document.querySelector('.data-table');
     const gridOptions = {
@@ -188,7 +188,7 @@ const postSort = rowNodes => {
 };
 
 const changeDisplayMode = event => {
-    document.querySelector('.active-link').classList.remove('active-link')
+    document.querySelector('.active-link').classList.remove('active-link');
     event.target.classList.add('active-link');
     if(event.target.innerText === 'Chart') {
         document.querySelector('.data-table').classList.add('hide');
@@ -199,20 +199,22 @@ const changeDisplayMode = event => {
     }
 }
 
-const paintCharts = async (event =  { target: { value : 'AP' }}) => {
-    timeSeriesData = await fetchTimeSeriesData();
-    const statedata = timeSeriesData[event.target.value];
+const paintCharts = (startDate='2020/01/01') => {
+    const selectedState = document.querySelector('#stateSelect').value;
+    const statedata = timeSeriesData[selectedState];
     const xAxisData = []
     const yAxisConfirmedData = [];
     const yAxisActiveData = [];
     const yAxisRecoveredData = [];
     const yAxisDeceasedData = [];
     for (const [key, {total: {confirmed = 0, recovered = 0, deceased = 0}}] of Object.entries(statedata.dates)){
-        xAxisData.push(key);
-        yAxisConfirmedData.push(confirmed);
-        yAxisActiveData.push(confirmed-recovered-deceased);
-        yAxisRecoveredData.push(recovered);
-        yAxisDeceasedData.push(deceased);
+        if(moment(key) >= moment(startDate)){
+            xAxisData.push(key);
+            yAxisConfirmedData.push(confirmed);
+            yAxisActiveData.push(confirmed-recovered-deceased);
+            yAxisRecoveredData.push(recovered);
+            yAxisDeceasedData.push(deceased);
+        }
     }
     const chartData ={
         ...INITIAL_CHART_DATA,
@@ -236,13 +238,34 @@ const paintCharts = async (event =  { target: { value : 'AP' }}) => {
     Highcharts.chart('casesChart', chartData)
 
 }
+
+const updateChartRange = () => {
+    document.querySelector('.active-range').classList.remove('active-range');
+    event.target.classList.add('active-range');
+    let rangeSelected = '';
+    switch (event.target.innerText) {
+        case 'Begining': 
+            rangeSelected = '2020/01/01'; break;
+        case '1week': 
+            rangeSelected = moment().subtract(1, 'w').format('YYYY/MM/DD'); break;
+        case '2weeks': 
+            rangeSelected = moment().subtract(2, 'w').format('YYYY/MM/DD'); break;
+        case '1month': 
+            rangeSelected = moment().subtract(1, 'M').format('YYYY/MM/DD'); break;
+        default: 
+            rangeSelected = '2020/01/01';
+    }
+    paintCharts(rangeSelected);
+}
     
 document.addEventListener('DOMContentLoaded', async () => {    
-    await paintTable();  
-    paintNews(); 
-    paintCharts();
+    rowData = await fetchTableData();
+    timeSeriesData = await fetchTimeSeriesData();
+    newsData = await fetchNewsData();
+    
     document.querySelector('.link-container').addEventListener('click', changeDisplayMode);
-    document.querySelector('#stateSelect').addEventListener('change', paintCharts)
+    document.querySelector('#stateSelect').addEventListener('change', ()=>paintCharts());
+    document.querySelector('.range-filter').addEventListener('click', updateChartRange)
     const stateSelectParent = document.getElementById("stateSelect");
     for( const [key, value] of Object.entries(STATE_NAMES) ) {
         const stateOption = document.createElement("option");
@@ -250,4 +273,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         stateOption.value = key;
         stateSelectParent.add(stateOption);
     }
+    paintTable();  
+    paintNews(); 
+    paintCharts();
 });

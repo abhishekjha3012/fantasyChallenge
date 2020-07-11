@@ -31,10 +31,19 @@
             </div>
             <div class='data-table ag-theme-alpine-dark'></div>
             <div class="chart-container hide">
-                <div class="state-dropdown">
-                    <label for="state-selec">State</label>
-                    <select name="state-select" id="stateSelect"></select>
+                <div class='filter-chart'>
+                    <div class="state-dropdown">
+                        <label for="state-selec">State</label>
+                        <select name="state-select" id="stateSelect"></select>
+                    </div>
+                    <div class='range-filter'>
+                        <span class='active-range'>Begining</span>
+                        <span>1month</span>
+                        <span>2weeks</span>
+                        <span>1week</span>
+                    </div>
                 </div>
+               
                 <div id="casesChart" class='cases-chart'style=""></div>
             </div>
         </div>

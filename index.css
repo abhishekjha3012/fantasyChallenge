@@ -45,7 +45,7 @@ body{
 
 /*Datatable Styling start */
 .data-table{
-    height: calc( 100vh - 61px); 
+    height: calc( 100vh - 98px); 
     width: 100%;
 }
 .data-table .ag-root .custom-row-class{
@@ -118,14 +118,23 @@ body{
 
 /*Chart Styling start */
 
-.state-dropdown {
-    margin: 10px 50px;
+.filter-chart{
+    display: flex;
     color: white;
+    justify-content: space-between;
+    padding: 0 0 20px 30px;
 }
 #stateSelect {
     height: 30px;
     line-height: 30px;
     margin: 0 10px;
+}
+.range-filter {
+    height: 30px;
+    line-height: 30px;
+}
+.active-range {
+    text-decoration: underline;
 }
 .cases-chart {
     width:97%; 
