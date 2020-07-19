@@ -101,25 +101,37 @@ const onFirstDataRendered = (params) => {
     params.api.sizeColumnsToFit();
 }
 
-const fetchNewsData = () => {
-    return fetch(newsUrl)
-    .then(resp => resp.json())
-    .then(response => response)
-    .catch(error => console.log(error));
+const fetchNewsData = async () => {
+    try {
+        const resp = await fetch(newsUrl);
+        const response = await resp.json();
+        return response;
+    }
+    catch (error) {
+        return console.log(error);
+    }
 };
 
-const fetchTableData = () => {
-    return fetch(tableUrl)
-    .then(resp => resp.json())
-    .then(response => response)
-    .catch(error => console.log(error));
+const fetchTableData = async () => {
+    try {
+        const resp = await fetch(tableUrl);
+        const response = await resp.json();
+        return response;
+    }
+    catch (error) {
+        return console.log(error);
+    }
 };
 
-const fetchTimeSeriesData = () => {
-    return fetch(timeseriesUrl)
-    .then(resp => resp.json())
-    .then(response => response)
-    .catch(error => console.log(error));
+const fetchTimeSeriesData = async () => {
+    try {
+        const resp = await fetch(timeseriesUrl);
+        const response = await resp.json();
+        return response;
+    }
+    catch (error) {
+        return console.log(error);
+    }
 }
 
 const formatTableData = data => {
@@ -287,7 +299,7 @@ const paintCharts = (startDate='2020/01/01') => {
     Highcharts.chart('growthRateChart', growthrateChart);
     Highcharts.chart('casesChart', casesChartData);
     Highcharts.chart('dirChart', dirChartData)
-}
+};
 
 const updateChartRange = () => {
     document.querySelector('.active-range').classList.remove('active-range');
@@ -306,7 +318,7 @@ const updateChartRange = () => {
             rangeSelected = '2020/01/01';
     }
     paintCharts(rangeSelected);
-}
+};
     
 document.addEventListener('DOMContentLoaded', async () => {    
     rowData = await fetchTableData();
