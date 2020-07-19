@@ -252,15 +252,19 @@ const paintCharts = (startDate='2020/01/01') => {
         ...INITIAL_CHART_DATA,
         series:[ {
             name: 'Confirmed',
+            color: 'rgba(255,7,58, 0.7)',
             data: yAxisConfirmedData
         }, {
             name: 'Active',
+            color: 'rgb(0,123,255, 0.7)',
             data: yAxisActiveData
         }, {
             name: 'Recovered',
+            color: 'rgb(40,167,69)',
             data: yAxisRecoveredData
         }, {
             name: 'Deceased',
+            color: 'rgb(108,117,125)',
             data: yAxisDeceasedData
         }],
         xAxis: {
