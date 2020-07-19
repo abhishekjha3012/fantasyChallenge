@@ -140,7 +140,8 @@ body{
     text-decoration: underline;
 }
 .cases-chart,
-.dir-chart {
+.dir-chart,
+.growth-rate-chart {
     width:95%; 
     height:80vh;
     margin: 0 auto;

@@ -195,39 +195,50 @@ const changeDisplayMode = event => {
     event.target.classList.add('active-link');
     if(event.target.innerText === 'Chart') {
         document.querySelector('.data-table').classList.add('hide');
-        document.querySelector('.chart-container').classList.remove('hide')
+        document.querySelector('.chart-container').classList.remove('hide');
+        paintCharts();
     } else {
         document.querySelector('.data-table').classList.remove('hide');
         document.querySelector('.chart-container').classList.add('hide');
     }
-}
+};
 
 const paintCharts = (startDate='2020/01/01') => {
     const selectedState = document.querySelector('#stateSelect').value;
     const statedata = timeSeriesData[selectedState];
-    const xAxisData = []
+    const xAxisData = [];
     const yAxisConfirmedData = [];
     const yAxisActiveData = [];
     const yAxisRecoveredData = [];
     const yAxisDeceasedData = [];
     const yAxisDirData = [];
+    const yAxisGrowthRateData = [];
     let previousActiveValue = 0;
+    let previousWeekActiveValue = [];
+    const activeCasesArray = []
     for (const [key, {total: {confirmed = 0, recovered = 0, deceased = 0}}] of Object.entries(statedata.dates)){
+        const active = confirmed-recovered-deceased;
+        activeCasesArray.push(active);
         if(moment(key) >= moment(startDate)){
             xAxisData.push(key);
-            const active = confirmed-recovered-deceased
             yAxisConfirmedData.push(confirmed);
             yAxisActiveData.push(active);
             yAxisRecoveredData.push(recovered);
             yAxisDeceasedData.push(deceased);
-            yAxisDirData.push(previousActiveValue==0?0:(active-previousActiveValue)/previousActiveValue);
-            previousActiveValue = active
+            yAxisDirData.push(previousActiveValue==0
+                ? 0
+                : (active-previousActiveValue)/previousActiveValue);
+            yAxisGrowthRateData.push(previousWeekActiveValue==0
+                ? 0 
+                : ((((active-previousWeekActiveValue)/previousWeekActiveValue)*100)/7));
         }
+        previousActiveValue = active;
+        previousWeekActiveValue = activeCasesArray[activeCasesArray.length-7];
     }
     const dirChartData ={
         ...INITIAL_CHART_DATA,
         title:{
-            text: 'DIR Chart'
+            text: 'DIR(Daily Infection Rate) Chart'
         },
         series:[ {
             name: 'DIR',
@@ -256,6 +267,20 @@ const paintCharts = (startDate='2020/01/01') => {
             categories: xAxisData,
         },
     }
+    const growthrateChart ={
+        ...INITIAL_CHART_DATA,
+        title:{
+            text: 'Growth Rate Chart'
+        },
+        series:[ {
+            name: 'Growth rate',
+            data: yAxisGrowthRateData
+        }],
+        xAxis: {
+            categories: xAxisData,
+        },
+    };
+    Highcharts.chart('growthRateChart', growthrateChart);
     Highcharts.chart('casesChart', casesChartData);
     Highcharts.chart('dirChart', dirChartData)
 }
@@ -285,8 +310,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     newsData = await fetchNewsData();
     
     document.querySelector('.link-container').addEventListener('click', changeDisplayMode);
-    document.querySelector('#stateSelect').addEventListener('change', ()=>paintCharts());
-    document.querySelector('.range-filter').addEventListener('click', updateChartRange)
+    document.querySelector('.range-filter').addEventListener('click', updateChartRange);
+    document.querySelector('#stateSelect').addEventListener('change', ()=>{
+        document.querySelector('.active-range').classList.remove('active-range');
+        document.querySelector('.range-filter span').classList.add('active-range');
+        paintCharts()
+    });
+    
     const stateSelectParent = document.getElementById("stateSelect");
     for( const [key, value] of Object.entries(STATE_NAMES) ) {
         const stateOption = document.createElement("option");
@@ -296,5 +326,5 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     paintTable();  
     paintNews(); 
-    paintCharts();
+    //paintCharts();
 });
