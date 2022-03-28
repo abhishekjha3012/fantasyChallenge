@@ -33,3 +33,13 @@ html, body, p {
     height: 50px;	
     background: #0e83cd;
 }
+
+#playerDetails .header, #playerDetails .row{
+    display: flex;
+    justify-content: center;
+}
+#playerDetails .header p, #playerDetails .row p{
+    border: 1px solid black;
+    width: 150px;
+    padding: 5px 20px;
+}

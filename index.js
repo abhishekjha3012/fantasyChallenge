@@ -1,4 +1,5 @@
 let masterData = [];
+const playerList = ["AJ", "SJ", "VJ", "KT", "SJ", "PJ"];
 const prizeMoney = {
     "1": [0,100],
     "2": [0,200, 0],
@@ -7,7 +8,7 @@ const prizeMoney = {
     "5": [0,300,200,0,0,0],
     "6": [0,400,200,0,0,0,0]
 }
-//t/est
+
 const calculateNetTotal = playerName => {
     let resultArray = [];
     for(let i=0; i < masterData.length; i++) {
@@ -49,6 +50,9 @@ const calculatePrize = playerName => {
 
 const populateMatchChart = () => {
     Highcharts.chart('matchChart', {
+        credits: {
+            enabled: false
+        },
         title: {
             text: 'RANK-MATCH'
         },
@@ -81,7 +85,10 @@ const populateMatchChart = () => {
             }, {
                 name: 'Saurabh',
                 data: [...masterData.map(item => item.result.SSJ)],
-            }, 
+            }, {
+                name: 'Parinav',
+                data: [...masterData.map(item => item.result.PJ)],
+            }
 
         ]
     });
@@ -89,6 +96,9 @@ const populateMatchChart = () => {
 
 const populatePrizeChart = () => {
     Highcharts.chart('prizeChart', {
+        credits: {
+            enabled: false
+        },
         title: {
             text: 'RANK-PRIZE'
         },
@@ -121,15 +131,20 @@ const populatePrizeChart = () => {
             }, {
                 name: 'Saurabh',
                 data: calculatePrize('SSJ'),
-            }, 
-
+            }, {
+                name: 'Parinav',
+                data: calculatePrize('PJ'),
+            }
         ]
     })
 }
 
 const populateWinningChart = () => {
     Highcharts.chart('winningChart', {
-        chart: {
+        credits: {
+            enabled: false
+        },
+          chart: {
             type: 'line'
         },
         title: {
@@ -164,15 +179,20 @@ const populateWinningChart = () => {
             }, {
                 name: 'Saurabh',
                 data: calculateWinning('SSJ'),
-            }, 
-
+            }, {
+                name: 'Parinav',
+                data: calculateWinning('PJ'),
+            }
         ]
     })
 }
 
 const populateNetChart = () => {
     Highcharts.chart('paymentChart', {
-        chart: {
+        credits: {
+            enabled: false
+        },
+          chart: {
             type: 'line'
         },
         title: {
@@ -207,23 +227,80 @@ const populateNetChart = () => {
             }, {
                 name: 'Saurabh',
                 data: calculateNetTotal('SSJ'),
-            }, 
-
+            }, {
+                name: 'Parinav',
+                data: calculateNetTotal('PJ'),
+            }
         ]
     })
 }
 
-const showData = (node) => {
+const showData = node => {
     document.querySelector('.active').classList.remove('active')
     switch(node) {
-        case 'rank': document.querySelector('#matchChart').classList.add('active'); break;
-        case 'prize': document.querySelector('#prizeChart').classList.add('active'); break;
-        case 'winning': document.querySelector('#winningChart').classList.add('active'); break;
-        case 'net': document.querySelector('#paymentChart').classList.add('active'); break;
-        case 'result': document.querySelector('#resultTable').classList.add('active'); break;
-        default: document.querySelector('#matchChart').classList.add('active'); break;
+        case 'rank': 
+            document.querySelector('#matchChart').classList.add('active');
+            populateMatchChart();
+            break;
+        case 'prize': 
+            document.querySelector('#prizeChart').classList.add('active'); 
+            populatePrizeChart();
+            break;
+        case 'winning': 
+            document.querySelector('#winningChart').classList.add('active'); 
+            populateWinningChart();
+            break;
+        case 'net': 
+            document.querySelector('#paymentChart').classList.add('active'); 
+            populateNetChart();
+            break;
+        case 'result': 
+            document.querySelector('#resultTable').classList.add('active'); break;
+        default: 
+            document.querySelector('#matchChart').classList.add('active');
+            populateMatchChart();
+            break;
     }
 }
+
+const populateRankTable = () => {
+    for(let i=0; i < playerList.length; i++) {
+        const player = playerList[i];
+        let matchesPlayed = 0;
+        let rankSum = 0;
+        for(let i=0; i < masterData.length; i++) {
+            if(masterData[i].played.includes(player)) {
+                matchesPlayed++;
+                rankSum += masterData[i].result[player];
+            }
+        }
+        const avgRank = rankSum/matchesPlayed;
+        switch(player){
+            case 'AJ': 
+                document.querySelectorAll('#playerDetails .row')[0].querySelectorAll('p')[1].innerHTML = avgRank;
+                break;
+            case 'SJ': 
+                document.querySelectorAll('#playerDetails .row')[1].querySelectorAll('p')[1].innerHTML = avgRank;
+                break;
+            case 'VJ': 
+                document.querySelectorAll('#playerDetails .row')[2].querySelectorAll('p')[1].innerHTML = avgRank;
+                break;
+            case 'KT': 
+                document.querySelectorAll('#playerDetails .row')[3].querySelectorAll('p')[1].innerHTML = avgRank;
+                break;
+            case 'SSJ': 
+                document.querySelectorAll('#playerDetails .row')[4].querySelectorAll('p')[1].innerHTML = avgRank;
+                break;
+            case 'PJ': 
+                document.querySelectorAll('#playerDetails .row')[5].querySelectorAll('p')[1].innerHTML = avgRank;
+                break;
+            default: 
+                //do nothing
+
+        }
+    }
+}
+
 const domLoaded = () => {
     fetch('https://api.npoint.io/fafef1fd28b751041f0f')
     .then(resp => resp.json())
@@ -240,7 +317,8 @@ const domLoaded = () => {
                 "VJ": 2,
                 "SJ": 3,
                 "KT" : 4,
-                "SSJ":0
+                "SSJ":0,
+                "PJ": 0,
               }
             },
             {
@@ -253,10 +331,10 @@ const domLoaded = () => {
                 "VJ": 3,
                 "SJ": 1,
                 "KT" : 2,
-                "SSJ":0
+                "SSJ":0,
+                "PJ": 0,
               }
-            },
-            {
+            },  {
               "match": "PBKS vs BLR",
               "result": "PBK",
               "number": 3,
@@ -266,16 +344,27 @@ const domLoaded = () => {
                 "VJ": 1,
                 "SJ": 3,
                 "KT" : 1,
-                "SSJ":0
+                "SSJ": 0,
+                "PJ": 0,
               }
-            }
+            },{
+                "match": "GT vs LKN",
+                "result": "GT",
+                "number": 3,
+                "played": ["AJ", "SJ", "VJ", "KT", "PJ"],
+                "result": {
+                  "AJ": 2,
+                  "VJ": 5,
+                  "SJ": 4,
+                  "KT" : 1,
+                  "SSJ":0,
+                  "PJ": 3
+                }
+              }
         ]
-        populateMatchChart();
-        populatePrizeChart();
-        populateWinningChart();
-        populateNetChart();
-
-     });
+        showData('rank');
+        populateRankTable()
+    });
 }
 
 document.addEventListener('DOMContentLoaded', domLoaded, false);
