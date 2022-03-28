@@ -2,45 +2,30 @@
 
 <html lang="en">
 <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162010150-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'UA-162010150-1');
-    </script>
-
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1" name="viewport" />
-  <title>India Lockdown Timer</title>
-  <meta name="description" content="THEJHA&JHAWEDDING">
-  <meta name="author" content="SitePoint">
+  <meta name="description" content="COCO CHAMPIONSHIP 2022">
   <link href="https://fonts.googleapis.com/css?family=Baloo+Thambi+2&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="index.css">
-
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/series-label.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+  <title>COCO CHAMPIONSHIP 2022</title>
 </head>
 
 <body>
-    <div class="container">
-        <img class="image-bg" src="bg.png" />
-        <p class="header">#THEJHA&JHAWEDDING</p>
-        <div class="timer-box">
-                <p class="label">Wedding day will be in</p>
-                <p class="value time-left"> </p>
-        </div>
-
-        <div class="percent-box">
-          <p class="label">Percentage completed</p>
-          <p class="value percent-value"></p>
-        </div>
-
-        <div class="bar-box">
-            <div class="child-bar"></div>
-        </div>
-       
-    </div>
+  <div class="button-box">
+    <button onclick="showData('rank')" class="btn">RANK</button>
+    <button onclick="showData('prize')" class="btn">PRIZE</button>
+    <button onclick="showData('winning')" class="btn">WINNING</button>
+    <button onclick="showData('net')" class="btn">NET</button>
+    <button onclick="showData('result')" class="btn">RESULT</button>
+  </div>
+  <div id="matchChart" class='result-element active'></div>
+  <div id="prizeChart" class='result-element' ></div>
+  <div id="winningChart" class='result-element' ></div>
+  <div id="paymentChart" class='result-element' ></div>
+  <div id="resultTable" class='result-element' ></div>
   <script src="index.js"></script>
 </body>
 </html>
