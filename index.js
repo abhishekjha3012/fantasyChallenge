@@ -7,7 +7,7 @@ const prizeMoney = {
     "5": [0,300,200,0,0,0],
     "6": [0,400,200,0,0,0,0]
 }
-
+//t/est
 const calculateNetTotal = playerName => {
     let resultArray = [];
     for(let i=0; i < masterData.length; i++) {
