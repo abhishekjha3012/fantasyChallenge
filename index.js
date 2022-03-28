@@ -235,29 +235,62 @@ const populateNetChart = () => {
     })
 }
 
+const populateMasterTable = () => {
+    let tableHtml = ''
+    for(let i=0; i < masterData.length; i++) {
+        const rowData = masterData[i];
+        const rankObject = Object.fromEntries(Object.entries(rowData.result).map(a => a.reverse()))
+        const rowHtml = `<div class="row"><p>Match No. ${rowData.number}</p><p>${rowData.match}</p>
+        <p>${rowData.winner}</p>
+        <p>${rankObject[1] ? rankObject[1] : '--'}</p>
+        <p>${rankObject[2] ? rankObject[2] : '--'}</p>
+        <p>${rankObject[3] ? rankObject[3] : '--'}</p>
+        <p>${rankObject[4] ? rankObject[4] : '--'}</p>
+        <p>${rankObject[5] ? rankObject[5] : '--'}</p>
+        <p>${rankObject[6] ? rankObject[6] : '--'}</p>
+        </div>`
+        tableHtml += rowHtml;
+    }
+    document.querySelector('.row-body').innerHTML = tableHtml;
+}
+
 const showData = node => {
-    document.querySelector('.active').classList.remove('active')
+    document.querySelector('.active').classList.remove('active');
+    document.querySelector('.active-btn').classList.remove('active-btn');
     switch(node) {
+        case 'avg': 
+            document.querySelector('#playerDetails').classList.add('active');
+            document.querySelectorAll('.btn')[0].classList.add('active-btn');
+            populateRankTable();
+            break;
         case 'rank': 
             document.querySelector('#matchChart').classList.add('active');
+            document.querySelectorAll('.btn')[1].classList.add('active-btn');
             populateMatchChart();
             break;
         case 'prize': 
             document.querySelector('#prizeChart').classList.add('active'); 
+            document.querySelectorAll('.btn')[2].classList.add('active-btn');
             populatePrizeChart();
             break;
         case 'winning': 
             document.querySelector('#winningChart').classList.add('active'); 
+            document.querySelectorAll('.btn')[3].classList.add('active-btn');
             populateWinningChart();
             break;
         case 'net': 
             document.querySelector('#paymentChart').classList.add('active'); 
+            document.querySelectorAll('.btn')[4].classList.add('active-btn');
             populateNetChart();
             break;
         case 'result': 
-            document.querySelector('#resultTable').classList.add('active'); break;
+            document.querySelector('#resultTable').classList.add('active'); 
+            document.querySelectorAll('.btn')[5].classList.add('active-btn');
+            populateMasterTable();
+            break;
         default: 
             document.querySelector('#matchChart').classList.add('active');
+            document.querySelectorAll('.btn')[1].classList.add('active-btn');
             populateMatchChart();
             break;
     }
@@ -309,21 +342,21 @@ const domLoaded = () => {
         masterData = [
             {
               "match": "CSK vs KKR",
-              "result": "KKR",
+              "winner": "KKR",
               "number": 1,
               "played": ["AJ", "SJ", "VJ", "KT"],
               "result": {
                 "AJ": 1,
                 "VJ": 2,
                 "SJ": 3,
-                "KT" : 4,
+                "KT": 4,
                 "SSJ":0,
                 "PJ": 0,
               }
             },
             {
               "match": "DC vs MI",
-              "result": "DC",
+              "winner": "DC",
               "number": 2,
               "played": ["AJ", "SJ", "VJ", "KT"],
               "result": {
@@ -336,12 +369,12 @@ const domLoaded = () => {
               }
             },  {
               "match": "PBKS vs BLR",
-              "result": "PBK",
+              "winner": "PBK",
               "number": 3,
               "played": ["AJ", "SJ", "VJ", "KT"],
               "result": {
                 "AJ": 4,
-                "VJ": 1,
+                "VJ": 2,
                 "SJ": 3,
                 "KT" : 1,
                 "SSJ": 0,
@@ -349,7 +382,7 @@ const domLoaded = () => {
               }
             },{
                 "match": "GT vs LKN",
-                "result": "GT",
+                "winner": "GT",
                 "number": 3,
                 "played": ["AJ", "SJ", "VJ", "KT", "PJ"],
                 "result": {
@@ -362,8 +395,7 @@ const domLoaded = () => {
                 }
               }
         ]
-        showData('rank');
-        populateRankTable()
+        showData('result');
     });
 }
 

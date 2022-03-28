@@ -15,18 +15,14 @@
 
 <body>
   <div class="button-box">
+    <button onclick="showData('avg')" class="btn active-btn">AVERAGE</button>
     <button onclick="showData('rank')" class="btn">RANK</button>
     <button onclick="showData('prize')" class="btn">PRIZE</button>
     <button onclick="showData('winning')" class="btn">WINNING</button>
     <button onclick="showData('net')" class="btn">NET</button>
     <button onclick="showData('result')" class="btn">RESULT</button>
   </div>
-  <div id="matchChart" class='result-element active'></div>
-  <div id="prizeChart" class='result-element' ></div>
-  <div id="winningChart" class='result-element' ></div>
-  <div id="paymentChart" class='result-element' ></div>
-  <div id="resultTable" class='result-element' ></div>
-  <div id="playerDetails">
+  <div id="playerDetails" class='result-element active'>
     <div class='header'><p>Name</p><p>Avg Rank</p></div>
     <div class='row'><p>Abhishek</p><p></p></div>
     <div class='row'><p>Sonali</p><p></p></div>
@@ -35,6 +31,18 @@
     <div class='row'><p>Saurabh</p><p></p></div>
     <div class='row'><p>Parinav</p><p></p></div>
   </div>
+  <div id="matchChart" class='result-element'></div>
+  <div id="prizeChart" class='result-element'></div>
+  <div id="winningChart" class='result-element'></div>
+  <div id="paymentChart" class='result-element'></div>
+  <div id="resultTable" class='result-element'>
+    <div class='header'><p>Match No.</p><p>Teams</p><p>Winner</p><p>Rank 1</p>
+    <p>Rank 2</p><p>Rank 3</p><p>Rank 4</p><p>Rank 5</p><p>Rank 6</p></div>
+    <div class="row-body"></div>
+  </div>
+
+  </div>
+  
   <script src="index.js"></script>
 </body>
 </html>

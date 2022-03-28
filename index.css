@@ -31,15 +31,36 @@ html, body, p {
     border: 3px solid #fff;
     color: #fff;
     height: 50px;	
-    background: #0e83cd;
+    background: #000;
+    margin: 0 5px;
 }
 
-#playerDetails .header, #playerDetails .row{
+.active-btn{
+    background: #fff;
+    color: #000;
+    border: 2px solid #000;
+}	
+
+.header, .row{
     display: flex;
     justify-content: center;
 }
-#playerDetails .header p, #playerDetails .row p{
+
+.header {
+    font-size: 18px;
+    font-weight: 900;
+}
+
+.row {
+    font-size: 14px;
+    font-weight: 400;
+}
+.header p, .row p{
     border: 1px solid black;
     width: 150px;
     padding: 5px 20px;
+}
+
+#playerDetails, #resultTable {
+    padding: 20px
 }
