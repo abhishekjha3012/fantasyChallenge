@@ -221,7 +221,7 @@ const showData = (node) => {
         case 'winning': document.querySelector('#winningChart').classList.add('active'); break;
         case 'net': document.querySelector('#paymentChart').classList.add('active'); break;
         case 'result': document.querySelector('#resultTable').classList.add('active'); break;
-        default: //do nothing;
+        default: document.querySelector('#matchChart').classList.add('active'); break;
     }
 }
 const domLoaded = () => {
