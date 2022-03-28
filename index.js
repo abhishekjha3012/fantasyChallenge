@@ -395,7 +395,7 @@ const domLoaded = () => {
                 }
               }
         ]
-        showData('result');
+        showData('avg');
     });
 }
 
