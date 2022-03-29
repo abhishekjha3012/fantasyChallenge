@@ -1,5 +1,5 @@
 let masterData = [];
-const playerList = ["AJ", "SJ", "VJ", "KT", "SJ", "PJ"];
+const playerList = ["AJ", "SJ", "VJ", "KT", "SSJ", "PJ"];
 const prizeMoney = {
     "1": [0,100],
     "2": [0,200, 0],
