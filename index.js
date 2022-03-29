@@ -384,7 +384,7 @@ const domLoaded = () => {
             },{
                 "match": "GT vs LKN",
                 "winner": "GT",
-                "number": 3,
+                "number": 4,
                 "played": ["AJ", "SJ", "VJ", "KT", "PJ"],
                 "result": {
                   "AJ": 2,
@@ -393,6 +393,19 @@ const domLoaded = () => {
                   "KT" : 1,
                   "SSJ":0,
                   "PJ": 3
+                }
+              }, { 
+                "match": "SRH vs RR",
+                "winner": "RR",
+                "number": 5,
+                "played": ["AJ", "SJ", "VJ", "KT", "PJ","SSJ"],
+                "result": {
+                  "AJ": 5,
+                  "VJ": 1,
+                  "SJ": 4,
+                  "KT" : 2,
+                  "SSJ": 3,
+                  "PJ": 6
                 }
               }
         ]
