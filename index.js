@@ -59,7 +59,8 @@ const populateMatchChart = () => {
         yAxis: {
             title: {
                 text: 'RANK'
-            }
+            },
+            reversed: true
         },
         xAxis: {
             categories:[...masterData.map(item => item.match)]
