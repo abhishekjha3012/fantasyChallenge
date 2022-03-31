@@ -336,79 +336,10 @@ const populateRankTable = () => {
 }
 
 const domLoaded = () => {
-    fetch('https://api.npoint.io/fafef1fd28b751041f0f')
+    fetch('https://api.npoint.io/551de43a8627ff944b27')
     .then(resp => resp.json())
     .then(response => {
-        //masterData = response
-        masterData = [
-            {
-              "match": "CSK vs KKR",
-              "winner": "KKR",
-              "number": 1,
-              "played": ["AJ", "SJ", "VJ", "KT"],
-              "result": {
-                "AJ": 1,
-                "VJ": 2,
-                "SJ": 3,
-                "KT": 4,
-                "SSJ":0,
-                "PJ": 0,
-              }
-            },
-            {
-              "match": "DC vs MI",
-              "winner": "DC",
-              "number": 2,
-              "played": ["AJ", "SJ", "VJ", "KT"],
-              "result": {
-                "AJ": 4,
-                "VJ": 3,
-                "SJ": 1,
-                "KT" : 2,
-                "SSJ":0,
-                "PJ": 0,
-              }
-            },  {
-              "match": "PBKS vs BLR",
-              "winner": "PBK",
-              "number": 3,
-              "played": ["AJ", "SJ", "VJ", "KT"],
-              "result": {
-                "AJ": 4,
-                "VJ": 2,
-                "SJ": 3,
-                "KT" : 1,
-                "SSJ": 0,
-                "PJ": 0,
-              }
-            },{
-                "match": "GT vs LKN",
-                "winner": "GT",
-                "number": 4,
-                "played": ["AJ", "SJ", "VJ", "KT", "PJ"],
-                "result": {
-                  "AJ": 2,
-                  "VJ": 5,
-                  "SJ": 4,
-                  "KT" : 1,
-                  "SSJ":0,
-                  "PJ": 3
-                }
-              }, { 
-                "match": "SRH vs RR",
-                "winner": "RR",
-                "number": 5,
-                "played": ["AJ", "SJ", "VJ", "KT", "PJ","SSJ"],
-                "result": {
-                  "AJ": 5,
-                  "VJ": 1,
-                  "SJ": 4,
-                  "KT" : 2,
-                  "SSJ": 3,
-                  "PJ": 6
-                }
-              }
-        ]
+        masterData = response
         showData('avg');
     });
 }
