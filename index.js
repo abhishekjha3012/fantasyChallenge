@@ -308,7 +308,7 @@ const populateRankTable = () => {
                 rankSum += masterData[i].result[player];
             }
         }
-        const avgRank = rankSum/matchesPlayed;
+        const avgRank = (rankSum/matchesPlayed).toFixed(2);
         switch(player){
             case 'AJ': 
                 document.querySelectorAll('#playerDetails .row')[0].querySelectorAll('p')[1].innerHTML = avgRank;
