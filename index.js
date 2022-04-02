@@ -194,7 +194,7 @@ const populateNetChart = () => {
             enabled: false
         },
           chart: {
-            type: 'line'
+            type: 'spline'
         },
         title: {
             text: 'NET VALUE'
