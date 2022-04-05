@@ -15,26 +15,32 @@
 
 <body>
   <div class="button-box">
-    <button onclick="showData('avg')" class="btn active-btn">AVERAGE</button>
-    <button onclick="showData('rank')" class="btn">RANK</button>
-    <button onclick="showData('prize')" class="btn">PRIZE</button>
-    <button onclick="showData('winning')" class="btn">WINNING</button>
-    <button onclick="showData('net')" class="btn">NET</button>
-    <button onclick="showData('result')" class="btn">RESULT</button>
+    <button onclick="triggerButtonSelection('avg')" class="btn active-btn">AVERAGE</button>
+    <button onclick="triggerButtonSelection('rank')" class="btn">RANK</button>
+    <button onclick="triggerButtonSelection('prize')" class="btn">PRIZE</button>
+    <button onclick="triggerButtonSelection('winning')" class="btn">WINNING</button>
+    <button onclick="triggerButtonSelection('net')" class="btn">NET</button>
+    <button onclick="triggerButtonSelection('net2')" class="btn">SONALI CHART</button>
+    <button onclick="triggerButtonSelection('result')" class="btn">RESULT</button>
   </div>
   <div id="playerDetails" class='result-element active'>
-    <div class='header'><p>Name</p><p>Avg Rank</p></div>
-    <div class='row'><p>Abhishek</p><p></p></div>
-    <div class='row'><p>Sonali</p><p></p></div>
-    <div class='row'><p>Varsha</p><p></p></div>
-    <div class='row'><p>Keshav</p><p></p></div>
-    <div class='row'><p>Saurabh</p><p></p></div>
-    <div class='row'><p>Parinav</p><p></p></div>
+    <div class='header'><p>Name</p><p>Avg Rank</p><p>Weighted Avg Rank</p><p>Matches played</p></div>
+    <div class='row'><p>Abhishek</p><p></p><p></p><p></p></div>
+    <div class='row'><p>Sonali</p><p></p><p></p><p></p></div>
+    <div class='row'><p>Varsha</p><p></p><p></p><p></p></div>
+    <div class='row'><p>Keshav</p><p></p><p></p><p></p></div>
+    <div class='row'><p>Saurabh</p><p></p><p></p><p></p></div>
+    <div class='row'><p>Parinav</p><p></p><p></p><p></p></div>
+    <!--<div class='facts'>
+      <p>MAX 1st position</p><p></p><p></p>
+      <p>MAX Last position</p><p></p><p></p>
+    </div>-->
   </div>
-  <div id="matchChart" class='result-element'></div>
+  <div id="rankChart" class='result-element'></div>
   <div id="prizeChart" class='result-element'></div>
   <div id="winningChart" class='result-element'></div>
   <div id="paymentChart" class='result-element'></div>
+  <div id="paymentChart2" class='result-element'></div>
   <div id="resultTable" class='result-element'>
     <div class='header'><p>Match No.</p><p>Teams</p><p>Winner</p><p>Rank 1</p>
     <p>Rank 2</p><p>Rank 3</p><p>Rank 4</p><p>Rank 5</p><p>Rank 6</p></div>

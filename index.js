@@ -14,7 +14,13 @@ const calculateNetTotal = playerName => {
     for(let i=0; i < masterData.length; i++) {
         const prizeArray = prizeMoney[masterData[i].played.length.toString()];
         let winning = prizeArray[masterData[i].result[playerName]];
-        if(i !== 0){
+        if(Object.values(masterData[i].result).includes(-1)){
+            if(masterData[i].result[playerName] === -1){
+                winning = resultArray[i-1] + ((prizeArray.length - 1) * 100)
+            } else {
+                winning = resultArray[i-1]
+            }
+        } else if(i !== 0){
             winning += resultArray[i-1];
         }
         if(masterData[i].played.includes(playerName)){
@@ -30,7 +36,13 @@ const calculateWinning = playerName => {
     for(let i=0; i < masterData.length; i++) {
         const prizeArray = prizeMoney[masterData[i].played.length.toString()];
         let winning = prizeArray[masterData[i].result[playerName]];
-        if(i !== 0){
+        if(Object.values(masterData[i].result).includes(-1)){
+            if(masterData[i].result[playerName] === -1){
+                winning = resultArray[i-1] + ((prizeArray.length - 1) * 100)
+            } else {
+                winning = resultArray[i-1]
+            }
+        } else if(i !== 0){
             winning += resultArray[i-1];
         }
         resultArray.push(winning)
@@ -43,18 +55,80 @@ const calculatePrize = playerName => {
     for(let i=0; i < masterData.length; i++) {
         const prizeArray = prizeMoney[masterData[i].played.length.toString()];
         let winning = prizeArray[masterData[i].result[playerName]];
+        if(Object.values(masterData[i].result).includes(-1)){
+            if(masterData[i].result[playerName] === -1){
+                winning = (prizeArray.length - 1) * 100;
+            } else {
+                winning = 0
+            }
+        }
         resultArray.push(winning)
     }
     return resultArray;
 }
 
-const populateMatchChart = () => {
-    Highcharts.chart('matchChart', {
+const populateRankTable = () => {
+    for(let i=0; i < playerList.length; i++) {
+        const player = playerList[i];
+        let matchesPlayed = 0;
+        let rankSum = 0;
+        let weightedSum = 0;
+        let weightedMatchPlayed = 0;
+        for(let i=0; i < masterData.length; i++) {
+            if(masterData[i].played.includes(player)) {
+                matchesPlayed++;
+                weightedMatchPlayed += masterData[i].played.length; 
+                rankSum += Math.abs(masterData[i].result[player]);
+                weightedSum += (Math.abs(masterData[i].result[player]) * masterData[i].played.length);
+            }
+        }
+        const avgRank = (rankSum/matchesPlayed).toFixed(2);
+        const weightedRank = (weightedSum/weightedMatchPlayed).toFixed(2);
+        switch(player){
+            case 'AJ': 
+                document.querySelectorAll('#playerDetails .row')[0].querySelectorAll('p')[1].innerHTML = avgRank;
+                document.querySelectorAll('#playerDetails .row')[0].querySelectorAll('p')[2].innerHTML = weightedRank;
+                document.querySelectorAll('#playerDetails .row')[0].querySelectorAll('p')[3].innerHTML = matchesPlayed;
+                break;
+            case 'SJ': 
+                document.querySelectorAll('#playerDetails .row')[1].querySelectorAll('p')[1].innerHTML = avgRank;
+                document.querySelectorAll('#playerDetails .row')[1].querySelectorAll('p')[2].innerHTML = weightedRank;
+                document.querySelectorAll('#playerDetails .row')[1].querySelectorAll('p')[3].innerHTML = matchesPlayed;
+                break;
+            case 'VJ': 
+                document.querySelectorAll('#playerDetails .row')[2].querySelectorAll('p')[1].innerHTML = avgRank;
+                document.querySelectorAll('#playerDetails .row')[2].querySelectorAll('p')[2].innerHTML = weightedRank;
+                document.querySelectorAll('#playerDetails .row')[2].querySelectorAll('p')[3].innerHTML = matchesPlayed;
+                break;
+            case 'KT': 
+                document.querySelectorAll('#playerDetails .row')[3].querySelectorAll('p')[1].innerHTML = avgRank;
+                document.querySelectorAll('#playerDetails .row')[3].querySelectorAll('p')[2].innerHTML = weightedRank;
+                document.querySelectorAll('#playerDetails .row')[3].querySelectorAll('p')[3].innerHTML = matchesPlayed;
+                break;
+            case 'SSJ': 
+                document.querySelectorAll('#playerDetails .row')[4].querySelectorAll('p')[1].innerHTML = avgRank;
+                document.querySelectorAll('#playerDetails .row')[4].querySelectorAll('p')[2].innerHTML = weightedRank;
+                document.querySelectorAll('#playerDetails .row')[4].querySelectorAll('p')[3].innerHTML = matchesPlayed;
+                break;
+            case 'PJ': 
+                document.querySelectorAll('#playerDetails .row')[5].querySelectorAll('p')[1].innerHTML = avgRank;
+                document.querySelectorAll('#playerDetails .row')[5].querySelectorAll('p')[2].innerHTML = weightedRank;
+                document.querySelectorAll('#playerDetails .row')[5].querySelectorAll('p')[3].innerHTML = matchesPlayed;
+                break;
+            default: 
+                //do nothing
+
+        }
+    }
+}
+
+const populateRankChart = () => {
+    Highcharts.chart('rankChart', {
         credits: {
             enabled: false
         },
         title: {
-            text: 'RANK-MATCH'
+            text: 'RANK/MATCH'
         },
         yAxis: {
             title: {
@@ -73,22 +147,22 @@ const populateMatchChart = () => {
         series :[
             {
                 name: 'Abhishek',
-                data: [...masterData.map(item => item.result.AJ)],
+                data: [...masterData.map(item => Math.abs(item.result.AJ))],
             }, {
                 name: 'Sonali',
-                data: [...masterData.map(item => item.result.SJ)],
+                data: [...masterData.map(item => Math.abs(item.result.SJ))],
             }, {
                 name: 'Varsha',
-                data: [...masterData.map(item => item.result.VJ)],
+                data: [...masterData.map(item => Math.abs(item.result.VJ))],
             }, {
                 name: 'Keshav',
-                data: [...masterData.map(item => item.result.KT)],
+                data: [...masterData.map(item => Math.abs(item.result.KT))],
             }, {
                 name: 'Saurabh',
-                data: [...masterData.map(item => item.result.SSJ)],
+                data: [...masterData.map(item => Math.abs(item.result.SSJ))],
             }, {
                 name: 'Parinav',
-                data: [...masterData.map(item => item.result.PJ)],
+                data: [...masterData.map(item => Math.abs(item.result.PJ))],
             }
 
         ]
@@ -101,7 +175,7 @@ const populatePrizeChart = () => {
             enabled: false
         },
         title: {
-            text: 'RANK-PRIZE'
+            text: 'PRIZE/MATCH'
         },
         yAxis: {
             title: {
@@ -197,7 +271,7 @@ const populateNetChart = () => {
             type: 'spline'
         },
         title: {
-            text: 'NET VALUE'
+            text: 'NET WINNING'
         },
         yAxis: {
             title: {
@@ -235,12 +309,51 @@ const populateNetChart = () => {
         ]
     })
 }
+const populateNet2Chart = () => {
+    const dataseries = [];
+    for(let i=0; i < playerList.length; i++) {
+        const player = playerList[i];
+        const finalWinning = calculateNetTotal(player).pop();
+        dataseries.push(finalWinning)
+    }
+    Highcharts.chart('paymentChart2', {
+        credits: {
+            enabled: false
+        },
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'NET WINNING'
+        },
+        yAxis: {
+            title: {
+                text: 'MONEY'
+            }
+        },
+        xAxis: {
+            categories: playerList
+        },
+        legend: {
+            enabled: false
+        },
+        series :[
+            {
+                name: 'Winning',
+                data: dataseries,
+            }, 
+        ]
+    })
+}
 
 const populateMasterTable = () => {
     let tableHtml = ''
     for(let i=0; i < masterData.length; i++) {
         const rowData = masterData[i];
-        const rankObject = Object.fromEntries(Object.entries(rowData.result).map(a => a.reverse()))
+        const rankObject = Object.fromEntries(Object.entries(rowData.result).map(a => {
+            a[1] = Math.abs(a[1]);
+            return a.reverse();
+        }))
         const rowHtml = `<div class="row"><p>Match No. ${rowData.number}</p><p>${rowData.match}</p>
         <p>${rowData.winner}</p>
         <p>${rankObject[1] ? rankObject[1] : '--'}</p>
@@ -255,7 +368,7 @@ const populateMasterTable = () => {
     document.querySelector('.row-body').innerHTML = tableHtml;
 }
 
-const showData = node => {
+const triggerButtonSelection = node => {
     document.querySelector('.active').classList.remove('active');
     document.querySelector('.active-btn').classList.remove('active-btn');
     switch(node) {
@@ -265,9 +378,9 @@ const showData = node => {
             populateRankTable();
             break;
         case 'rank': 
-            document.querySelector('#matchChart').classList.add('active');
+            document.querySelector('#rankChart').classList.add('active');
             document.querySelectorAll('.btn')[1].classList.add('active-btn');
-            populateMatchChart();
+            populateRankChart();
             break;
         case 'prize': 
             document.querySelector('#prizeChart').classList.add('active'); 
@@ -284,54 +397,21 @@ const showData = node => {
             document.querySelectorAll('.btn')[4].classList.add('active-btn');
             populateNetChart();
             break;
+        case 'net2': 
+            document.querySelector('#paymentChart2').classList.add('active'); 
+            document.querySelectorAll('.btn')[5].classList.add('active-btn');
+            populateNet2Chart();
+            break;
         case 'result': 
             document.querySelector('#resultTable').classList.add('active'); 
-            document.querySelectorAll('.btn')[5].classList.add('active-btn');
+            document.querySelectorAll('.btn')[6].classList.add('active-btn');
             populateMasterTable();
             break;
         default: 
-            document.querySelector('#matchChart').classList.add('active');
+            document.querySelector('#rankChart').classList.add('active');
             document.querySelectorAll('.btn')[1].classList.add('active-btn');
-            populateMatchChart();
+            populateRankChart();
             break;
-    }
-}
-
-const populateRankTable = () => {
-    for(let i=0; i < playerList.length; i++) {
-        const player = playerList[i];
-        let matchesPlayed = 0;
-        let rankSum = 0;
-        for(let i=0; i < masterData.length; i++) {
-            if(masterData[i].played.includes(player)) {
-                matchesPlayed++;
-                rankSum += masterData[i].result[player];
-            }
-        }
-        const avgRank = (rankSum/matchesPlayed).toFixed(2);
-        switch(player){
-            case 'AJ': 
-                document.querySelectorAll('#playerDetails .row')[0].querySelectorAll('p')[1].innerHTML = avgRank;
-                break;
-            case 'SJ': 
-                document.querySelectorAll('#playerDetails .row')[1].querySelectorAll('p')[1].innerHTML = avgRank;
-                break;
-            case 'VJ': 
-                document.querySelectorAll('#playerDetails .row')[2].querySelectorAll('p')[1].innerHTML = avgRank;
-                break;
-            case 'KT': 
-                document.querySelectorAll('#playerDetails .row')[3].querySelectorAll('p')[1].innerHTML = avgRank;
-                break;
-            case 'SSJ': 
-                document.querySelectorAll('#playerDetails .row')[4].querySelectorAll('p')[1].innerHTML = avgRank;
-                break;
-            case 'PJ': 
-                document.querySelectorAll('#playerDetails .row')[5].querySelectorAll('p')[1].innerHTML = avgRank;
-                break;
-            default: 
-                //do nothing
-
-        }
     }
 }
 
@@ -340,7 +420,13 @@ const domLoaded = () => {
     .then(resp => resp.json())
     .then(response => {
         masterData = response
-        showData('avg');
+        triggerButtonSelection('avg');
+        triggerButtonSelection('rank');
+        triggerButtonSelection('prize');
+        triggerButtonSelection('winning');
+        triggerButtonSelection('net');
+        triggerButtonSelection('net2');
+        triggerButtonSelection('result');
     });
 }
 
