@@ -97,58 +97,60 @@ const calculatePrize = playerName => {
 
 const populateRankTable = () => {
     for(let i=0; i < playerList.length; i++) {
-        const player = playerList[i];
-        let matchesPlayed = 0;
-        let rankSum = 0;
-        let weightedSum = 0;
-        let weightedMatchPlayed = 0;
-        for(let i=0; i < masterData.length; i++) {
-            if(masterData[i].played.includes(player)) {
-                matchesPlayed++;
-                weightedMatchPlayed += masterData[i].played.length; 
-                rankSum += Math.abs(masterData[i].result[player]);
-                weightedSum += (Math.abs(masterData[i].result[player]) * masterData[i].played.length);
+        setInterval( () => {
+            const player = playerList[i];
+            let matchesPlayed = 0;
+            let rankSum = 0;
+            let weightedSum = 0;
+            let weightedMatchPlayed = 0;
+            for(let i=0; i < masterData.length; i++) {
+                if(masterData[i].played.includes(player)) {
+                    matchesPlayed++;
+                    weightedMatchPlayed += masterData[i].played.length; 
+                    rankSum += Math.abs(masterData[i].result[player]);
+                    weightedSum += (Math.abs(masterData[i].result[player]) * masterData[i].played.length);
+                }
             }
-        }
-        const avgRank = (rankSum/matchesPlayed).toFixed(2);
-        const weightedRank = (weightedSum/weightedMatchPlayed).toFixed(2);
-        switch(player){
-            case 'AJ': 
-                document.querySelectorAll('#playerDetails .row')[0].querySelectorAll('p')[1].innerHTML = avgRank;
-                document.querySelectorAll('#playerDetails .row')[0].querySelectorAll('p')[2].innerHTML = weightedRank;
-                document.querySelectorAll('#playerDetails .row')[0].querySelectorAll('p')[3].innerHTML = matchesPlayed;
-                break;
-            case 'SJ': 
-                document.querySelectorAll('#playerDetails .row')[1].querySelectorAll('p')[1].innerHTML = avgRank;
-                document.querySelectorAll('#playerDetails .row')[1].querySelectorAll('p')[2].innerHTML = weightedRank;
-                document.querySelectorAll('#playerDetails .row')[1].querySelectorAll('p')[3].innerHTML = matchesPlayed;
-                break;
-            case 'VJ': 
-                document.querySelectorAll('#playerDetails .row')[2].querySelectorAll('p')[1].innerHTML = avgRank;
-                document.querySelectorAll('#playerDetails .row')[2].querySelectorAll('p')[2].innerHTML = weightedRank;
-                document.querySelectorAll('#playerDetails .row')[2].querySelectorAll('p')[3].innerHTML = matchesPlayed;
-                break;
-            case 'KT': 
-                document.querySelectorAll('#playerDetails .row')[3].querySelectorAll('p')[1].innerHTML = avgRank;
-                document.querySelectorAll('#playerDetails .row')[3].querySelectorAll('p')[2].innerHTML = weightedRank;
-                document.querySelectorAll('#playerDetails .row')[3].querySelectorAll('p')[3].innerHTML = matchesPlayed;
-                break;
-            case 'SSJ': 
-                document.querySelectorAll('#playerDetails .row')[4].querySelectorAll('p')[1].innerHTML = avgRank;
-                document.querySelectorAll('#playerDetails .row')[4].querySelectorAll('p')[2].innerHTML = weightedRank;
-                document.querySelectorAll('#playerDetails .row')[4].querySelectorAll('p')[3].innerHTML = matchesPlayed;
-                break;
-            case 'PJ': 
-                document.querySelectorAll('#playerDetails .row')[5].querySelectorAll('p')[1].innerHTML = avgRank;
-                document.querySelectorAll('#playerDetails .row')[5].querySelectorAll('p')[2].innerHTML = weightedRank;
-                document.querySelectorAll('#playerDetails .row')[5].querySelectorAll('p')[3].innerHTML = matchesPlayed;
-                break;
-            default: 
-                //do nothing
-        }
+            const avgRank = (rankSum/matchesPlayed).toFixed(2);
+            const weightedRank = (weightedSum/weightedMatchPlayed).toFixed(2);
+            switch(player){
+                case 'AJ': 
+                    document.querySelectorAll('#playerDetails .row')[0].querySelectorAll('p')[1].innerHTML = avgRank;
+                    document.querySelectorAll('#playerDetails .row')[0].querySelectorAll('p')[2].innerHTML = weightedRank;
+                    document.querySelectorAll('#playerDetails .row')[0].querySelectorAll('p')[3].innerHTML = matchesPlayed;
+                    break;
+                case 'SJ': 
+                    document.querySelectorAll('#playerDetails .row')[1].querySelectorAll('p')[1].innerHTML = avgRank;
+                    document.querySelectorAll('#playerDetails .row')[1].querySelectorAll('p')[2].innerHTML = weightedRank;
+                    document.querySelectorAll('#playerDetails .row')[1].querySelectorAll('p')[3].innerHTML = matchesPlayed;
+                    break;
+                case 'VJ': 
+                    document.querySelectorAll('#playerDetails .row')[2].querySelectorAll('p')[1].innerHTML = avgRank;
+                    document.querySelectorAll('#playerDetails .row')[2].querySelectorAll('p')[2].innerHTML = weightedRank;
+                    document.querySelectorAll('#playerDetails .row')[2].querySelectorAll('p')[3].innerHTML = matchesPlayed;
+                    break;
+                case 'KT': 
+                    document.querySelectorAll('#playerDetails .row')[3].querySelectorAll('p')[1].innerHTML = avgRank;
+                    document.querySelectorAll('#playerDetails .row')[3].querySelectorAll('p')[2].innerHTML = weightedRank;
+                    document.querySelectorAll('#playerDetails .row')[3].querySelectorAll('p')[3].innerHTML = matchesPlayed;
+                    break;
+                case 'SSJ': 
+                    document.querySelectorAll('#playerDetails .row')[4].querySelectorAll('p')[1].innerHTML = avgRank;
+                    document.querySelectorAll('#playerDetails .row')[4].querySelectorAll('p')[2].innerHTML = weightedRank;
+                    document.querySelectorAll('#playerDetails .row')[4].querySelectorAll('p')[3].innerHTML = matchesPlayed;
+                    break;
+                case 'PJ': 
+                    document.querySelectorAll('#playerDetails .row')[5].querySelectorAll('p')[1].innerHTML = avgRank;
+                    document.querySelectorAll('#playerDetails .row')[5].querySelectorAll('p')[2].innerHTML = weightedRank;
+                    document.querySelectorAll('#playerDetails .row')[5].querySelectorAll('p')[3].innerHTML = matchesPlayed;
+                    break;
+                default: 
+                    //do nothing
+            }
+            document.querySelector('.loading-msg').style.display = 'none';
+            document.querySelector('.rank-table').style.display = 'block';
+        }, i*1000);
     }
-    document.querySelector('.loading-msg').style.display = 'none';
-    document.querySelector('.rank-table').style.display = 'block';
 }
 
 const populateRankChart = () => {
@@ -438,14 +440,12 @@ const triggerButtonSelection = node => {
 const domLoaded = () => {
     document.querySelector('.loading-msg').style.display = 'block';
     document.querySelector('.rank-table').style.display = 'none';
-    setTimeout(()=>{
-        fetch('https://api.npoint.io/551de43a8627ff944b27')
-        .then(resp => resp.json())
-        .then(response => {
-            masterData = response
-            triggerButtonSelection('avg');
-        });
-    }, 1000)
+    fetch('https://api.npoint.io/551de43a8627ff944b27')
+    .then(resp => resp.json())
+    .then(response => {
+        masterData = response
+        triggerButtonSelection('avg');
+    });
     
 }
 
