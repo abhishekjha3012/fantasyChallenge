@@ -61,7 +61,24 @@ html, body, p {
 #playerDetails, #resultTable {
     padding: 20px
 }
-
+p.SJ{
+    background: #FF9077;
+}
+p.AJ{
+    background: #B1FFAD;
+}
+p.VJ{
+    background: #8E9DFF;
+}
+p.SSJ{
+    background: #F7FF8E;
+}
+p.KT{
+    background: #566573;
+}
+p.PJ{
+    background: #8EFFF7;
+}
 @media only screen and (max-width: 1024px) {
     .result-element {
         height: 75;

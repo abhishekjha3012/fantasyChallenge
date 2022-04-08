@@ -356,12 +356,12 @@ const populateMasterTable = () => {
         }))
         const rowHtml = `<div class="row"><p>Match No. ${rowData.number}</p><p>${rowData.match}</p>
         <p>${rowData.winner}</p>
-        <p>${rankObject[1] ? rankObject[1] : '--'}</p>
-        <p>${rankObject[2] ? rankObject[2] : '--'}</p>
-        <p>${rankObject[3] ? rankObject[3] : '--'}</p>
-        <p>${rankObject[4] ? rankObject[4] : '--'}</p>
-        <p>${rankObject[5] ? rankObject[5] : '--'}</p>
-        <p>${rankObject[6] ? rankObject[6] : '--'}</p>
+        <p class=${rankObject[1] ? rankObject[1] : ''}>${rankObject[1] ? rankObject[1] : '--'}</p>
+        <p class=${rankObject[2] ? rankObject[2] : ''}>${rankObject[2] ? rankObject[2] : '--'}</p>
+        <p class=${rankObject[3] ? rankObject[3] : ''}>${rankObject[3] ? rankObject[3] : '--'}</p>
+        <p class=${rankObject[4] ? rankObject[4] : ''}>${rankObject[4] ? rankObject[4] : '--'}</p>
+        <p class=${rankObject[5] ? rankObject[5] : ''}>${rankObject[5] ? rankObject[5] : '--'}</p>
+        <p class=${rankObject[6] ? rankObject[6] : ''}>${rankObject[6] ? rankObject[6] : '--'}</p>
         </div>`
         tableHtml += rowHtml;
     }
