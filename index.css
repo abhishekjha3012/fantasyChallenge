@@ -22,6 +22,10 @@ html, body, p {
     margin: 2em;
 }
 
+.loading-msg span {
+    color: indianred;
+}
+
 .button-box {
     display: flex;
     justify-content: space-around;
