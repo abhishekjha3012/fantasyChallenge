@@ -449,6 +449,17 @@ const triggerButtonSelection = node => {
     }
 }
 
+const triggershoutOut = () => {
+    const audioElement = document.querySelector('.shout-out-audio');
+    const lastMatchRecord = masterData.pop().result;
+    const rankObject = Object.fromEntries(Object.entries(lastMatchRecord).map(a => {
+        a[1] = Math.abs(a[1]);
+        return a.reverse();
+    }));
+    audioElement.src = `asset/A${rankObject[1]}.mp3`;
+    audioElement.play();
+
+}
 const domLoaded = () => {
     document.querySelector('.loading-msg').style.display = 'block';
     document.querySelector('.rank-table').style.display = 'none';
