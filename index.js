@@ -15,6 +15,13 @@ const commonChartObject = {
     legend: {
         enabled: false
     },
+    plotOptions: {
+        series: {
+            marker: {
+                enabled: false
+            }
+        }
+    },
     chart: {
         type: 'line',
         backgroundColor: {
