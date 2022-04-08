@@ -4,6 +4,7 @@ html, body, p {
     margin: 0;
     padding: 0;
     font-family: 'Baloo Thambi 2', sans-serif;
+    background: #2a2a2b;
 }
 
 .result-element {
@@ -25,17 +26,17 @@ html, body, p {
     text-transform: uppercase;
     font-weight: 700;
     outline: none;
-    border: 3px solid #fff;
+    border: 1px solid #fff;
     color: #fff;
     height: 50px;	
-    background: #000;
+    background: #2a2a2b;
     margin: 0 5px;
 }
 
 .active-btn{
     background: #fff;
     color: #000;
-    border: 2px solid #000;
+    border: 1px solid #000;
 }	
 
 .header, .row{
@@ -57,7 +58,7 @@ html, body, p {
     width: 150px;
     padding: 5px 20px;
     color: white;
-    background: black;
+    background: #2a2a2b;
 }
 
 #playerDetails, #resultTable {

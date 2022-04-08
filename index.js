@@ -8,6 +8,27 @@ const prizeMoney = {
     "5": [0,300,200,0,0,0],
     "6": [0,400,200,0,0,0,0]
 }
+const commonChartObject = {
+    credits: {
+        enabled: false
+    },
+    legend: {
+        enabled: false
+    },
+    chart: {
+        type: 'column',
+        backgroundColor: {
+            linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
+            stops: [
+                [0, '#2a2a2b'],
+                [1, '#3e3e40']
+            ]
+        },
+        style: {
+            fontFamily: '\'Unica One\', sans-serif'
+        },
+    },
+}
 
 const calculateNetTotal = playerName => {
     let resultArray = [];
@@ -124,8 +145,10 @@ const populateRankTable = () => {
 
 const populateRankChart = () => {
     Highcharts.chart('rankChart', {
-        credits: {
-            enabled: false
+        ...commonChartObject,
+        chart: {
+            ...commonChartObject.chart,
+            type: 'line'
         },
         title: {
             text: 'RANK/MATCH'
@@ -138,11 +161,6 @@ const populateRankChart = () => {
         },
         xAxis: {
             categories:[...masterData.map(item => item.match)]
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'middle'
         },
         series :[
             {
@@ -171,8 +189,10 @@ const populateRankChart = () => {
 
 const populatePrizeChart = () => {
     Highcharts.chart('prizeChart', {
-        credits: {
-            enabled: false
+        ...commonChartObject,
+        chart: {
+            ...commonChartObject.chart,
+            type: 'line'
         },
         title: {
             text: 'PRIZE/MATCH'
@@ -184,11 +204,6 @@ const populatePrizeChart = () => {
         },
         xAxis: {
             categories:[...masterData.map(item => item.match)]
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'middle'
         },
         series :[
             {
@@ -216,10 +231,9 @@ const populatePrizeChart = () => {
 
 const populateWinningChart = () => {
     Highcharts.chart('winningChart', {
-        credits: {
-            enabled: false
-        },
-          chart: {
+        ...commonChartObject,
+        chart: {
+            ...commonChartObject.chart,
             type: 'line'
         },
         title: {
@@ -232,11 +246,6 @@ const populateWinningChart = () => {
         },
         xAxis: {
             categories:[...masterData.map(item => item.match)]
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'middle'
         },
         series :[
             {
@@ -264,10 +273,9 @@ const populateWinningChart = () => {
 
 const populateNetChart = () => {
     Highcharts.chart('paymentChart', {
-        credits: {
-            enabled: false
-        },
-          chart: {
+        ...commonChartObject,
+        chart: {
+            ...commonChartObject.chart,
             type: 'spline'
         },
         title: {
@@ -280,11 +288,6 @@ const populateNetChart = () => {
         },
         xAxis: {
             categories:[...masterData.map(item => item.match)]
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'middle'
         },
         series :[
             {
@@ -309,6 +312,7 @@ const populateNetChart = () => {
         ]
     })
 }
+
 const populateNet2Chart = () => {
     const dataseries = [];
     for(let i=0; i < playerList.length; i++) {
@@ -317,12 +321,7 @@ const populateNet2Chart = () => {
         dataseries.push(finalWinning)
     }
     Highcharts.chart('paymentChart2', {
-        credits: {
-            enabled: false
-        },
-        chart: {
-            type: 'column'
-        },
+        ...commonChartObject,
         title: {
             text: 'NET WINNING'
         },
@@ -333,9 +332,6 @@ const populateNet2Chart = () => {
         },
         xAxis: {
             categories: playerList
-        },
-        legend: {
-            enabled: false
         },
         series :[
             {
