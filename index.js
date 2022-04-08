@@ -446,6 +446,11 @@ const triggerButtonSelection = node => {
             document.querySelectorAll('.btn')[6].classList.add('active-btn');
             populateMasterTable();
             break;
+        case 'record':
+            document.querySelector('#recordtable').classList.add('active'); 
+            document.querySelectorAll('.btn')[7].classList.add('active-btn');
+            populateMasterTable();
+            break;
         default: 
             document.querySelector('#rankChart').classList.add('active');
             document.querySelectorAll('.btn')[1].classList.add('active-btn');
