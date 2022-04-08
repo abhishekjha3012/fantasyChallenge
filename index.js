@@ -138,9 +138,10 @@ const populateRankTable = () => {
                 break;
             default: 
                 //do nothing
-
         }
     }
+    document.querySelector('.loading-msg').style.display = 'none';
+    document.querySelector('.rank-table').style.display = 'block';
 }
 
 const populateRankChart = () => {
@@ -428,13 +429,17 @@ const triggerButtonSelection = node => {
 }
 
 const domLoaded = () => {
-    fetch('https://api.npoint.io/551de43a8627ff944b27')
-    .then(resp => resp.json())
-    .then(response => {
-        masterData = response
-        triggerButtonSelection('avg');
-       
-    });
+    document.querySelector('.loading-msg').style.display = 'block';
+    document.querySelector('.rank-table').style.display = 'none';
+    setTimeout(()=>{
+        fetch('https://api.npoint.io/551de43a8627ff944b27')
+        .then(resp => resp.json())
+        .then(response => {
+            masterData = response
+            triggerButtonSelection('avg');
+        });
+    }, 1000)
+    
 }
 
 document.addEventListener('DOMContentLoaded', domLoaded, false);

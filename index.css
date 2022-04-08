@@ -16,6 +16,12 @@ html, body, p {
     display: block;
 }
 
+.loading-msg{
+    font-size: 25px;
+    text-align: center;
+    margin: 2em;
+}
+
 .button-box {
     display: flex;
     justify-content: space-around;
