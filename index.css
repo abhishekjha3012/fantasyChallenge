@@ -92,6 +92,9 @@ p.KT{
 p.PJ{
     background: #8EFFF7;
 }
+.shout-out-audio{
+    visibility: hidden;
+}
 @media only screen and (max-width: 1024px) {
     .result-element {
         height: 75;
