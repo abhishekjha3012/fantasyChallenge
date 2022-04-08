@@ -95,6 +95,11 @@ p.PJ{
 .shout-out-audio{
     visibility: hidden;
 }
+.hall-fame-name{
+    font-size: 40vh;
+    font-family: fantasy;
+    text-align: center;
+}
 @media only screen and (max-width: 1024px) {
     .result-element {
         height: 75;

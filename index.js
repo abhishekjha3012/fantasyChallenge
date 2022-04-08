@@ -163,6 +163,11 @@ const populateRankTable = () => {
             }
         },i*1000)
     }
+    /*document.querySelector('.hall-fame-name').innerHTML = displayOrder[displayOrder.length-1].player;
+    document.querySelector('.shout-out-audio').src = `asset/A${displayOrder[displayOrder.length-1].player}.mp3`;*/
+    document.querySelector('.hall-fame-name').innerHTML = 'SJ';
+    document.querySelector('.shout-out-audio').src = `asset/ASJ.mp3`
+
 }
 
 const populateRankChart = () => {
@@ -450,14 +455,7 @@ const triggerButtonSelection = node => {
 }
 
 const triggershoutOut = () => {
-    const audioElement = document.querySelector('.shout-out-audio');
-    const lastMatchRecord = masterData[masterData.length-1].result;
-    const rankObject = Object.fromEntries(Object.entries(lastMatchRecord).map(a => {
-        a[1] = Math.abs(a[1]);
-        return a.reverse();
-    }));
-    audioElement.src = `asset/A${rankObject[1]}.mp3`;
-    audioElement.play();
+    document.querySelector('.shout-out-audio').play();
 }
 const domLoaded = () => {
     document.querySelector('.loading-msg').style.display = 'block';
