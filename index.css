@@ -4,7 +4,7 @@ html, body, p {
     margin: 0;
     padding: 0;
     font-family: 'Baloo Thambi 2', sans-serif;
-    background: #2a2a2b;
+    background: #D3D3D3;
 }
 
 .result-element {
@@ -57,8 +57,8 @@ html, body, p {
     border: 1px solid white;
     width: 150px;
     padding: 5px 20px;
-    color: white;
-    background: #2a2a2b;
+    color: black;
+    background: #D3D3D3;
 }
 
 #playerDetails, #resultTable {

@@ -16,12 +16,12 @@ const commonChartObject = {
         enabled: false
     },
     chart: {
-        type: 'column',
+        type: 'line',
         backgroundColor: {
             linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
             stops: [
-                [0, '#2a2a2b'],
-                [1, '#3e3e40']
+                [0, '#D3D3D3'],
+                [1, '#D3D3D3']
             ]
         },
         style: {
@@ -146,10 +146,6 @@ const populateRankTable = () => {
 const populateRankChart = () => {
     Highcharts.chart('rankChart', {
         ...commonChartObject,
-        chart: {
-            ...commonChartObject.chart,
-            type: 'line'
-        },
         title: {
             text: 'RANK/MATCH'
         },
@@ -166,21 +162,27 @@ const populateRankChart = () => {
             {
                 name: 'Abhishek',
                 data: [...masterData.map(item => Math.abs(item.result.AJ))],
+                color: '#B1FFAD',
             }, {
                 name: 'Sonali',
                 data: [...masterData.map(item => Math.abs(item.result.SJ))],
+                color: '#FF9077',
             }, {
                 name: 'Varsha',
                 data: [...masterData.map(item => Math.abs(item.result.VJ))],
+                color: '#8E9DFF',
             }, {
                 name: 'Keshav',
                 data: [...masterData.map(item => Math.abs(item.result.KT))],
+                color: '#566573',
             }, {
                 name: 'Saurabh',
                 data: [...masterData.map(item => Math.abs(item.result.SSJ))],
+                color: '#F7FF8E',
             }, {
                 name: 'Parinav',
                 data: [...masterData.map(item => Math.abs(item.result.PJ))],
+                color: '#8EFFF7',
             }
 
         ]
@@ -190,10 +192,6 @@ const populateRankChart = () => {
 const populatePrizeChart = () => {
     Highcharts.chart('prizeChart', {
         ...commonChartObject,
-        chart: {
-            ...commonChartObject.chart,
-            type: 'line'
-        },
         title: {
             text: 'PRIZE/MATCH'
         },
@@ -209,21 +207,27 @@ const populatePrizeChart = () => {
             {
                 name: 'Abhishek',
                 data: calculatePrize('AJ'),
+                color: '#B1FFAD'
             }, {
                 name: 'Sonali',
                 data: calculatePrize('SJ'),
+                color: '#FF9077',
             }, {
                 name: 'Varsha',
                 data: calculatePrize('VJ'),
+                color: '#8E9DFF',
             }, {
                 name: 'Keshav',
                 data: calculatePrize('KT'),
+                color: '#566573',
             }, {
                 name: 'Saurabh',
                 data: calculatePrize('SSJ'),
+                color: '#F7FF8E',
             }, {
                 name: 'Parinav',
                 data: calculatePrize('PJ'),
+                color: '#8EFFF7',
             }
         ]
     })
@@ -232,10 +236,6 @@ const populatePrizeChart = () => {
 const populateWinningChart = () => {
     Highcharts.chart('winningChart', {
         ...commonChartObject,
-        chart: {
-            ...commonChartObject.chart,
-            type: 'line'
-        },
         title: {
             text: 'TOTAL WINNING'
         },
@@ -251,21 +251,27 @@ const populateWinningChart = () => {
             {
                 name: 'Abhishek',
                 data: calculateWinning('AJ'),
+                color: '#B1FFAD'
             }, {
                 name: 'Sonali',
                 data: calculateWinning('SJ'),
+                color: '#FF9077',
             }, {
                 name: 'Varsha',
                 data: calculateWinning('VJ'),
+                color: '#8E9DFF',
             }, {
                 name: 'Keshav',
                 data: calculateWinning('KT'),
+                color: '#566573',
             }, {
                 name: 'Saurabh',
                 data: calculateWinning('SSJ'),
+                color: '#F7FF8E',
             }, {
                 name: 'Parinav',
                 data: calculateWinning('PJ'),
+                color: '#8EFFF7',
             }
         ]
     })
@@ -293,21 +299,27 @@ const populateNetChart = () => {
             {
                 name: 'Abhishek',
                 data: calculateNetTotal('AJ'),
+                color: '#B1FFAD'
             }, {
                 name: 'Sonali',
                 data: calculateNetTotal('SJ'),
+                color: '#FF9077',
             }, {
                 name: 'Varsha',
                 data: calculateNetTotal('VJ'),
+                color: '#8E9DFF',
             }, {
                 name: 'Keshav',
                 data: calculateNetTotal('KT'),
+                color: '#566573',
             }, {
                 name: 'Saurabh',
                 data: calculateNetTotal('SSJ'),
+                color: '#F7FF8E',
             }, {
                 name: 'Parinav',
                 data: calculateNetTotal('PJ'),
+                color: '#8EFFF7',
             }
         ]
     })
@@ -322,6 +334,10 @@ const populateNet2Chart = () => {
     }
     Highcharts.chart('paymentChart2', {
         ...commonChartObject,
+        chart: {
+            ...commonChartObject.chart,
+            type: 'column'
+        },
         title: {
             text: 'NET WINNING'
         },
