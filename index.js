@@ -96,23 +96,37 @@ const calculatePrize = playerName => {
 }
 
 const populateRankTable = () => {
+    const displayOrder = [];
     for(let i=0; i < playerList.length; i++) {
-        setInterval( () => {
-            const player = playerList[i];
-            let matchesPlayed = 0;
-            let rankSum = 0;
-            let weightedSum = 0;
-            let weightedMatchPlayed = 0;
-            for(let i=0; i < masterData.length; i++) {
-                if(masterData[i].played.includes(player)) {
-                    matchesPlayed++;
-                    weightedMatchPlayed += masterData[i].played.length; 
-                    rankSum += Math.abs(masterData[i].result[player]);
-                    weightedSum += (Math.abs(masterData[i].result[player]) * masterData[i].played.length);
-                }
+        const player = playerList[i];
+        let matchesPlayed = 0;
+        let rankSum = 0;
+        let weightedSum = 0;
+        let weightedMatchPlayed = 0;
+        for(let i=0; i < masterData.length; i++) {
+            if(masterData[i].played.includes(player)) {
+                matchesPlayed++;
+                weightedMatchPlayed += masterData[i].played.length; 
+                rankSum += Math.abs(masterData[i].result[player]);
+                weightedSum += (Math.abs(masterData[i].result[player]) * masterData[i].played.length);
             }
-            const avgRank = (rankSum/matchesPlayed).toFixed(2);
-            const weightedRank = (weightedSum/weightedMatchPlayed).toFixed(2);
+        }
+        const avgRank = (rankSum/matchesPlayed).toFixed(2);
+        const weightedRank = (weightedSum/weightedMatchPlayed).toFixed(2);
+        displayOrder.push({
+            player,
+            avgRank,
+            weightedRank,
+            matchesPlayed
+        })
+        
+        document.querySelector('.loading-msg').style.display = 'none';
+        document.querySelector('.rank-table').style.display = 'block';
+    }
+    displayOrder.sort((a,b) => a.avgRank > b.avgRank ? -1 : 1)
+    for(let i=0; i < displayOrder.length; i++) {
+        const {player, avgRank, weightedRank,matchesPlayed} = displayOrder[i];
+        setTimeout(()=>{
             switch(player){
                 case 'AJ': 
                     document.querySelectorAll('#playerDetails .row')[0].querySelectorAll('p')[1].innerHTML = avgRank;
@@ -147,9 +161,7 @@ const populateRankTable = () => {
                 default: 
                     //do nothing
             }
-            document.querySelector('.loading-msg').style.display = 'none';
-            document.querySelector('.rank-table').style.display = 'block';
-        }, i*1000);
+        },i*1000)
     }
 }
 
