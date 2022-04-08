@@ -53,9 +53,11 @@ html, body, p {
     font-weight: 400;
 }
 .header p, .row p{
-    border: 1px solid black;
+    border: 1px solid white;
     width: 150px;
     padding: 5px 20px;
+    color: white;
+    background: black;
 }
 
 #playerDetails, #resultTable {

@@ -421,12 +421,7 @@ const domLoaded = () => {
     .then(response => {
         masterData = response
         triggerButtonSelection('avg');
-        triggerButtonSelection('rank');
-        triggerButtonSelection('prize');
-        triggerButtonSelection('winning');
-        triggerButtonSelection('net');
-        triggerButtonSelection('net2');
-        triggerButtonSelection('result');
+       
     });
 }
 
