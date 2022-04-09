@@ -160,6 +160,10 @@ p.PJ{
     transform: rotateY(180deg);
   }
 @media only screen and (max-width: 1024px) {
+    #recordtable{
+        grid-template-columns: 1fr;
+    }
+
     .result-element {
         height: 75;
     }
