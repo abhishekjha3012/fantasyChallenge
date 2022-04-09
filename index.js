@@ -454,8 +454,16 @@ const populateRecordTable = () => {
     });
     let recordHtml = '';
     playerList.map(item => {
+        const imageAddress = {
+            'AJ': 'asset/AJ.png',
+            'SJ': 'https://stickerly.pstatic.net/sticker_pack/JoOAsHhrZM342DXak4nYQ/HIZAPW/2/bea565ec-c108-4808-b041-6ebe2924b12c.png',
+            'VJ': 'https://stickerly.pstatic.net/sticker_pack/CWqJyA7W1seavKQUFJ7A/3WATSW/16/5bade8dc-d62e-41d8-b0ee-358bde44a10e.png',
+            'KT': 'asset/KT.png',
+            'SSJ': 'asset/SSJ.png',
+            'PJ': 'asset/PJ.png',
+        }
         recordHtml += `<div class='player-card'>
-            <div class='player-card-fix'><img src='asset/${item}.png'></div>
+            <div class='player-card-fix'><img src='${imageAddress[item]}'></div>
             <div class='player-card-inner'>
                 <div class='player-card-front'>
                     <p class='player-name'>${item}</p>
