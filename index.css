@@ -12,6 +12,13 @@ html, body, p {
     height: 90vh;
 }
 
+#recordtable{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 20px;
+    padding: 20px;
+}
+
 .result-element.active{ 
     display: block;
 }
@@ -103,13 +110,11 @@ p.PJ{
 
 .player-card {
     background-color: transparent;
-    width: 300px;
-    height: 200px;
+    height: 250px;
     perspective: 1000px; 
-    display: inline-block;
+    display: flex;
     border: 1px solid #2a2a2b;
-    margin: 2%;
-    width: 25%;
+    width: 100%;
   }
   
   .player-card-inner {
@@ -137,8 +142,8 @@ p.PJ{
       margin: 0 auto;
   }
 
-  .player-card-front img{
-      width: 50%;
+  .player-card-fix img{
+      width: 100%;
       height: 100%;
   }
   

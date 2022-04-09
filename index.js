@@ -428,36 +428,36 @@ const populateRecordTable = () => {
         recordObj = {
             'AJ' : {
                 ...recordObj.AJ,
-                [item.result.AJ]: recordObj.AJ[item.result.AJ]+1,
+                [Math.abs(item.result.AJ)]: recordObj.AJ[Math.abs(item.result.AJ)]+1,
             },
             'SJ' : {
                 ...recordObj.SJ,
-                [item.result.SJ]: recordObj.SJ[item.result.SJ]+1,
+                [Math.abs(item.result.SJ)]: recordObj.SJ[Math.abs(item.result.SJ)]+1,
             },
             'VJ' : {
                 ...recordObj.VJ,
-                [item.result.VJ]: recordObj.VJ[item.result.VJ]+1,
+                [Math.abs(item.result.VJ)]: recordObj.VJ[Math.abs(item.result.VJ)]+1,
             },
             'KT' : {
                 ...recordObj.KT,
-                [item.result.KT]: recordObj.KT[item.result.KT]+1,
+                [Math.abs(item.result.KT)]: recordObj.KT[Math.abs(item.result.KT)]+1,
             },
             'SSJ' : {
                 ...recordObj.SSJ,
-                [item.result.SSJ]: recordObj.SSJ[item.result.SSJ]+1,
+                [Math.abs(item.result.SSJ)]: recordObj.SSJ[Math.abs(item.result.SSJ)]+1,
             },
             'PJ' : {
                 ...recordObj.PJ,
-                [item.result.PJ]: recordObj.PJ[item.result.PJ]+1,
+                [Math.abs(item.result.PJ)]: recordObj.PJ[Math.abs(item.result.PJ)]+1,
             },
         }
     });
     let recordHtml = '';
     playerList.map(item => {
         recordHtml += `<div class='player-card'>
+            <div class='player-card-fix'><img src='asset/${item}.png'></div>
             <div class='player-card-inner'>
                 <div class='player-card-front'>
-                    <img src='asset/${item}.png'>
                     <p class='player-name'>${item}</p>
                 </div>
                 <div class='player-card-back'>
