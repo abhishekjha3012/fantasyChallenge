@@ -452,12 +452,20 @@ const populateRecordTable = () => {
             },
         }
     });
-    let recordHtml = 'Still in progress'
+    let recordHtml = '';
     playerList.map(item => {
-        recordHtml += `<div class='player-box'><p class='player-name'>${item}</p><p>Rank 1: <span>${recordObj[item][1]}</span></p>
-            <p>Rank 2: <span>${recordObj[item][2]}</span></p><p>Rank 3: <span>${recordObj[item][3]}</span></p>
-            <p>Rank 4: <span>${recordObj[item][4]}</span></p><p>Rank 5: <span>${recordObj[item][5]}</span></p>
-            <p>Rank 6: <span>${recordObj[item][6]}</span></p><p>Not played: <span>${recordObj[item][0]}</span></p>
+        recordHtml += `<div class='player-card'>
+            <div class='player-card-inner'>
+                <div class='player-card-front'>
+                    <p class='player-name'>${item}</p>
+                </div>
+                <div class='player-card-back'>
+                    <p>Rank 1: <span>${recordObj[item][1]}</span></p><p>Rank 2: <span>${recordObj[item][2]}</span></p>
+                    <p>Rank 3: <span>${recordObj[item][3]}</span></p><p>Rank 4: <span>${recordObj[item][4]}</span></p>
+                    <p>Rank 5: <span>${recordObj[item][5]}</span></p><p>Rank 6: <span>${recordObj[item][6]}</span></p>
+                    <p>Not played: <span>${recordObj[item][0]}</span></p>
+                </div>
+            </div>
         </div>`
         
     })
