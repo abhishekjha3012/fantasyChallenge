@@ -163,11 +163,12 @@ const populateRankTable = () => {
             }
         },i*1000)
     }
-    /*document.querySelector('.hall-fame-name').innerHTML = displayOrder[displayOrder.length-1].player;
-    document.querySelector('.shout-out-audio').src = `asset/A${displayOrder[displayOrder.length-1].player}.mp3`;*/
-    document.querySelector('.hall-fame-name').innerHTML = 'SJ';
-    document.querySelector('.shout-out-audio').src = `asset/ASJ.mp3`
-
+    const lastMatchData = Object.fromEntries(Object.entries(masterData[masterData.length-1].result).map(a => {
+            a[1] = Math.abs(a[1]);
+            return a.reverse();
+        }))
+    document.querySelector('.hall-fame-name').innerHTML = lastMatchData[1];
+    document.querySelector('.shout-out-audio').src = `asset/A${lastMatchData[1]}.mp3`;
 }
 
 const populateRankChart = () => {
