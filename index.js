@@ -457,6 +457,7 @@ const populateRecordTable = () => {
         recordHtml += `<div class='player-card'>
             <div class='player-card-inner'>
                 <div class='player-card-front'>
+                    <img src='asset/${item}.png'>
                     <p class='player-name'>${item}</p>
                 </div>
                 <div class='player-card-back'>

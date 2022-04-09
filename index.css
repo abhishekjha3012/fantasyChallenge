@@ -109,11 +109,9 @@ p.PJ{
     display: inline-block;
     border: 1px solid #2a2a2b;
     margin: 2%;
-    padding: 0 25px;
     width: 25%;
   }
   
-  /* This container is needed to position the front and back side */
   .player-card-inner {
     position: relative;
     width: 100%;
@@ -134,9 +132,18 @@ p.PJ{
     -webkit-backface-visibility: hidden; /* Safari */
     backface-visibility: hidden;
   }
+
+  .player-name{
+      margin: 0 auto;
+  }
+
+  .player-card-front img{
+      width: 50%;
+      height: 100%;
+  }
   
   .player-card-front {
-    font-size: 10em;
+    font-size: 5em;
     line-height: 1;
     align-items: center;
     justify-content: center;
