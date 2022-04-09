@@ -407,6 +407,63 @@ const populateMasterTable = () => {
     document.querySelector('.row-body').innerHTML = tableHtml;
 }
 
+const populateRecordTable = () => {
+    let recordObj = {};
+    playerList.map(item => {
+        recordObj = {
+            ...recordObj,
+            [item]: {
+                0:0,
+                1:0,
+                2:0,
+                3:0,
+                4:0,
+                5:0,
+                6:0
+            }
+        }
+    });
+    masterData.map(item => {
+        recordObj = {
+            'AJ' : {
+                ...recordObj.AJ,
+                [item.result.AJ]: recordObj.AJ[item.result.AJ]+1,
+            },
+            'SJ' : {
+                ...recordObj.SJ,
+                [item.result.SJ]: recordObj.SJ[item.result.SJ]+1,
+            },
+            'VJ' : {
+                ...recordObj.VJ,
+                [item.result.VJ]: recordObj.VJ[item.result.VJ]+1,
+            },
+            'KT' : {
+                ...recordObj.KT,
+                [item.result.KT]: recordObj.KT[item.result.KT]+1,
+            },
+            'SSJ' : {
+                ...recordObj.SSJ,
+                [item.result.SSJ]: recordObj.SSJ[item.result.SSJ]+1,
+            },
+            'PJ' : {
+                ...recordObj.PJ,
+                [item.result.PJ]: recordObj.PJ[item.result.PJ]+1,
+            },
+        }
+    });
+    let recordHtml = 'Still in progress'
+    playerList.map(item => {
+        recordHtml += `<div class='player-box'><p class='player-name'>${item}</p><p>Rank 1: <span>${recordObj[item][1]}</span></p>
+            <p>Rank 2: <span>${recordObj[item][2]}</span></p><p>Rank 3: <span>${recordObj[item][3]}</span></p>
+            <p>Rank 4: <span>${recordObj[item][4]}</span></p><p>Rank 5: <span>${recordObj[item][5]}</span></p>
+            <p>Rank 6: <span>${recordObj[item][6]}</span></p><p>Not played: <span>${recordObj[item][0]}</span></p>
+        </div>`
+        
+    })
+    document.querySelector('#recordtable').innerHTML = recordHtml
+    document.querySelector('#recordtable').classList.remove('hall-fame-name');
+}
+
 const triggerButtonSelection = node => {
     document.querySelector('.active').classList.remove('active');
     document.querySelector('.active-btn').classList.remove('active-btn');
@@ -449,7 +506,7 @@ const triggerButtonSelection = node => {
         case 'record':
             document.querySelector('#recordtable').classList.add('active'); 
             document.querySelectorAll('.btn')[7].classList.add('active-btn');
-            populateMasterTable();
+            populateRecordTable();
             break;
         default: 
             document.querySelector('#rankChart').classList.add('active');

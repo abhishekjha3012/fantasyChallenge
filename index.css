@@ -100,6 +100,13 @@ p.PJ{
     font-family: fantasy;
     text-align: center;
 }
+.player-box{
+    display: inline-block;
+    border: 1px solid #2a2a2b;
+    margin: 2%;
+    padding: 0 25px;
+    width: 25%;
+}
 @media only screen and (max-width: 1024px) {
     .result-element {
         height: 75;
