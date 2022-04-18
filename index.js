@@ -478,8 +478,7 @@ const populateRecordTable = () => {
         </div>`
         
     })
-    document.querySelector('#recordtable').innerHTML = recordHtml
-    document.querySelector('#recordtable').classList.remove('hall-fame-name');
+    document.querySelector('.result-boxes').innerHTML = recordHtml
 }
 
 const triggerButtonSelection = node => {

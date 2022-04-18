@@ -12,13 +12,6 @@ html, body, p {
     height: 90vh;
 }
 
-#recordtable{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 20px;
-    padding: 20px;
-}
-
 .result-element.active{ 
     display: block;
 }
@@ -104,8 +97,16 @@ p.PJ{
 }
 .hall-fame-name{
     font-size: 15em;
-    font-family: fantasy;
     text-align: center;
+    font-family: fantasy;
+}
+
+.result-boxes{
+    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 20px;
+    padding: 20px;
 }
 
 .player-card {
