@@ -1,12 +1,13 @@
 let masterData = [];
-const playerList = ["AJ", "SJ", "VJ", "KT", "SSJ", "PJ"];
+const playerList = ["AJ", "SJ", "VJ", "KT", "SSJ", "PJ","AM"];
 const prizeMoney = {
     "1": [0,100],
     "2": [0,200, 0],
     "3": [0,200,100,0],
     "4": [0,250,150,0,0],
     "5": [0,300,200,0,0,0],
-    "6": [0,400,200,0,0,0,0]
+    "6": [0,350,250,0,0,0,0],
+    "7": [0,400,300,0,0,0,0]
 }
 const commonChartObject = {
     credits: {
@@ -48,9 +49,11 @@ const calculateNetTotal = playerName => {
             } else {
                 winning = resultArray[i-1]
             }
+        } else if(winning === undefined){
+            winning = resultArray[i-1] ? resultArray[i-1] : 0
         } else if(i !== 0){
             winning += resultArray[i-1];
-        }
+        } 
         if(masterData[i].played.includes(playerName)){
             winning -= 100
         }
@@ -70,9 +73,11 @@ const calculateWinning = playerName => {
             } else {
                 winning = resultArray[i-1]
             }
+        } else if(winning === undefined){
+            winning = resultArray[i-1] ? resultArray[i-1] : 0
         } else if(i !== 0){
             winning += resultArray[i-1];
-        }
+        } 
         resultArray.push(winning)
     }
     return resultArray;
@@ -89,6 +94,8 @@ const calculatePrize = playerName => {
             } else {
                 winning = 0
             }
+        } else if(winning === undefined){
+            winning = 0;
         }
         resultArray.push(winning)
     }
@@ -158,6 +165,11 @@ const populateRankTable = () => {
                     document.querySelectorAll('#playerDetails .row')[5].querySelectorAll('p')[2].innerHTML = weightedRank;
                     document.querySelectorAll('#playerDetails .row')[5].querySelectorAll('p')[3].innerHTML = matchesPlayed;
                     break;
+                case 'AM': 
+                    document.querySelectorAll('#playerDetails .row')[6].querySelectorAll('p')[1].innerHTML = avgRank;
+                    document.querySelectorAll('#playerDetails .row')[6].querySelectorAll('p')[2].innerHTML = weightedRank;
+                    document.querySelectorAll('#playerDetails .row')[6].querySelectorAll('p')[3].innerHTML = matchesPlayed;
+                    break;
                 default: 
                     //do nothing
             }
@@ -211,8 +223,11 @@ const populateRankChart = () => {
                 name: 'Parinav',
                 data: [...masterData.map(item => Math.abs(item.result.PJ))],
                 color: '#8EFFF7',
+            }, {
+                name: 'Aishwarya',
+                data: [...masterData.map(item => Math.abs(item.result.AM?item.result.AM:0))],
+                color: '#800080',
             }
-
         ]
     });
 }
@@ -256,6 +271,10 @@ const populatePrizeChart = () => {
                 name: 'Parinav',
                 data: calculatePrize('PJ'),
                 color: '#8EFFF7',
+            }, {
+                name: 'Aishwarya',
+                data: calculatePrize('AM'),
+                color: '#800080',
             }
         ]
     })
@@ -300,7 +319,11 @@ const populateWinningChart = () => {
                 name: 'Parinav',
                 data: calculateWinning('PJ'),
                 color: '#8EFFF7',
-            }
+            },{
+                name: 'Aishwarya',
+                data: calculateWinning('AM'),
+                color: '#800080',
+            }, 
         ]
     })
 }
@@ -348,6 +371,10 @@ const populateNetChart = () => {
                 name: 'Parinav',
                 data: calculateNetTotal('PJ'),
                 color: '#8EFFF7',
+            }, {
+                name: 'Aishwarya',
+                data: calculateNetTotal('AM'),
+                color: '#800080',
             }
         ]
     })
@@ -402,6 +429,7 @@ const populateMasterTable = () => {
         <p class=${rankObject[4] ? rankObject[4] : ''}>${rankObject[4] ? rankObject[4] : '--'}</p>
         <p class=${rankObject[5] ? rankObject[5] : ''}>${rankObject[5] ? rankObject[5] : '--'}</p>
         <p class=${rankObject[6] ? rankObject[6] : ''}>${rankObject[6] ? rankObject[6] : '--'}</p>
+        <p class=${rankObject[7] ? rankObject[7] : ''}>${rankObject[7] ? rankObject[7] : '--'}</p>
         </div>`
         tableHtml += rowHtml;
     }
@@ -420,7 +448,8 @@ const populateRecordTable = () => {
                 3:0,
                 4:0,
                 5:0,
-                6:0
+                6:0,
+                7:0
             }
         }
     });
@@ -450,6 +479,10 @@ const populateRecordTable = () => {
                 ...recordObj.PJ,
                 [Math.abs(item.result.PJ)]: recordObj.PJ[Math.abs(item.result.PJ)]+1,
             },
+            'AM' : {
+                ...recordObj.AM,
+                [Math.abs(item.result.AM)]: recordObj.AM[Math.abs(item.result.AM)]+1,
+            },
         }
     });
     let recordHtml = '';
@@ -461,6 +494,7 @@ const populateRecordTable = () => {
             'KT': 'asset/KT.png',
             'SSJ': 'asset/SSJ.png',
             'PJ': 'asset/PJ.png',
+            'AM': 'https://c.tenor.com/1rHNsGnA4lwAAAAS/thalaivar-rajinikanth.gif'
         }
         recordHtml += `<div class='player-card'>
             <div class='player-card-fix'><img src='${imageAddress[item]}'></div>
