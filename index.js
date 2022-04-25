@@ -1,13 +1,21 @@
 let masterData = [];
-const playerList = ["AJ", "SJ", "VJ", "KT", "SSJ", "PJ","AM"];
+const playerArray = [
+    {name: 'Abhishek', id: 'AJ', num: 0, color: '#B1FFAD', imageAddress: 'asset/AJ.png'}, 
+    {name: 'Sonali', id: 'SJ', num: 1, color: '#FF9077', imageAddress: 'https://stickerly.pstatic.net/sticker_pack/JoOAsHhrZM342DXak4nYQ/HIZAPW/2/bea565ec-c108-4808-b041-6ebe2924b12c.png'},
+    {name: 'Varsha', id: 'VJ', num: 2, color: '#8E9DFF', imageAddress: 'https://stickerly.pstatic.net/sticker_pack/CWqJyA7W1seavKQUFJ7A/3WATSW/16/5bade8dc-d62e-41d8-b0ee-358bde44a10e.png'},
+    {name: 'Keshav', id: 'KT', num: 3, color: '#566573', imageAddress: 'asset/KT.png'},
+    {name: 'Saurabh', id: 'SSJ', num: 4, color: '#F7FF8E', imageAddress: 'asset/SSJ.png'},
+    {name: 'Parinav', id: 'PJ',  num: 5, color: '#8EFFF7', imageAddress: 'asset/PJ.png'},
+    {name: 'Aishwarya', id: 'AM', num: 6, color: '#800080', imageAddress: 'https://c.tenor.com/1rHNsGnA4lwAAAAS/thalaivar-rajinikanth.gif'}
+]
 const prizeMoney = {
     "1": [0,100],
     "2": [0,200, 0],
     "3": [0,200,100,0],
     "4": [0,250,150,0,0],
     "5": [0,300,200,0,0,0],
-    "6": [0,350,250,0,0,0,0],
-    "7": [0,400,300,0,0,0,0]
+    "6": [0,350,200,50,0,0,0],
+    "7": [0,350,250,100,0,0,0,0]
 }
 const commonChartObject = {
     credits: {
@@ -104,8 +112,8 @@ const calculatePrize = playerName => {
 
 const populateRankTable = () => {
     const displayOrder = [];
-    for(let i=0; i < playerList.length; i++) {
-        const player = playerList[i];
+    for(let i=0; i < playerArray.length; i++) {
+        const { id: player } = playerArray[i];
         let matchesPlayed = 0;
         let rankSum = 0;
         let weightedSum = 0;
@@ -184,6 +192,11 @@ const populateRankTable = () => {
 }
 
 const populateRankChart = () => {
+    const seriesData = playerArray.map(item => ({
+        name: item.name,
+        color: item.color,
+        data: [...masterData.map(data => Math.abs(data.result[item.id]?data.result[item.id]:0))],
+    }))
     Highcharts.chart('rankChart', {
         ...commonChartObject,
         title: {
@@ -198,41 +211,16 @@ const populateRankChart = () => {
         xAxis: {
             categories:[...masterData.map(item => item.match)]
         },
-        series :[
-            {
-                name: 'Abhishek',
-                data: [...masterData.map(item => Math.abs(item.result.AJ))],
-                color: '#B1FFAD',
-            }, {
-                name: 'Sonali',
-                data: [...masterData.map(item => Math.abs(item.result.SJ))],
-                color: '#FF9077',
-            }, {
-                name: 'Varsha',
-                data: [...masterData.map(item => Math.abs(item.result.VJ))],
-                color: '#8E9DFF',
-            }, {
-                name: 'Keshav',
-                data: [...masterData.map(item => Math.abs(item.result.KT))],
-                color: '#566573',
-            }, {
-                name: 'Saurabh',
-                data: [...masterData.map(item => Math.abs(item.result.SSJ))],
-                color: '#F7FF8E',
-            }, {
-                name: 'Parinav',
-                data: [...masterData.map(item => Math.abs(item.result.PJ))],
-                color: '#8EFFF7',
-            }, {
-                name: 'Aishwarya',
-                data: [...masterData.map(item => Math.abs(item.result.AM?item.result.AM:0))],
-                color: '#800080',
-            }
-        ]
+        series: seriesData
     });
 }
 
 const populatePrizeChart = () => {
+    const seriesData = playerArray.map(item => ({
+        name: item.name,
+        color: item.color,
+        data: calculatePrize(item.id)
+    }))
     Highcharts.chart('prizeChart', {
         ...commonChartObject,
         title: {
@@ -246,41 +234,16 @@ const populatePrizeChart = () => {
         xAxis: {
             categories:[...masterData.map(item => item.match)]
         },
-        series :[
-            {
-                name: 'Abhishek',
-                data: calculatePrize('AJ'),
-                color: '#B1FFAD'
-            }, {
-                name: 'Sonali',
-                data: calculatePrize('SJ'),
-                color: '#FF9077',
-            }, {
-                name: 'Varsha',
-                data: calculatePrize('VJ'),
-                color: '#8E9DFF',
-            }, {
-                name: 'Keshav',
-                data: calculatePrize('KT'),
-                color: '#566573',
-            }, {
-                name: 'Saurabh',
-                data: calculatePrize('SSJ'),
-                color: '#F7FF8E',
-            }, {
-                name: 'Parinav',
-                data: calculatePrize('PJ'),
-                color: '#8EFFF7',
-            }, {
-                name: 'Aishwarya',
-                data: calculatePrize('AM'),
-                color: '#800080',
-            }
-        ]
+        series : seriesData
     })
 }
 
 const populateWinningChart = () => {
+    const seriesData = playerArray.map(item => ({
+        name: item.name,
+        color: item.color,
+        data: calculateWinning(item.id)
+    }))
     Highcharts.chart('winningChart', {
         ...commonChartObject,
         title: {
@@ -294,41 +257,16 @@ const populateWinningChart = () => {
         xAxis: {
             categories:[...masterData.map(item => item.match)]
         },
-        series :[
-            {
-                name: 'Abhishek',
-                data: calculateWinning('AJ'),
-                color: '#B1FFAD'
-            }, {
-                name: 'Sonali',
-                data: calculateWinning('SJ'),
-                color: '#FF9077',
-            }, {
-                name: 'Varsha',
-                data: calculateWinning('VJ'),
-                color: '#8E9DFF',
-            }, {
-                name: 'Keshav',
-                data: calculateWinning('KT'),
-                color: '#566573',
-            }, {
-                name: 'Saurabh',
-                data: calculateWinning('SSJ'),
-                color: '#F7FF8E',
-            }, {
-                name: 'Parinav',
-                data: calculateWinning('PJ'),
-                color: '#8EFFF7',
-            },{
-                name: 'Aishwarya',
-                data: calculateWinning('AM'),
-                color: '#800080',
-            }, 
-        ]
+        series :seriesData
     })
 }
 
 const populateNetChart = () => {
+    const seriesData = playerArray.map(item => ({
+        name: item.name,
+        color: item.color,
+        data: calculateNetTotal(item.id)
+    }))
     Highcharts.chart('paymentChart', {
         ...commonChartObject,
         chart: {
@@ -346,45 +284,15 @@ const populateNetChart = () => {
         xAxis: {
             categories:[...masterData.map(item => item.match)]
         },
-        series :[
-            {
-                name: 'Abhishek',
-                data: calculateNetTotal('AJ'),
-                color: '#B1FFAD'
-            }, {
-                name: 'Sonali',
-                data: calculateNetTotal('SJ'),
-                color: '#FF9077',
-            }, {
-                name: 'Varsha',
-                data: calculateNetTotal('VJ'),
-                color: '#8E9DFF',
-            }, {
-                name: 'Keshav',
-                data: calculateNetTotal('KT'),
-                color: '#566573',
-            }, {
-                name: 'Saurabh',
-                data: calculateNetTotal('SSJ'),
-                color: '#F7FF8E',
-            }, {
-                name: 'Parinav',
-                data: calculateNetTotal('PJ'),
-                color: '#8EFFF7',
-            }, {
-                name: 'Aishwarya',
-                data: calculateNetTotal('AM'),
-                color: '#800080',
-            }
-        ]
+        series : seriesData
     })
 }
 
 const populateNet2Chart = () => {
     const dataseries = [];
-    for(let i=0; i < playerList.length; i++) {
-        const player = playerList[i];
-        const finalWinning = calculateNetTotal(player).pop();
+    for(let i=0; i < playerArray.length; i++) {
+        const { id } = playerArray[i];
+        const finalWinning = calculateNetTotal(id).pop();
         dataseries.push(finalWinning)
     }
     Highcharts.chart('paymentChart2', {
@@ -402,7 +310,7 @@ const populateNet2Chart = () => {
             }
         },
         xAxis: {
-            categories: playerList
+            categories: [...playerArray.map(item => item.id)]
         },
         series :[
             {
@@ -438,10 +346,10 @@ const populateMasterTable = () => {
 
 const populateRecordTable = () => {
     let recordObj = {};
-    playerList.map(item => {
+    playerArray.map(item => {
         recordObj = {
             ...recordObj,
-            [item]: {
+            [item.id]: {
                 0:0,
                 1:0,
                 2:0,
@@ -454,59 +362,28 @@ const populateRecordTable = () => {
         }
     });
     masterData.map(item => {
-        recordObj = {
-            'AJ' : {
-                ...recordObj.AJ,
-                [Math.abs(item.result.AJ)]: recordObj.AJ[Math.abs(item.result.AJ)]+1,
-            },
-            'SJ' : {
-                ...recordObj.SJ,
-                [Math.abs(item.result.SJ)]: recordObj.SJ[Math.abs(item.result.SJ)]+1,
-            },
-            'VJ' : {
-                ...recordObj.VJ,
-                [Math.abs(item.result.VJ)]: recordObj.VJ[Math.abs(item.result.VJ)]+1,
-            },
-            'KT' : {
-                ...recordObj.KT,
-                [Math.abs(item.result.KT)]: recordObj.KT[Math.abs(item.result.KT)]+1,
-            },
-            'SSJ' : {
-                ...recordObj.SSJ,
-                [Math.abs(item.result.SSJ)]: recordObj.SSJ[Math.abs(item.result.SSJ)]+1,
-            },
-            'PJ' : {
-                ...recordObj.PJ,
-                [Math.abs(item.result.PJ)]: recordObj.PJ[Math.abs(item.result.PJ)]+1,
-            },
-            'AM' : {
-                ...recordObj.AM,
-                [Math.abs(item.result.AM)]: recordObj.AM[Math.abs(item.result.AM)]+1,
-            },
-        }
+        playerArray.forEach(player => {
+            const { id } = player
+            recordObj[id] = {
+                ...recordObj[id],
+                [Math.abs(item.result[id])]: recordObj[id][Math.abs(item.result[id])]+1,
+            }
+        })
     });
     let recordHtml = '';
-    playerList.map(item => {
-        const imageAddress = {
-            'AJ': 'asset/AJ.png',
-            'SJ': 'https://stickerly.pstatic.net/sticker_pack/JoOAsHhrZM342DXak4nYQ/HIZAPW/2/bea565ec-c108-4808-b041-6ebe2924b12c.png',
-            'VJ': 'https://stickerly.pstatic.net/sticker_pack/CWqJyA7W1seavKQUFJ7A/3WATSW/16/5bade8dc-d62e-41d8-b0ee-358bde44a10e.png',
-            'KT': 'asset/KT.png',
-            'SSJ': 'asset/SSJ.png',
-            'PJ': 'asset/PJ.png',
-            'AM': 'https://c.tenor.com/1rHNsGnA4lwAAAAS/thalaivar-rajinikanth.gif'
-        }
+    playerArray.map(item => {
+        const {id, imageAddress } = item;
         recordHtml += `<div class='player-card'>
-            <div class='player-card-fix'><img src='${imageAddress[item]}'></div>
+            <div class='player-card-fix'><img src='${imageAddress}'></div>
             <div class='player-card-inner'>
                 <div class='player-card-front'>
-                    <p class='player-name'>${item}</p>
+                    <p class='player-name'>${id}</p>
                 </div>
                 <div class='player-card-back'>
-                    <p>Rank 1: <span>${recordObj[item][1]}</span></p><p>Rank 2: <span>${recordObj[item][2]}</span></p>
-                    <p>Rank 3: <span>${recordObj[item][3]}</span></p><p>Rank 4: <span>${recordObj[item][4]}</span></p>
-                    <p>Rank 5: <span>${recordObj[item][5]}</span></p><p>Rank 6: <span>${recordObj[item][6]}</span></p>
-                    <p>Not played: <span>${recordObj[item][0]}</span></p>
+                    <p>Rank 1: <span>${recordObj[id][1]}</span></p><p>Rank 2: <span>${recordObj[id][2]}</span></p>
+                    <p>Rank 3: <span>${recordObj[id][3]}</span></p><p>Rank 4: <span>${recordObj[id][4]}</span></p>
+                    <p>Rank 5: <span>${recordObj[id][5]}</span></p><p>Rank 6: <span>${recordObj[id][6]}</span></p>
+                    <p>Rank 7: <span>${recordObj[id][7]}</span></p><p>Not played: <span>${recordObj[id][0]}</span></p>
                 </div>
             </div>
         </div>`
