@@ -13,45 +13,22 @@
   <title>COCO CHAMPIONSHIP 2022</title>
 </head>
 
+<style>
+  body { text-align: center; padding: 150px; }
+  h1 { font-size: 50px; }
+  body { font: 20px Helvetica, sans-serif; color: #333; }
+  article { display: block; text-align: left; width: 650px; margin: 0 auto; }
+  a { color: #dc8100; text-decoration: none; }
+  a:hover { color: #333; text-decoration: none; }
+</style>
+
 <body>
-  <div class="button-box">
-    <button onclick="triggerButtonSelection('avg')" class="btn active-btn">AVERAGE</button>
-    <button onclick="triggerButtonSelection('rank')" class="btn">RANK</button>
-    <button onclick="triggerButtonSelection('prize')" class="btn">PRIZE</button>
-    <button onclick="triggerButtonSelection('winning')" class="btn">WINNING</button>
-    <button onclick="triggerButtonSelection('net')" class="btn">NET</button>
-    <button onclick="triggerButtonSelection('net2')" class="btn">SONALI CHART</button>
-    <button onclick="triggerButtonSelection('result')" class="btn">RESULT</button>
-    <button onclick="triggerButtonSelection('record')" class="btn">RECORD</button>
-  </div>
-  <p class="loading-msg">Calculating Ranks. Hold Tight!! <span>&hearts;</span><p></p>
-  <div id="playerDetails" class='result-element active'>
-    <div class="rank-table"> 
-      <div class='header'><p>Name</p><p>Avg Rank</p><p>Weighted Avg Rank</p><p>Matches played</p></div>
-      <div class='row'><p>Abhishek</p><p></p><p></p><p></p></div>
-      <div class='row'><p>Sonali</p><p></p><p></p><p></p></div>
-      <div class='row'><p>Varsha</p><p></p><p></p><p></p></div>
-      <div class='row'><p>Keshav</p><p></p><p></p><p></p></div>
-      <div class='row'><p>Saurabh</p><p></p><p></p><p></p></div>
-      <div class='row'><p>Parinav</p><p></p><p></p><p></p></div>
-      <p class="hall-fame-name"></p>
-      <button class='btn shout-out-button' onclick="triggershoutOut()">SHOUTOUT</button>
-      <audio class='shout-out-audio' type="audio/mp3"></audio>
+  <article>
+    <h1>We&rsquo;ll be back soon!</h1>
+    <div>
+        <p>Sorry for the inconvenience but we&rsquo;re performing some maintenance at the moment. If you need to you can always <a href="mailto:#">contact us</a>, otherwise we&rsquo;ll be back online shortly!</p>
+        <p>&mdash; The Team</p>
     </div>
-  </div>
-  <div id="rankChart" class='result-element'></div>
-  <div id="prizeChart" class='result-element'></div>
-  <div id="winningChart" class='result-element'></div>
-  <div id="paymentChart" class='result-element'></div>
-  <div id="paymentChart2" class='result-element'></div>
-  <div id="resultTable" class='result-element'>
-    <div class='header'><p>Match No.</p><p>Teams</p><p>Winner</p><p>Rank 1</p>
-    <p>Rank 2</p><p>Rank 3</p><p>Rank 4</p><p>Rank 5</p><p>Rank 6</p></div>
-    <div class="row-body"></div>
-  </div>
-  <div id="recordtable" class='result-element'>
-    <div class='result-boxes'>
-    </div>
-  <script src="index.js"></script>
+</article>
 </body>
 </html>
