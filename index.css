@@ -95,6 +95,10 @@ p.PJ{
 p.AM{
     background: #800080;
 }
+.same-rank{
+    color: white!important;
+    background: black!important;
+}
 .shout-out-audio{
     visibility: hidden;
 }

@@ -51,17 +51,27 @@ const calculateNetTotal = playerName => {
     for(let i=0; i < masterData.length; i++) {
         const prizeArray = prizeMoney[masterData[i].played.length.toString()];
         let winning = prizeArray[masterData[i].result[playerName]];
-        if(Object.values(masterData[i].result).includes(-1)){
-            if(masterData[i].result[playerName] === -1){
-                winning = resultArray[i-1] + ((prizeArray.length - 1) * 100)
+        if(masterData[i].number === 45){
+            if(playerName === 'KT'){
+                winning = resultArray[i-1] + 400;
+            } else if(playerName === 'SJ' || playerName === 'VJ'){
+                winning = resultArray[i-1] + 150;
             } else {
                 winning = resultArray[i-1]
             }
-        } else if(winning === undefined){
-            winning = resultArray[i-1] ? resultArray[i-1] : 0
-        } else if(i !== 0){
-            winning += resultArray[i-1];
-        } 
+        } else {
+            if(Object.values(masterData[i].result).includes(-1)){
+                if(masterData[i].result[playerName] === -1){
+                    winning = resultArray[i-1] + ((prizeArray.length - 1) * 100)
+                } else {
+                    winning = resultArray[i-1]
+                }
+            } else if(winning === undefined){
+                winning = resultArray[i-1] ? resultArray[i-1] : 0
+            } else if(i !== 0){
+                winning += resultArray[i-1];
+            } 
+        }
         if(masterData[i].played.includes(playerName)){
             winning -= 100
         }
@@ -75,17 +85,27 @@ const calculateWinning = playerName => {
     for(let i=0; i < masterData.length; i++) {
         const prizeArray = prizeMoney[masterData[i].played.length.toString()];
         let winning = prizeArray[masterData[i].result[playerName]];
-        if(Object.values(masterData[i].result).includes(-1)){
-            if(masterData[i].result[playerName] === -1){
-                winning = resultArray[i-1] + ((prizeArray.length - 1) * 100)
+        if(masterData[i].number === 45){
+            if(playerName === 'KT'){
+                winning = resultArray[i-1] + 400;
+            } else if(playerName === 'SJ' || playerName === 'VJ'){
+                winning = resultArray[i-1] + 150;
             } else {
                 winning = resultArray[i-1]
             }
-        } else if(winning === undefined){
-            winning = resultArray[i-1] ? resultArray[i-1] : 0
-        } else if(i !== 0){
-            winning += resultArray[i-1];
-        } 
+        } else {
+            if(Object.values(masterData[i].result).includes(-1)){
+                if(masterData[i].result[playerName] === -1){
+                    winning = resultArray[i-1] + ((prizeArray.length - 1) * 100)
+                } else {
+                    winning = resultArray[i-1]
+                }
+            } else if(winning === undefined){
+                winning = resultArray[i-1] ? resultArray[i-1] : 0
+            } else if(i !== 0){
+                winning += resultArray[i-1];
+            } 
+        }
         resultArray.push(winning)
     }
     return resultArray;
@@ -96,14 +116,24 @@ const calculatePrize = playerName => {
     for(let i=0; i < masterData.length; i++) {
         const prizeArray = prizeMoney[masterData[i].played.length.toString()];
         let winning = prizeArray[masterData[i].result[playerName]];
-        if(Object.values(masterData[i].result).includes(-1)){
-            if(masterData[i].result[playerName] === -1){
-                winning = (prizeArray.length - 1) * 100;
+        if(masterData[i].number === 45){
+            if(playerName === 'KT'){
+                winning = 400;
+            } else if(playerName === 'SJ' || playerName === 'VJ'){
+                winning = 150;
             } else {
                 winning = 0
             }
-        } else if(winning === undefined){
-            winning = 0;
+        } else {
+            if(Object.values(masterData[i].result).includes(-1)){
+                if(masterData[i].result[playerName] === -1){
+                    winning = (prizeArray.length - 1) * 100;
+                } else {
+                    winning = 0
+                }
+            } else if(winning === undefined){
+                winning = 0;
+            }
         }
         resultArray.push(winning)
     }
@@ -332,7 +362,9 @@ const populateMasterTable = () => {
         const rowHtml = `<div class="row"><p>Match No. ${rowData.number}</p><p>${rowData.match}</p>
         <p>${rowData.winner}</p>
         <p class=${rankObject[1] ? rankObject[1] : ''}>${rankObject[1] ? rankObject[1] : '--'}</p>
-        <p class=${rankObject[2] ? rankObject[2] : ''}>${rankObject[2] ? rankObject[2] : '--'}</p>
+        <p class=${rowData.number===45 ? 'same-rank' : rankObject[2] ? rankObject[2] : ''}>
+            ${rowData.number===45 ?'SJ/VJ':rankObject[2] ? rankObject[2] : '--'}
+        </p>
         <p class=${rankObject[3] ? rankObject[3] : ''}>${rankObject[3] ? rankObject[3] : '--'}</p>
         <p class=${rankObject[4] ? rankObject[4] : ''}>${rankObject[4] ? rankObject[4] : '--'}</p>
         <p class=${rankObject[5] ? rankObject[5] : ''}>${rankObject[5] ? rankObject[5] : '--'}</p>
