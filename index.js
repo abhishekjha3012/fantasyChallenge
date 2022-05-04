@@ -46,6 +46,13 @@ const commonChartObject = {
     },
 }
 
+const renderRankTableHTML = (index, avgRank, weightedRank,matchesPlayed,rankSum) => {
+    document.querySelectorAll('#playerDetails .row')[index].querySelectorAll('p')[1].innerHTML = avgRank;
+    document.querySelectorAll('#playerDetails .row')[index].querySelectorAll('p')[2].innerHTML = weightedRank;
+    document.querySelectorAll('#playerDetails .row')[index].querySelectorAll('p')[3].innerHTML = matchesPlayed;
+    document.querySelectorAll('#playerDetails .row')[index].querySelectorAll('p')[4].innerHTML = rankSum;
+}
+
 const calculateNetTotal = playerName => {
     let resultArray = [];
     for(let i=0; i < masterData.length; i++) {
@@ -162,7 +169,8 @@ const populateRankTable = () => {
             player,
             avgRank,
             weightedRank,
-            matchesPlayed
+            matchesPlayed,
+            rankSum
         })
         
         document.querySelector('.loading-msg').style.display = 'none';
@@ -170,43 +178,29 @@ const populateRankTable = () => {
     }
     displayOrder.sort((a,b) => a.avgRank > b.avgRank ? -1 : 1)
     for(let i=0; i < displayOrder.length; i++) {
-        const {player, avgRank, weightedRank,matchesPlayed} = displayOrder[i];
+        const {player, avgRank, weightedRank,matchesPlayed, rankSum} = displayOrder[i];
         setTimeout(()=>{
             switch(player){
                 case 'AJ': 
-                    document.querySelectorAll('#playerDetails .row')[0].querySelectorAll('p')[1].innerHTML = avgRank;
-                    document.querySelectorAll('#playerDetails .row')[0].querySelectorAll('p')[2].innerHTML = weightedRank;
-                    document.querySelectorAll('#playerDetails .row')[0].querySelectorAll('p')[3].innerHTML = matchesPlayed;
+                    renderRankTableHTML(0, avgRank, weightedRank, matchesPlayed, rankSum)
                     break;
                 case 'SJ': 
-                    document.querySelectorAll('#playerDetails .row')[1].querySelectorAll('p')[1].innerHTML = avgRank;
-                    document.querySelectorAll('#playerDetails .row')[1].querySelectorAll('p')[2].innerHTML = weightedRank;
-                    document.querySelectorAll('#playerDetails .row')[1].querySelectorAll('p')[3].innerHTML = matchesPlayed;
+                    renderRankTableHTML(1, avgRank, weightedRank, matchesPlayed, rankSum)
                     break;
                 case 'VJ': 
-                    document.querySelectorAll('#playerDetails .row')[2].querySelectorAll('p')[1].innerHTML = avgRank;
-                    document.querySelectorAll('#playerDetails .row')[2].querySelectorAll('p')[2].innerHTML = weightedRank;
-                    document.querySelectorAll('#playerDetails .row')[2].querySelectorAll('p')[3].innerHTML = matchesPlayed;
+                    renderRankTableHTML(2, avgRank, weightedRank, matchesPlayed, rankSum)
                     break;
                 case 'KT': 
-                    document.querySelectorAll('#playerDetails .row')[3].querySelectorAll('p')[1].innerHTML = avgRank;
-                    document.querySelectorAll('#playerDetails .row')[3].querySelectorAll('p')[2].innerHTML = weightedRank;
-                    document.querySelectorAll('#playerDetails .row')[3].querySelectorAll('p')[3].innerHTML = matchesPlayed;
+                    renderRankTableHTML(3, avgRank, weightedRank, matchesPlayed, rankSum)
                     break;
                 case 'SSJ': 
-                    document.querySelectorAll('#playerDetails .row')[4].querySelectorAll('p')[1].innerHTML = avgRank;
-                    document.querySelectorAll('#playerDetails .row')[4].querySelectorAll('p')[2].innerHTML = weightedRank;
-                    document.querySelectorAll('#playerDetails .row')[4].querySelectorAll('p')[3].innerHTML = matchesPlayed;
+                    renderRankTableHTML(4, avgRank, weightedRank, matchesPlayed, rankSum)   
                     break;
                 case 'PJ': 
-                    document.querySelectorAll('#playerDetails .row')[5].querySelectorAll('p')[1].innerHTML = avgRank;
-                    document.querySelectorAll('#playerDetails .row')[5].querySelectorAll('p')[2].innerHTML = weightedRank;
-                    document.querySelectorAll('#playerDetails .row')[5].querySelectorAll('p')[3].innerHTML = matchesPlayed;
+                    renderRankTableHTML(5, avgRank, weightedRank, matchesPlayed, rankSum)
                     break;
                 case 'AM': 
-                    document.querySelectorAll('#playerDetails .row')[6].querySelectorAll('p')[1].innerHTML = avgRank;
-                    document.querySelectorAll('#playerDetails .row')[6].querySelectorAll('p')[2].innerHTML = weightedRank;
-                    document.querySelectorAll('#playerDetails .row')[6].querySelectorAll('p')[3].innerHTML = matchesPlayed;
+                    renderRankTableHTML(6, avgRank, weightedRank, matchesPlayed, rankSum)
                     break;
                 default: 
                     //do nothing
