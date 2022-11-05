@@ -58,7 +58,7 @@ const calculateNetTotal = playerName => {
     for(let i=0; i < masterData.length; i++) {
         const prizeArray = prizeMoney[masterData[i].played.length.toString()];
         let winning = prizeArray[masterData[i].result[playerName]];
-        if(masterData[i].number === 45){
+        if(masterData[i].number === 47){
             if(playerName === 'KT'){
                 winning = resultArray[i-1] + 400;
             } else if(playerName === 'SJ' || playerName === 'VJ'){
@@ -92,7 +92,7 @@ const calculateWinning = playerName => {
     for(let i=0; i < masterData.length; i++) {
         const prizeArray = prizeMoney[masterData[i].played.length.toString()];
         let winning = prizeArray[masterData[i].result[playerName]];
-        if(masterData[i].number === 45){
+        if(masterData[i].number === 47){
             if(playerName === 'KT'){
                 winning = resultArray[i-1] + 400;
             } else if(playerName === 'SJ' || playerName === 'VJ'){
@@ -123,7 +123,7 @@ const calculatePrize = playerName => {
     for(let i=0; i < masterData.length; i++) {
         const prizeArray = prizeMoney[masterData[i].played.length.toString()];
         let winning = prizeArray[masterData[i].result[playerName]];
-        if(masterData[i].number === 45){
+        if(masterData[i].number === 47){
             if(playerName === 'KT'){
                 winning = 400;
             } else if(playerName === 'SJ' || playerName === 'VJ'){
@@ -356,8 +356,8 @@ const populateMasterTable = () => {
         const rowHtml = `<div class="row"><p>Match No. ${rowData.number}</p><p>${rowData.match}</p>
         <p>${rowData.winner}</p>
         <p class=${rankObject[1] ? rankObject[1] : ''}>${rankObject[1] ? rankObject[1] : '--'}</p>
-        <p class=${rowData.number===45 ? 'same-rank' : rankObject[2] ? rankObject[2] : ''}>
-            ${rowData.number===45 ?'SJ/VJ':rankObject[2] ? rankObject[2] : '--'}
+        <p class=${rowData.number===47 ? 'same-rank' : rankObject[2] ? rankObject[2] : ''}>
+            ${rowData.number===47 ?'SJ/VJ':rankObject[2] ? rankObject[2] : '--'}
         </p>
         <p class=${rankObject[3] ? rankObject[3] : ''}>${rankObject[3] ? rankObject[3] : '--'}</p>
         <p class=${rankObject[4] ? rankObject[4] : ''}>${rankObject[4] ? rankObject[4] : '--'}</p>
