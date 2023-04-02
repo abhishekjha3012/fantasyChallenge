@@ -191,7 +191,7 @@ const populateRankTable = () => {
         a[1] = Math.abs(a[1]);
         return a.reverse();
     }))
-    document.querySelector('.hall-fame-name').innerHTML = lastMatchData[1];
+    document.querySelector('.hall-fame-name').textContent = lastMatchData[1];
     document.querySelector('.shout-out-audio').src = `asset/A${lastMatchData[1]}.mp3`;
 }
 
@@ -371,15 +371,17 @@ const populateRecordTable = () => {
         </div>`
 
     })
-    document.querySelector('.result-boxes').innerHTML = recordHtml
+    document.querySelector('#recordtable').innerHTML = recordHtml
 }
 
 const triggerButtonSelection = node => {
     document.querySelector('.active').classList.remove('active');
     switch (node) {
         case 'avg':
-            document.querySelector('#playerDetails').classList.add('active');
+            document.querySelector('#playerDetails').parentElement.parentElement.classList.add('active');
             populateRankTable();
+            populateNetChart();
+            populateRecordTable();
             break;
         case 'rank':
             document.querySelector('#rankChart').parentElement.classList.add('active');
@@ -393,10 +395,10 @@ const triggerButtonSelection = node => {
             document.querySelector('#winningChart').parentElement.classList.add('active');
             populateWinningChart();
             break;
-        case 'net':
-            document.querySelector('#paymentChart').parentElement.classList.add('active');
-            populateNetChart();
-            break;
+            // case 'net':
+            //     document.querySelector('#paymentChart').parentElement.classList.add('active');
+            //     populateNetChart();
+            //     break;
         case 'net2':
             document.querySelector('#paymentChart2').parentElement.classList.add('active');
             populateNet2Chart();
@@ -405,10 +407,10 @@ const triggerButtonSelection = node => {
             document.querySelector('#resultTable').classList.add('active');
             populateMasterTable();
             break;
-        case 'record':
-            document.querySelector('#recordtable').classList.add('active');
-            populateRecordTable();
-            break;
+            // case 'record':
+            //     document.querySelector('#recordtable').classList.add('active');
+            //     populateRecordTable();
+            //     break;
         default:
             document.querySelector('#rankChart').classList.add('active');
             populateRankChart();

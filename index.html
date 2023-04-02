@@ -13,7 +13,7 @@
 </head>
 
 <body id="body-pd">
-    <div id="mySidenav" class="sidenav">
+    <!-- <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <button onclick="triggerButtonSelection('avg')" class="custom-button">AVERAGE</button>
         <button onclick="triggerButtonSelection('rank')" class="custom-button">RANK</button>
@@ -24,17 +24,27 @@
         <button onclick="triggerButtonSelection('result')" class="custom-button">RESULT</button>
         <button onclick="triggerButtonSelection('record')" class="custom-button">RECORD</button>
     </div>
-    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span> -->
     <p class="loading-msg">Calculating Ranks. Hold Tight!! <span>&hearts;</span></p>
-    <div id="playerDetails" class='result-element active'>
-        <h2>AVERAGE</h2>
-        <div id="rankTable" class="ag-theme-alpine"></div>
-        <div>
-            <p class="hall-fame-name"></p>
-            <button class='btn shout-out-button' onclick="triggershoutOut()">SHOUTOUT</button>
-            <audio class='shout-out-audio' type="audio/mp3"></audio>
+    <h1> COCO CHAMPIONSHIP 2023</h1>
+    <div class='dashboard result-element active'>
+        <div id="recordtable">
         </div>
+        <div class="flex-block">
+            <div id="playerDetails">
+                <div id="rankTable" class="ag-theme-alpine"></div>
+                <div class="hall-fame-button-parent">
+                    <button class='btn shout-out-button hall-fame-name' onclick="triggershoutOut()">SHOUTOUT</button>
+                    <audio class='shout-out-audio' type="audio/mp3"></audio>
+                </div>
+            </div>
+            <div class="payment-chart-parent">
+                <canvas id="paymentChart"></canvas>
+            </div>
+        </div>
+
     </div>
+
     <div class='result-element'>
         <canvas id="rankChart"></canvas>
     </div>
@@ -44,9 +54,7 @@
     <div class='result-element'>
         <canvas id="winningChart"></canvas>
     </div>
-    <div class='result-element'>
-        <canvas id="paymentChart"></canvas>
-    </div>
+
     <div class='result-element'>
         <canvas id="paymentChart2"></canvas>
     </div>
@@ -65,10 +73,7 @@
         </div>
         <div class="row-body"></div>
     </div>
-    <div id="recordtable" class='result-element'>
-        <div class='result-boxes'>
-        </div>
-    </div>
+
     </div>
     </div>
 </body>

@@ -1,18 +1,24 @@
 /*General Styling start */
 
+* {
+    box-sizing: border-box;
+}
+
 html,
 body,
-p,
-h2 {
+p {
     margin: 0;
     padding: 0;
     font-family: 'Roboto', sans-serif;
 }
 
-h2 {
+h1 {
     text-align: center;
     text-decoration: underline;
-    margin: 20px 0;
+}
+
+.flex-block {
+    display: flex;
 }
 
 .result-element {
@@ -21,7 +27,7 @@ h2 {
 }
 
 #rankTable {
-    width: 50%;
+    width: 100%;
     margin: 0 auto;
 }
 
@@ -70,8 +76,10 @@ h2 {
 }
 
 #playerDetails,
-#resultTable {
-    padding: 20px
+#resultTable,
+.payment-chart-parent {
+    padding: 20px;
+    width: 50%;
 }
 
 p.SJ {
@@ -111,23 +119,30 @@ p.AM {
     visibility: hidden;
 }
 
-.hall-fame-name {
-    font-size: 15em;
+.hall-fame-button-parent {
     text-align: center;
-    font-family: fantasy;
+    margin: 10px;
 }
 
-.result-boxes {
+.hall-fame-name {
+    font-size: 5em;
     text-align: center;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 20px;
-    padding: 20px;
+    font-family: fantasy;
+    padding: 0;
+    border: none;
+    background: rgb(69, 39, 160);
+    color: white;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
 }
 
 .player-card {
     background-color: transparent;
-    height: 250px;
+    height: 150px;
+    margin: 0 10px;
     perspective: 1000px;
     display: flex;
     border: 1px solid #2a2a2b;
@@ -146,8 +161,8 @@ p.AM {
 .player-card::before {
     content: "";
     position: absolute;
-    width: 210px;
-    height: 210px;
+    width: 100px;
+    height: 165px;
     background: rgb(69, 39, 160);
     border-radius: 50%;
     top: -125px;
@@ -158,8 +173,8 @@ p.AM {
 .player-card::after {
     content: "";
     position: absolute;
-    width: 210px;
-    height: 210px;
+    width: 150px;
+    height: 150px;
     background: rgb(69, 39, 160);
     border-radius: 50%;
     top: -85px;
@@ -200,7 +215,7 @@ p.AM {
 }
 
 .player-card-front {
-    font-size: 5em;
+    font-size: 20px;
     line-height: 1;
     align-items: center;
     justify-content: center;
@@ -208,9 +223,9 @@ p.AM {
 }
 
 .player-card-back {
-    font-size: 1em;
+    font-size: 11px;
     transform: rotateY(180deg);
-    padding: 20px 0;
+    padding: 10px 0;
     line-height: 1.5;
 }
 
@@ -252,10 +267,13 @@ p.AM {
     color: white;
 }
 
+#recordtable {
+    display: flex;
+    width: 100%;
+    padding: 0 10px;
+}
+
 @media only screen and (max-width: 1024px) {
-    #recordtable {
-        grid-template-columns: 1fr;
-    }
     .result-element {
         height: 75;
     }
