@@ -1,22 +1,35 @@
 /*General Styling start */
 
-html, body, p {
+html,
+body,
+p,
+h2 {
     margin: 0;
     padding: 0;
-    font-family: 'Baloo Thambi 2', sans-serif;
-    background: #D3D3D3;
+    font-family: 'Roboto', sans-serif;
+}
+
+h2 {
+    text-align: center;
+    text-decoration: underline;
+    margin: 20px 0;
 }
 
 .result-element {
     display: none;
-    height: 90vh;
+    height: 75vh;
 }
 
-.result-element.active{ 
+#rankTable {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.result-element.active {
     display: block;
 }
 
-.loading-msg{
+.loading-msg {
     font-size: 25px;
     text-align: center;
     margin: 2em;
@@ -31,25 +44,8 @@ html, body, p {
     justify-content: space-around;
 }
 
-.btn {	
-    width: 100%;
-    text-transform: uppercase;
-    font-weight: 700;
-    outline: none;
-    border: 1px solid #fff;
-    color: #fff;
-    height: 50px;	
-    background: #2a2a2b;
-    margin: 0 5px;
-}
-
-.active-btn{
-    background: #fff;
-    color: #000;
-    border: 1px solid #000;
-}	
-
-.header, .row{
+.header,
+.row {
     display: flex;
     justify-content: center;
 }
@@ -63,7 +59,9 @@ html, body, p {
     font-size: 14px;
     font-weight: 400;
 }
-.header p, .row p{
+
+.header p,
+.row p {
     border: 1px solid #2a2a2b;
     width: 150px;
     padding: 5px 20px;
@@ -71,44 +69,55 @@ html, body, p {
     background: #D3D3D3;
 }
 
-#playerDetails, #resultTable {
+#playerDetails,
+#resultTable {
     padding: 20px
 }
-p.SJ{
+
+p.SJ {
     background: #FF9077;
 }
-p.AJ{
+
+p.AJ {
     background: #B1FFAD;
 }
-p.VJ{
+
+p.VJ {
     background: #8E9DFF;
 }
-p.SSJ{
+
+p.SSJ {
     background: #F7FF8E;
 }
-p.KT{
+
+p.KT {
     background: #566573;
 }
-p.PJ{
+
+p.PJ {
     background: #8EFFF7;
 }
-p.AM{
+
+p.AM {
     background: #800080;
 }
-.same-rank{
+
+.same-rank {
     color: white!important;
     background: black!important;
 }
-.shout-out-audio{
+
+.shout-out-audio {
     visibility: hidden;
 }
-.hall-fame-name{
+
+.hall-fame-name {
     font-size: 15em;
     text-align: center;
     font-family: fantasy;
 }
 
-.result-boxes{
+.result-boxes {
     text-align: center;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -119,61 +128,141 @@ p.AM{
 .player-card {
     background-color: transparent;
     height: 250px;
-    perspective: 1000px; 
+    perspective: 1000px;
     display: flex;
     border: 1px solid #2a2a2b;
     width: 100%;
-  }
-  
-  .player-card-inner {
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    box-shadow: none;
+    background-image: none;
+    border-radius: 12px;
+    border: none rgba(144, 202, 249, 0.145);
+    background-color: rgb(94, 53, 177);
+    color: rgb(255, 255, 255);
+    overflow: hidden;
+    position: relative;
+}
+
+.player-card::before {
+    content: "";
+    position: absolute;
+    width: 210px;
+    height: 210px;
+    background: rgb(69, 39, 160);
+    border-radius: 50%;
+    top: -125px;
+    right: -15px;
+    opacity: 0.5;
+}
+
+.player-card::after {
+    content: "";
+    position: absolute;
+    width: 210px;
+    height: 210px;
+    background: rgb(69, 39, 160);
+    border-radius: 50%;
+    top: -85px;
+    right: -95px;
+}
+
+.player-card-inner {
     position: relative;
     width: 100%;
     height: 100%;
     text-align: center;
     transition: transform 0.8s;
     transform-style: preserve-3d;
-  }
-  
-  .player-card:hover .player-card-inner {
+    z-index: 100;
+}
+
+.player-card:hover .player-card-inner {
     transform: rotateY(180deg);
-  }
-  
-  .player-card-front, .player-card-back {
+}
+
+.player-card-front,
+.player-card-back {
     position: absolute;
     width: 100%;
     height: 100%;
-    -webkit-backface-visibility: hidden; /* Safari */
+    -webkit-backface-visibility: hidden;
+    /* Safari */
     backface-visibility: hidden;
-  }
+}
 
-  .player-name{
-      margin: 0 auto;
-  }
+.player-name {
+    margin: 0 auto;
+}
 
-  .player-card-fix img{
-      width: 100%;
-      height: 100%;
-  }
-  
-  .player-card-front {
+.player-card-fix img {
+    width: 100%;
+    height: 100%;
+}
+
+.player-card-front {
     font-size: 5em;
     line-height: 1;
     align-items: center;
     justify-content: center;
     display: flex;
-  }
-  
-  .player-card-back {
+}
+
+.player-card-back {
     font-size: 1em;
     transform: rotateY(180deg);
-  }
+    padding: 20px 0;
+    line-height: 1.5;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav .custom-button {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+    background: inherit;
+    outline: none;
+    border: none;
+}
+
+.sidenav .custom-button:hover {
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+    color: white;
+}
+
 @media only screen and (max-width: 1024px) {
-    #recordtable{
+    #recordtable {
         grid-template-columns: 1fr;
     }
-
     .result-element {
         height: 75;
     }
-
+    .sidenav {
+        padding-top: 15px;
+    }
+    .sidenav a {
+        font-size: 18px;
+    }
 }
