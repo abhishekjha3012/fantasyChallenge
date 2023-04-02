@@ -27,7 +27,7 @@
     <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span> -->
     <p class="loading-msg">Calculating Ranks. Hold Tight!! <span>&hearts;</span></p>
     <h1> COCO CHAMPIONSHIP 2023</h1>
-    <div class='dashboard result-element active'>
+    <div class='dashboard result-element'>
         <div id="recordtable">
         </div>
         <div class="flex-block">
@@ -38,9 +38,10 @@
                     <audio class='shout-out-audio' type="audio/mp3"></audio>
                 </div>
             </div>
-            <div class="payment-chart-parent">
-                <canvas id="paymentChart"></canvas>
+            <div class='payment-chart-parent'>
+                <canvas id="paymentChart2"></canvas>
             </div>
+
         </div>
 
     </div>
@@ -55,9 +56,6 @@
         <canvas id="winningChart"></canvas>
     </div>
 
-    <div class='result-element'>
-        <canvas id="paymentChart2"></canvas>
-    </div>
     <div id="resultTable" class='result-element'>
         <div class='header'>
             <p>Match No.</p>
@@ -73,7 +71,9 @@
         </div>
         <div class="row-body"></div>
     </div>
-
+    <div class="result-element">
+        <canvas id="paymentChart"></canvas>
+    </div>
     </div>
     </div>
 </body>

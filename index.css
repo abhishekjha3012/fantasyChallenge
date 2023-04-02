@@ -133,10 +133,7 @@ p.AM {
     background: rgb(69, 39, 160);
     color: white;
     width: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
+    height: 100px;
 }
 
 .player-card {

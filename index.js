@@ -280,12 +280,8 @@ const populateNetChart = () => {
 }
 
 const populateNet2Chart = () => {
-    const dataseries = [];
-    for (let i = 0; i < playerArray.length; i++) {
-        const { id } = playerArray[i];
-        const finalWinning = calculateNetTotal(id).pop();
-        dataseries.push(finalWinning)
-    }
+    const dataseries = playerArray.map(item => calculateNetTotal(item.id).pop());
+    const colorSeries = playerArray.map(item => item.color);
     const options = {
         type: 'bar',
         options: {
@@ -293,8 +289,12 @@ const populateNet2Chart = () => {
             maintainAspectRatio: false,
         },
         data: {
-            labels: [...playerArray.map(item => item.id)],
-            datasets: dataseries
+            labels: playerArray.map(item => item.name),
+            datasets: [{
+                label: 'NET WINNING',
+                data: dataseries,
+                backgroundColor: colorSeries
+            }],
         },
     }
     const chartDom = document.getElementById('paymentChart2');
@@ -375,12 +375,11 @@ const populateRecordTable = () => {
 }
 
 const triggerButtonSelection = node => {
-    document.querySelector('.active').classList.remove('active');
     switch (node) {
         case 'avg':
             document.querySelector('#playerDetails').parentElement.parentElement.classList.add('active');
             populateRankTable();
-            populateNetChart();
+            populateNet2Chart();
             populateRecordTable();
             break;
         case 'rank':
@@ -431,14 +430,16 @@ const closeNav = () => {
 }
 
 const domLoaded = () => {
-    document.querySelector('.loading-msg').style.display = 'none';
-    document.querySelector('#rankTable').style.display = 'none';
+
 
     fetch('https://api.npoint.io/6854bcef08ac2ebec1ce')
         .then(resp => resp.json())
         .then(response => {
             masterData = response
             triggerButtonSelection('avg');
+            document.querySelector('.loading-msg').style.display = 'none';
+            document.querySelector('.dashboard').style.display = 'block';
+
         });
 
 }
