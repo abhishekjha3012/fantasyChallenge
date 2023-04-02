@@ -51,29 +51,20 @@ const calculateNetTotal = playerName => {
     for (let i = 0; i < masterData.length; i++) {
         const prizeArray = prizeMoney[masterData[i].played.length.toString()];
         let winning = prizeArray[masterData[i].result[playerName]];
-        if (masterData[i].number === 47) {
-            if (playerName === 'KT') {
-                winning = resultArray[i - 1] + 400;
-            } else if (playerName === 'SJ' || playerName === 'VJ') {
-                winning = resultArray[i - 1] + 150;
+        if (Object.values(masterData[i].result).includes(-1)) {
+            //Condition for winner takes all
+            if (masterData[i].result[playerName] === -1) {
+                winning = resultArray[i - 1] + ((prizeArray.length - 1) * 50)
             } else {
                 winning = resultArray[i - 1]
             }
-        } else {
-            if (Object.values(masterData[i].result).includes(-1)) {
-                if (masterData[i].result[playerName] === -1) {
-                    winning = resultArray[i - 1] + ((prizeArray.length - 1) * 100)
-                } else {
-                    winning = resultArray[i - 1]
-                }
-            } else if (winning === undefined) {
-                winning = resultArray[i - 1] ? resultArray[i - 1] : 0
-            } else if (i !== 0) {
-                winning += resultArray[i - 1];
-            }
+        } else if (winning === undefined) {
+            winning = resultArray[i - 1] ? resultArray[i - 1] : 0
+        } else if (i !== 0) {
+            winning += resultArray[i - 1];
         }
         if (masterData[i].played.includes(playerName)) {
-            winning -= 100
+            winning -= 50
         }
         resultArray.push(winning)
     }
@@ -85,26 +76,17 @@ const calculateWinning = playerName => {
     for (let i = 0; i < masterData.length; i++) {
         const prizeArray = prizeMoney[masterData[i].played.length.toString()];
         let winning = prizeArray[masterData[i].result[playerName]];
-        if (masterData[i].number === 47) {
-            if (playerName === 'KT') {
-                winning = resultArray[i - 1] + 400;
-            } else if (playerName === 'SJ' || playerName === 'VJ') {
-                winning = resultArray[i - 1] + 150;
+        if (Object.values(masterData[i].result).includes(-1)) {
+            if (masterData[i].result[playerName] === -1) {
+                //Condition for winner takes all
+                winning = resultArray[i - 1] + ((prizeArray.length - 1) * 50)
             } else {
                 winning = resultArray[i - 1]
             }
-        } else {
-            if (Object.values(masterData[i].result).includes(-1)) {
-                if (masterData[i].result[playerName] === -1) {
-                    winning = resultArray[i - 1] + ((prizeArray.length - 1) * 100)
-                } else {
-                    winning = resultArray[i - 1]
-                }
-            } else if (winning === undefined) {
-                winning = resultArray[i - 1] ? resultArray[i - 1] : 0
-            } else if (i !== 0) {
-                winning += resultArray[i - 1];
-            }
+        } else if (winning === undefined) {
+            winning = resultArray[i - 1] ? resultArray[i - 1] : 0
+        } else if (i !== 0) {
+            winning += resultArray[i - 1];
         }
         resultArray.push(winning)
     }
@@ -116,24 +98,15 @@ const calculatePrize = playerName => {
     for (let i = 0; i < masterData.length; i++) {
         const prizeArray = prizeMoney[masterData[i].played.length.toString()];
         let winning = prizeArray[masterData[i].result[playerName]];
-        if (masterData[i].number === 47) {
-            if (playerName === 'KT') {
-                winning = 400;
-            } else if (playerName === 'SJ' || playerName === 'VJ') {
-                winning = 150;
+        if (Object.values(masterData[i].result).includes(-1)) {
+            //Condition for winner takes all
+            if (masterData[i].result[playerName] === -1) {
+                winning = (prizeArray.length - 1) * 50;
             } else {
                 winning = 0
             }
-        } else {
-            if (Object.values(masterData[i].result).includes(-1)) {
-                if (masterData[i].result[playerName] === -1) {
-                    winning = (prizeArray.length - 1) * 100;
-                } else {
-                    winning = 0
-                }
-            } else if (winning === undefined) {
-                winning = 0;
-            }
+        } else if (winning === undefined) {
+            winning = 0;
         }
         resultArray.push(winning)
     }
