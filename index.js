@@ -403,8 +403,6 @@ const closeNav = () => {
 }
 
 const domLoaded = () => {
-
-
     fetch('https://api.npoint.io/6854bcef08ac2ebec1ce')
         .then(resp => resp.json())
         .then(response => {
