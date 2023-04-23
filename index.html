@@ -15,10 +15,8 @@
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <button onclick="triggerButtonSelection('avg')" class="custom-button">DASHBOARD</button>
-        <!-- <button disabled onclick="triggerButtonSelection('prize')" class="custom-button">PRIZE</button>
-          <button disabled onclick="triggerButtonSelection('winning')" class="custom-button">WINNING</button>
-          <button disabled onclick="triggerButtonSelection('net')" class="custom-button">NET</button>
-          <button disabled onclick="triggerButtonSelection('net2')" class="custom-button">SONALI CHART</button> -->
+        <button onclick="triggerButtonSelection('winning')" class="custom-button">WINNING</button>
+        <button onclick="triggerButtonSelection('net')" class="custom-button">NET</button>
         <button onclick="triggerButtonSelection('result')" class="custom-button">RESULT</button>
     </div>
     <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
@@ -42,20 +40,12 @@
         </div>
     </div>
     <div class='result-element'>
-        <canvas id="rankChart"></canvas>
-    </div>
-    <div class='result-element'>
-        <canvas id="prizeChart"></canvas>
-    </div>
-    <div class='result-element'>
         <canvas id="winningChart"></canvas>
-    </div>
-    <div id="resultTable" class='result-element ag-theme-alpine"'>
     </div>
     <div class="result-element">
         <canvas id="paymentChart"></canvas>
-    </div>
-    </div>
+    </div> 
+    <div id="resultTable" class='result-element ag-theme-alpine"'>
     </div>
 </body>
 <script src="index.js"></script>

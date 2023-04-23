@@ -231,6 +231,7 @@ p.AM {
     line-height: 1.5;
 }
 
+/* SIDEBAR NAV MENU STYLING STARTS HERE */
 .sidenav {
     height: 100%;
     width: 0;
@@ -268,12 +269,15 @@ p.AM {
     margin-left: 50px;
     color: white;
 }
+/* SIDEBAR NAV MENU STYLING ENDS HERE */
 
+/* MASTER TABLE STYLING STARTS HERE */
 #recordtable {
     display: flex;
     width: 100%;
     padding: 0 10px;
 }
+/* MASTER TABLE STYLING ENDS HERE */
 
 @media only screen and (max-width: 1024px) {
     .result-element {
