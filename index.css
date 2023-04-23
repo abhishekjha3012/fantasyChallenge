@@ -267,6 +267,9 @@ p.AM {
     #playerDetails, .payment-chart-parent {
         width: 100%;
     }
+    .payment-chart-parent{
+        height: 80vh;
+    }
     .result-element {
         height: 75;
     }
