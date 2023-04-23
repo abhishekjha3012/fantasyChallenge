@@ -118,7 +118,7 @@ const populateRankTable = () => {
     const gridOptions = {
         columnDefs: [
             { field: "player", headerName: 'Player' },
-            { field: "avgRank", headerName: 'AVg Rank' },
+            { field: "avgRank", headerName: 'Avg Rank' },
             { field: "weightedRank", headerName: 'Weighted Rank' },
             { field: "matchesPlayed", headerName: 'Matches Played' },
             { field: "rankSum", headerName: 'Saanp Score' },
@@ -139,7 +139,8 @@ const populateRankTable = () => {
     }))
     document.querySelector('.hall-fame-name').textContent = lastMatchData[1];
     document.querySelector('.shout-out-audio').src = `asset/A${lastMatchData[1]}.mp3`;
-    document.querySelector('.last-match-detail').innerHTML = `Last match updated: ${masterData[masterData.length - 1].match}`
+    document.querySelector('.last-match-detail').innerHTML = `
+        Last match updated:  ${masterData[masterData.length - 1].number} : ${masterData[masterData.length - 1].match}`
 }
 
 const populateRankChart = () => {
