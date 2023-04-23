@@ -51,7 +51,8 @@ h1 {
 }
 
 .header,
-.row {
+.row,
+.last-match-detail {
     display: flex;
     justify-content: center;
 }
@@ -80,6 +81,10 @@ h1 {
 .payment-chart-parent {
     padding: 20px;
     width: 50%;
+}
+
+#resultTable {
+    width: 100%; 
 }
 
 p.SJ {

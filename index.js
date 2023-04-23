@@ -17,34 +17,6 @@ const prizeMoney = {
     "6": [0, 175, 125, 0, 0, 0, 0],
     "7": [0, 200, 150, 0, 0, 0, 0, 0]
 }
-const commonChartObject = {
-    credits: {
-        enabled: false
-    },
-    legend: {
-        enabled: false
-    },
-    plotOptions: {
-        series: {
-            marker: {
-                enabled: false
-            }
-        }
-    },
-    chart: {
-        type: 'line',
-        backgroundColor: {
-            linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
-            stops: [
-                [0, '#D3D3D3'],
-                [1, '#D3D3D3']
-            ]
-        },
-        style: {
-            fontFamily: '\'Unica One\', sans-serif'
-        },
-    },
-}
 
 const calculateNetTotal = playerName => {
     let resultArray = [];
@@ -145,17 +117,18 @@ const populateRankTable = () => {
     displayOrder.sort((a, b) => a.avgRank > b.avgRank ? -1 : 1)
     const gridOptions = {
         columnDefs: [
-            { field: "player" },
-            { field: "avgRank" },
-            { field: "weightedRank" },
-            { field: "matchesPlayed" },
-            { field: "rankSum" },
+            { field: "player", headerName: 'Player' },
+            { field: "avgRank", headerName: 'AVg Rank' },
+            { field: "weightedRank", headerName: 'Weighted Rank' },
+            { field: "matchesPlayed", headerName: 'Matches Played' },
+            { field: "rankSum", headerName: 'Saanp Score' },
         ],
         defaultColDef: { sortable: true, filter: true },
         animateRows: true,
         domLayout: 'autoHeight'
     }
     const eGridDiv = document.getElementById("rankTable");
+    eGridDiv.innerHTML = '';
     new agGrid.Grid(eGridDiv, gridOptions);
     gridOptions.api.setRowData(displayOrder);
     gridOptions.api.sizeColumnsToFit();
@@ -166,6 +139,7 @@ const populateRankTable = () => {
     }))
     document.querySelector('.hall-fame-name').textContent = lastMatchData[1];
     document.querySelector('.shout-out-audio').src = `asset/A${lastMatchData[1]}.mp3`;
+    document.querySelector('.last-match-detail').innerHTML = `Last match updated: ${masterData[masterData.length - 1].match}`
 }
 
 const populateRankChart = () => {
@@ -275,28 +249,46 @@ const populateNet2Chart = () => {
 }
 
 const populateMasterTable = () => {
-    let tableHtml = ''
-    for (let i = 0; i < masterData.length; i++) {
-        const rowData = masterData[i];
-        const rankObject = Object.fromEntries(Object.entries(rowData.result).map(a => {
+    const displayOrder = masterData.map(item => {
+        const rankObject = Object.fromEntries(Object.entries(item.result).map(a => {
             a[1] = Math.abs(a[1]);
             return a.reverse();
         }))
-        const rowHtml = `<div class="row"><p>Match No. ${rowData.number}</p><p>${rowData.match}</p>
-        <p>${rowData.winner}</p>
-        <p class=${rankObject[1] ? rankObject[1] : ''}>${rankObject[1] ? rankObject[1] : '--'}</p>
-        <p class=${rowData.number===47 ? 'same-rank' : rankObject[2] ? rankObject[2] : ''}>
-            ${rowData.number===47 ?'SJ/VJ':rankObject[2] ? rankObject[2] : '--'}
-        </p>
-        <p class=${rankObject[3] ? rankObject[3] : ''}>${rankObject[3] ? rankObject[3] : '--'}</p>
-        <p class=${rankObject[4] ? rankObject[4] : ''}>${rankObject[4] ? rankObject[4] : '--'}</p>
-        <p class=${rankObject[5] ? rankObject[5] : ''}>${rankObject[5] ? rankObject[5] : '--'}</p>
-        <p class=${rankObject[6] ? rankObject[6] : ''}>${rankObject[6] ? rankObject[6] : '--'}</p>
-        <p class=${rankObject[7] ? rankObject[7] : ''}>${rankObject[7] ? rankObject[7] : '--'}</p>
-        </div>`
-        tableHtml += rowHtml;
+        return {
+            matchNo: item.number,
+            teams: item.match,
+            winner: item.winner,
+            rank1: rankObject[1] || '--',
+            rank2: rankObject[2] || '--',
+            rank3: rankObject[3] || '--',
+            rank4: rankObject[4] || '--',
+            rank5: rankObject[5] || '--',
+            rank6: rankObject[6] || '--',
+            rank7: rankObject[7] || '--',
+        };
+    });
+    const gridOptions = {
+        columnDefs: [
+            { field: "matchNo", headerName: 'Match No' },
+            { field: "teams", headerName: 'Teams' },
+            { field: "winner", headerName: 'Winner' },
+            { field: "rank1", headerName: "Rank 1" },
+            { field: "rank2", headerName: "Rank 2" },
+            { field: "rank3", headerName: "Rank 3" },
+            { field: "rank4", headerName: "Rank 4" },
+            { field: "rank5", headerName: "Rank 5" },
+            { field: "rank6", headerName: "Rank 6" },
+            { field: "rank7", headerName: "Rank 7" }
+        ],
+        defaultColDef: { sortable: false, filter: true },
+        animateRows: true,
+        domLayout: 'autoHeight'
     }
-    document.querySelector('.row-body').innerHTML = tableHtml;
+    const eGridDiv = document.getElementById("resultTable");
+    eGridDiv.innerHTML = '';
+    new agGrid.Grid(eGridDiv, gridOptions);
+    gridOptions.api.setRowData(displayOrder);
+    gridOptions.api.sizeColumnsToFit();
 }
 
 const populateRecordTable = () => {
@@ -348,6 +340,7 @@ const populateRecordTable = () => {
 }
 
 const triggerButtonSelection = node => {
+    document.querySelector('.active').classList.remove('active');
     switch (node) {
         case 'avg':
             document.querySelector('#playerDetails').parentElement.parentElement.classList.add('active');
@@ -367,10 +360,6 @@ const triggerButtonSelection = node => {
             document.querySelector('#winningChart').parentElement.classList.add('active');
             populateWinningChart();
             break;
-            // case 'net':
-            //     document.querySelector('#paymentChart').parentElement.classList.add('active');
-            //     populateNetChart();
-            //     break;
         case 'net2':
             document.querySelector('#paymentChart2').parentElement.classList.add('active');
             populateNet2Chart();
@@ -379,10 +368,6 @@ const triggerButtonSelection = node => {
             document.querySelector('#resultTable').classList.add('active');
             populateMasterTable();
             break;
-            // case 'record':
-            //     document.querySelector('#recordtable').classList.add('active');
-            //     populateRecordTable();
-            //     break;
         default:
             document.querySelector('#rankChart').classList.add('active');
             populateRankChart();
@@ -409,10 +394,7 @@ const domLoaded = () => {
             masterData = response
             triggerButtonSelection('avg');
             document.querySelector('.loading-msg').style.display = 'none';
-            document.querySelector('.dashboard').style.display = 'block';
-
         });
-
 }
 
 document.addEventListener('DOMContentLoaded', domLoaded, false);
