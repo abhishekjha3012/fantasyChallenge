@@ -298,7 +298,7 @@ const populateRecordTable = () => {
 
 //This function shows/hides chart based on user click on left menu nav.
 const triggerButtonSelection = node => {
-    document.querySelector('.active').classList.remove('active');
+    document.querySelector('.active')?.classList.remove('active');
     switch (node) {
         case 'avg':
             document.querySelector('#playerDetails').parentElement.parentElement.classList.add('active');
@@ -315,7 +315,7 @@ const triggerButtonSelection = node => {
             populateNetChart();
             break;
         case 'result':
-            document.querySelector('#resultTable').classList.add('active');
+            document.querySelector('#resultTable').parentElement.classList.add('active');
             populateMasterTable();
             break;
         default:

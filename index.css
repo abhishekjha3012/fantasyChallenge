@@ -1,4 +1,4 @@
-/*General Styling start */
+/* GLOBAL STYLING STARTS HERE */
 
 * {
     box-sizing: border-box;
@@ -19,72 +19,6 @@ h1 {
 
 .flex-block {
     display: flex;
-}
-
-.result-element {
-    display: none;
-    height: 75vh;
-}
-
-#rankTable {
-    width: 100%;
-    margin: 0 auto;
-}
-
-.result-element.active {
-    display: block;
-}
-
-.loading-msg {
-    font-size: 25px;
-    text-align: center;
-    margin: 2em;
-}
-
-.loading-msg span {
-    color: indianred;
-}
-
-.button-box {
-    display: flex;
-    justify-content: space-around;
-}
-
-.header,
-.row,
-.last-match-detail {
-    display: flex;
-    justify-content: center;
-}
-
-.header {
-    font-size: 18px;
-    font-weight: 900;
-}
-
-.row {
-    font-size: 14px;
-    font-weight: 400;
-}
-
-.header p,
-.row p {
-    border: 1px solid #2a2a2b;
-    width: 150px;
-    padding: 5px 20px;
-    color: black;
-    background: #D3D3D3;
-}
-
-#playerDetails,
-#resultTable,
-.payment-chart-parent {
-    padding: 20px;
-    width: 50%;
-}
-
-#resultTable {
-    width: 100%; 
 }
 
 p.SJ {
@@ -114,33 +48,68 @@ p.PJ {
 p.AM {
     background: #800080;
 }
+/* GLOBAL STYLING ENDS HERE */
 
-.same-rank {
-    color: white!important;
-    background: black!important;
+/* DASHBOARD STYLING STARTS HERE */
+.result-element {
+    display: none;
+    height: 75vh;
 }
 
+.result-element.active {
+    display: block;
+}
+
+#playerDetails,
+.payment-chart-parent {
+    padding: 20px;
+    width: 50%;
+}
+
+#resultTable {
+    width: 100%; 
+    padding: 20px;
+}
+
+.loading-msg {
+    font-size: 25px;
+    text-align: center;
+    margin: 2em;
+}
+
+.loading-msg span {
+    color: indianred;
+}
+
+.last-match-detail {
+    display: flex;
+    justify-content: center;
+}
+/* DASHBOARD STYLING ENDS HERE */
+
+
+/* HALL FAME BUTTON STYLING STARTS HERE */
 .shout-out-audio {
     visibility: hidden;
 }
 
-.hall-fame-button-parent {
+.hall-fame-parent {
     text-align: center;
     margin: 10px;
 }
 
 .hall-fame-name {
     font-size: 5em;
-    text-align: center;
     font-family: fantasy;
-    padding: 0;
     border: none;
     background: rgb(69, 39, 160);
     color: white;
     width: 200px;
     height: 100px;
 }
+/* HALL FAME BUTTON STYLING ENDS HERE */
 
+/* DASHBOARD PLAYER CARD STYLING STARTS HERE */
 .player-card {
     background-color: transparent;
     height: 150px;
@@ -230,6 +199,7 @@ p.AM {
     padding: 10px 0;
     line-height: 1.5;
 }
+/* DASHBOARD PLAYER CARD STYLING ENDS HERE */
 
 /* SIDEBAR NAV MENU STYLING STARTS HERE */
 .sidenav {
@@ -280,6 +250,23 @@ p.AM {
 /* MASTER TABLE STYLING ENDS HERE */
 
 @media only screen and (max-width: 1024px) {
+    h1 {
+        font-size: 20px;
+    }
+    #recordtable { 
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .player-card {
+        flex: 0 0 auto; 
+    }
+    .flex-block {
+        flex-wrap: wrap;
+    }
+    #playerDetails, .payment-chart-parent {
+        width: 100%;
+    }
     .result-element {
         height: 75;
     }
