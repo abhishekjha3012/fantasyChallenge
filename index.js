@@ -8,7 +8,7 @@ const playerArray = [
     { name: 'Keshav', id: 'KT', num: 3, color: '#566573', imageAddress: 'asset/KT.png' },
     { name: 'Saurabh', id: 'SSJ', num: 4, color: '#F7FF8E', imageAddress: 'asset/SSJ.png' },
     { name: 'Parinav', id: 'PJ', num: 5, color: '#8EFFF7', imageAddress: 'asset/PJ.png' },
-    { name: 'Chanchal', id: 'CJ', num: 6, color: '#800080', imageAddress: 'https://m.media-amazon.com/images/M/MV5BMmI0NjA5YmYtNjU5OC00ZDFlLWE5MmEtZmE5YjUxNWY1ZDYxXkEyXkFqcGdeQXVyNzM4MjU3NzY@._V1_FMjpg_UX1000_.jpg' }
+    { name: 'Chanchal', id: 'CJ', num: 6, color: '#800080', imageAddress: 'asset/CJ.jpeg' }
 ]
 //Prize money array based on no:of players playing
 const prizeMoney = {
