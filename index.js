@@ -27,14 +27,15 @@ const calculateNetTotal = playerName => {
     for (let i = 0; i < masterData.length; i++) {
         const prizeArray = prizeMoney[masterData[i].played.length.toString()];
         let winning = prizeArray[masterData[i].result[playerName]];
-        if(masterData[i].number === 24){
-            // Condition for specifci match where scores were tied
-            if (playerName === 'SSJ' || playerName === 'KT') {
-                winning = resultArray[i - 1] + 175;
-            } else {
-                winning = resultArray[i - 1]
-            }
-        } else if (Object.values(masterData[i].result).includes(-1)) {
+        // if(masterData[i].number === 24){
+        //     // Condition for specifci match where scores were tied
+        //     if (playerName === 'SSJ' || playerName === 'KT') {
+        //         winning = resultArray[i - 1] + 175;
+        //     } else {
+        //         winning = resultArray[i - 1]
+        //     }
+        // } else 
+        if (Object.values(masterData[i].result).includes(-1)) {
             // Condition for winner takes all
             if (masterData[i].result[playerName] === -1) {
                 winning = resultArray[i - 1] + ((prizeArray.length - 1) * 50)
@@ -340,7 +341,7 @@ const closeNav = () => {
 
 //This funcion is triggered on DOM load and loads default charts on dashbaord.
 const domLoaded = () => {
-    fetch('https://api.npoint.io/6854bcef08ac2ebec1ce')
+    fetch('https://api.npoint.io/c2ad801e96b404a59ce4')
         .then(resp => resp.json())
         .then(response => {
             masterData = response
