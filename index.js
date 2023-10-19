@@ -12,13 +12,13 @@ const playerArray = [
 ]
 //Prize money array based on no:of players playing
 const prizeMoney = {
-    "1": [0, 50],
-    "2": [0, 100, 0],
-    "3": [0, 150, 0, 0],
-    "4": [0, 150, 50, 0, 0],
-    "5": [0, 150, 100, 0, 0, 0],
-    "6": [0, 175, 125, 0, 0, 0, 0],
-    "7": [0, 200, 150, 0, 0, 0, 0, 0]
+    "1": [0, 100],
+    "2": [0, 200, 0],
+    "3": [0, 300, 0, 0],
+    "4": [0, 300, 100, 0, 0],
+    "5": [0, 300, 200, 0, 0, 0],
+    "6": [0, 350, 250, 0, 0, 0, 0],
+    "7": [0, 400, 300, 0, 0, 0, 0, 0]
 }
 
 //This function returns the winning array minus match fees for individual player
@@ -27,14 +27,7 @@ const calculateNetTotal = playerName => {
     for (let i = 0; i < masterData.length; i++) {
         const prizeArray = prizeMoney[masterData[i].played.length.toString()];
         let winning = prizeArray[masterData[i].result[playerName]];
-        if(masterData[i].number === 24){
-            // Condition for specifci match where scores were tied
-            if (playerName === 'SSJ' || playerName === 'KT') {
-                winning = resultArray[i - 1] + 175;
-            } else {
-                winning = resultArray[i - 1]
-            }
-        } else if (Object.values(masterData[i].result).includes(-1)) {
+        if (Object.values(masterData[i].result).includes(-1)) {
             // Condition for winner takes all
             if (masterData[i].result[playerName] === -1) {
                 winning = resultArray[i - 1] + ((prizeArray.length - 1) * 50)
