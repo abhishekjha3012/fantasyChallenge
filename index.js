@@ -340,7 +340,7 @@ const closeNav = () => {
 
 //This funcion is triggered on DOM load and loads default charts on dashbaord.
 const domLoaded = () => {
-    fetch('https://api.npoint.io/6854bcef08ac2ebec1ce')
+    fetch('https://api.npoint.io/f8c5dbf9ae6decd43e32')
         .then(resp => resp.json())
         .then(response => {
             masterData = response
