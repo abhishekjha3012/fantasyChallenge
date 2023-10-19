@@ -7,9 +7,11 @@ const playerArray = [
     { name: 'Varsha', id: 'VJ', num: 2, color: '#8E9DFF', imageAddress: 'https://stickerly.pstatic.net/sticker_pack/CWqJyA7W1seavKQUFJ7A/3WATSW/16/5bade8dc-d62e-41d8-b0ee-358bde44a10e.png' },
     { name: 'Keshav', id: 'KT', num: 3, color: '#566573', imageAddress: 'asset/KT.png' },
     { name: 'Saurabh', id: 'SSJ', num: 4, color: '#F7FF8E', imageAddress: 'asset/SSJ.png' },
-    { name: 'Parinav', id: 'PJ', num: 5, color: '#8EFFF7', imageAddress: 'asset/PJ.png' },
+    // { name: 'Parinav', id: 'PJ', num: 5, color: '#8EFFF7', imageAddress: 'asset/PJ.png' },
     { name: 'Chanchal', id: 'CJ', num: 6, color: '#800080', imageAddress: 'asset/CJ.jpeg' }
 ]
+
+const ENTRY_FEE = 100;
 //Prize money array based on no:of players playing
 const prizeMoney = {
     "1": [0, 100],
@@ -27,10 +29,18 @@ const calculateNetTotal = playerName => {
     for (let i = 0; i < masterData.length; i++) {
         const prizeArray = prizeMoney[masterData[i].played.length.toString()];
         let winning = prizeArray[masterData[i].result[playerName]];
-        if (Object.values(masterData[i].result).includes(-1)) {
+       //Condition for winner takes all
+        if(masterData[i].number === 4){
+            // Condition for specifci match where scores were tied
+            if (playerName === 'VJ' || playerName === 'KT') {
+                winning = resultArray[i - 1] + 300;
+            } else {
+                winning = resultArray[i - 1]
+            }
+        } else if (Object.values(masterData[i].result).includes(-1)) {
             // Condition for winner takes all
             if (masterData[i].result[playerName] === -1) {
-                winning = resultArray[i - 1] + ((prizeArray.length - 1) * 50)
+                winning = resultArray[i - 1] + ((prizeArray.length - 1) * ENTRY_FEE)
             } else {
                 winning = resultArray[i - 1]
             }
@@ -40,7 +50,7 @@ const calculateNetTotal = playerName => {
             winning += resultArray[i - 1];
         }
         if (masterData[i].played.includes(playerName)) {
-            winning -= 50
+            winning -= ENTRY_FEE
         }
         resultArray.push(winning)
     }
@@ -56,7 +66,7 @@ const calculateWinning = playerName => {
         if (Object.values(masterData[i].result).includes(-1)) {
             if (masterData[i].result[playerName] === -1) {
                 //Condition for winner takes all
-                winning = resultArray[i - 1] + ((prizeArray.length - 1) * 50)
+                winning = resultArray[i - 1] + ((prizeArray.length - 1) * ENTRY_FEE)
             } else {
                 winning = resultArray[i - 1]
             }
