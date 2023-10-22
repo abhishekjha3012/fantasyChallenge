@@ -29,11 +29,18 @@ const calculateNetTotal = playerName => {
     for (let i = 0; i < masterData.length; i++) {
         const prizeArray = prizeMoney[masterData[i].played.length.toString()];
         let winning = prizeArray[masterData[i].result[playerName]];
-       //Condition for winner takes all
+        //Condition for winner takes all
         if(masterData[i].number === 4){
             // Condition for specifci match where scores were tied
             if (playerName === 'VJ' || playerName === 'KT') {
                 winning = resultArray[i - 1] + 300;
+            } else {
+                winning = resultArray[i - 1]
+            }
+        } if(masterData[i].number === 6){
+            // Condition for specifci match where scores were tied
+            if (playerName === 'SJ' || playerName === 'SSJ') {
+                winning = resultArray[i - 1] + 200;
             } else {
                 winning = resultArray[i - 1]
             }
