@@ -7,7 +7,7 @@ const playerArray = [
     { name: 'Varsha', id: 'VJ', num: 2, color: '#8E9DFF', imageAddress: 'https://stickerly.pstatic.net/sticker_pack/CWqJyA7W1seavKQUFJ7A/3WATSW/16/5bade8dc-d62e-41d8-b0ee-358bde44a10e.png' },
     { name: 'Keshav', id: 'KT', num: 3, color: '#566573', imageAddress: 'asset/KT.png' },
     { name: 'Saurabh', id: 'SSJ', num: 4, color: '#F7FF8E', imageAddress: 'asset/SSJ.png' },
-    // { name: 'Parinav', id: 'PJ', num: 5, color: '#8EFFF7', imageAddress: 'asset/PJ.png' },
+    //{ name: 'Parinav', id: 'PJ', num: 5, color: '#8EFFF7', imageAddress: 'asset/PJ.png' },
     { name: 'Chanchal', id: 'CJ', num: 6, color: '#800080', imageAddress: 'asset/CJ.jpeg' }
 ]
 
@@ -20,7 +20,17 @@ const prizeMoney = {
     "4": [0, 300, 100, 0, 0],
     "5": [0, 300, 200, 0, 0, 0],
     "6": [0, 350, 250, 0, 0, 0, 0],
-    "7": [0, 400, 300, 0, 0, 0, 0, 0]
+    // "7": [0, 400, 300, 0, 0, 0, 0, 0]
+}
+
+const conversionFactor = {
+    "1": [0, 6],
+    "2": [0, 1, 6],
+    "3": [0, 1, 3, 6],
+    "4": [0, 1, 2, 4, 6],
+    "5": [0, 1, 1.5, 3, 4.5, 6],
+    "6": [0, 1, 2, 3, 4, 5, 6],
+    // "7": [0, 1, 2, 3, 4, 5, 6, 0]
 }
 
 //This function returns the winning array minus match fees for individual player
@@ -31,6 +41,7 @@ const calculateNetTotal = playerName => {
         let winning = prizeArray[masterData[i].result[playerName]];
         //Condition for winner takes all
         if(masterData[i].number === 4){
+            // SCORES TIED
             // Condition for specifci match where scores were tied
             if (playerName === 'VJ' || playerName === 'KT') {
                 winning = resultArray[i - 1] + 300;
@@ -38,6 +49,7 @@ const calculateNetTotal = playerName => {
                 winning = resultArray[i - 1]
             }
         } if(masterData[i].number === 6){
+            // SCORES TIED
             // Condition for specifci match where scores were tied
             if (playerName === 'SJ' || playerName === 'SSJ') {
                 winning = resultArray[i - 1] + 200;
@@ -95,17 +107,15 @@ const populateRankTable = () => {
         let matchesPlayed = 0;
         let rankSum = 0;
         let weightedSum = 0;
-        let weightedMatchPlayed = 0;
         for (let i = 0; i < masterData.length; i++) {
             if (masterData[i].played.includes(player)) {
                 matchesPlayed++;
-                weightedMatchPlayed += masterData[i].played.length;
                 rankSum += Math.abs(masterData[i].result[player]);
-                weightedSum += (Math.abs(masterData[i].result[player]) * masterData[i].played.length);
+                weightedSum += conversionFactor[masterData[i].played.length][Math.abs([masterData[i].result[player]])];
             }
         }
         const avgRank = (rankSum / matchesPlayed).toFixed(2);
-        const weightedRank = (weightedSum / weightedMatchPlayed).toFixed(2);
+        const weightedRank = (weightedSum / matchesPlayed).toFixed(2);
         displayOrder.push({
             player,
             avgRank,
@@ -121,10 +131,8 @@ const populateRankTable = () => {
     const gridOptions = {
         columnDefs: [
             { field: "player", headerName: 'Player' },
-            // { field: "avgRank", headerName: 'Avg Rank' },
             { field: "weightedRank", headerName: 'Weighted Rank' },
             { field: "matchesPlayed", headerName: 'Matches Played' },
-            { field: "rankSum", headerName: 'Saanp Score' },
         ],
         defaultColDef: { sortable: true, filter: true },
         animateRows: true,
@@ -220,6 +228,12 @@ const populateMasterTable = () => {
             a[1] = Math.abs(a[1]);
             return a.reverse();
         }))
+        // SCORES TIED
+        if(item.number === 4) {
+            rankObject[1] = 'VJ/KT'
+        } else if(item.number === 6) {
+            rankObject[1] = 'SJ/SSJ'
+        }
         return {
             matchNo: item.number,
             teams: item.match,
