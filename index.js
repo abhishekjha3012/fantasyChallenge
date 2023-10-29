@@ -121,7 +121,7 @@ const populateRankTable = () => {
     const gridOptions = {
         columnDefs: [
             { field: "player", headerName: 'Player' },
-            { field: "avgRank", headerName: 'Avg Rank' },
+            // { field: "avgRank", headerName: 'Avg Rank' },
             { field: "weightedRank", headerName: 'Weighted Rank' },
             { field: "matchesPlayed", headerName: 'Matches Played' },
             { field: "rankSum", headerName: 'Saanp Score' },
