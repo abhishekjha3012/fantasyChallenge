@@ -59,7 +59,9 @@ const calculateNetTotal = playerName => {
         } else if (masterData[i].number === 16){
             // SCORES TIED
             // Condition for specifci match where scores were tied
-            if (playerName === 'VJ' || playerName === 'KT') {
+            if (playerName === 'CJ') {
+                winning = resultArray[i - 1] + 300;
+            } else if (playerName === 'VJ' || playerName === 'KT') {
                 winning = resultArray[i - 1] + 100;
             } else {
                 winning = resultArray[i - 1]
