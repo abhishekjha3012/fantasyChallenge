@@ -48,11 +48,19 @@ const calculateNetTotal = playerName => {
             } else {
                 winning = resultArray[i - 1]
             }
-        } if(masterData[i].number === 6){
+        } else if (masterData[i].number === 6){
             // SCORES TIED
             // Condition for specifci match where scores were tied
             if (playerName === 'SJ' || playerName === 'SSJ') {
                 winning = resultArray[i - 1] + 200;
+            } else {
+                winning = resultArray[i - 1]
+            }
+        } else if (masterData[i].number === 16){
+            // SCORES TIED
+            // Condition for specifci match where scores were tied
+            if (playerName === 'VJ' || playerName === 'KT') {
+                winning = resultArray[i - 1] + 100;
             } else {
                 winning = resultArray[i - 1]
             }
@@ -233,6 +241,8 @@ const populateMasterTable = () => {
             rankObject[1] = 'VJ/KT'
         } else if(item.number === 6) {
             rankObject[1] = 'SJ/SSJ'
+        } else if(item.number === 16) {
+            rankObject[1] = 'VJ/KT'
         }
         return {
             matchNo: item.number,
