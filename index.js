@@ -242,7 +242,7 @@ const populateMasterTable = () => {
         } else if(item.number === 6) {
             rankObject[1] = 'SJ/SSJ'
         } else if(item.number === 16) {
-            rankObject[1] = 'VJ/KT'
+            rankObject[2] = 'VJ/KT'
         }
         return {
             matchNo: item.number,
