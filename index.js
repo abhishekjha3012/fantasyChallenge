@@ -342,6 +342,9 @@ const triggerButtonSelection = node => {
             document.querySelector('#resultTable').parentElement.classList.add('active');
             populateMasterTable();
             break;
+        case 'v2':
+            document.querySelector('.v2-upcoming').parentElement.classList.add('active');
+            break;
         default:
             break;
     }
