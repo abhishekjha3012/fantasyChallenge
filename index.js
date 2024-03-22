@@ -7,7 +7,7 @@ const playerArray = [
     { name: 'Varsha', id: 'VJ', num: 2, color: '#8E9DFF', imageAddress: 'https://stickerly.pstatic.net/sticker_pack/CWqJyA7W1seavKQUFJ7A/3WATSW/16/5bade8dc-d62e-41d8-b0ee-358bde44a10e.png' },
     { name: 'Keshav', id: 'KT', num: 3, color: '#566573', imageAddress: 'asset/KT.png' },
     { name: 'Saurabh', id: 'SSJ', num: 4, color: '#F7FF8E', imageAddress: 'asset/SSJ.png' },
-    //{ name: 'Parinav', id: 'PJ', num: 5, color: '#8EFFF7', imageAddress: 'asset/PJ.png' },
+    { name: 'Aishwaryah', id: 'AM', num: 5, color: '#8EFFF7', imageAddress: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-gfQe8gjby3PROpW_GW0K2-3OjoVXYM_EvA&usqp=CAU' },
     { name: 'Chanchal', id: 'CJ', num: 6, color: '#800080', imageAddress: 'asset/CJ.jpeg' }
 ]
 
@@ -20,7 +20,7 @@ const prizeMoney = {
     "4": [0, 300, 100, 0, 0],
     "5": [0, 300, 200, 0, 0, 0],
     "6": [0, 350, 250, 0, 0, 0, 0],
-    // "7": [0, 400, 300, 0, 0, 0, 0, 0]
+    "7": [0, 400, 300, 0, 0, 0, 0, 0]
 }
 
 const conversionFactor = {
@@ -30,7 +30,7 @@ const conversionFactor = {
     "4": [0, 1, 2, 4, 6],
     "5": [0, 1, 1.5, 3, 4.5, 6],
     "6": [0, 1, 2, 3, 4, 5, 6],
-    // "7": [0, 1, 2, 3, 4, 5, 6, 0]
+    "7": [0, 1, 2, 3, 4, 5, 6, 7]
 }
 
 //This function returns the winning array minus match fees for individual player
@@ -43,29 +43,19 @@ const calculateNetTotal = playerName => {
         if(masterData[i].number === 4){
             // SCORES TIED
             // Condition for specifci match where scores were tied
-            if (playerName === 'VJ' || playerName === 'KT') {
-                winning = resultArray[i - 1] + 300;
-            } else {
-                winning = resultArray[i - 1]
-            }
+            // if (playerName === 'VJ' || playerName === 'KT') {
+            //     winning = resultArray[i - 1] + 300;
+            // } else {
+            //     winning = resultArray[i - 1]
+            // }
         } else if (masterData[i].number === 6){
             // SCORES TIED
             // Condition for specifci match where scores were tied
-            if (playerName === 'SJ' || playerName === 'SSJ') {
-                winning = resultArray[i - 1] + 200;
-            } else {
-                winning = resultArray[i - 1]
-            }
-        } else if (masterData[i].number === 16){
-            // SCORES TIED
-            // Condition for specifci match where scores were tied
-            if (playerName === 'CJ') {
-                winning = resultArray[i - 1] + 300;
-            } else if (playerName === 'VJ' || playerName === 'KT') {
-                winning = resultArray[i - 1] + 100;
-            } else {
-                winning = resultArray[i - 1]
-            }
+            // if (playerName === 'SJ' || playerName === 'SSJ') {
+            //     winning = resultArray[i - 1] + 200;
+            // } else {
+            //     winning = resultArray[i - 1]
+            // }
         } else if (Object.values(masterData[i].result).includes(-1)) {
             // Condition for winner takes all
             if (masterData[i].result[playerName] === -1) {
@@ -239,13 +229,11 @@ const populateMasterTable = () => {
             return a.reverse();
         }))
         // SCORES TIED
-        if(item.number === 4) {
-            rankObject[1] = 'VJ/KT'
-        } else if(item.number === 6) {
-            rankObject[1] = 'SJ/SSJ'
-        } else if(item.number === 16) {
-            rankObject[2] = 'VJ/KT'
-        }
+        // if(item.number === 4) {
+        //     rankObject[1] = 'VJ/KT'
+        // } else if(item.number === 6) {
+        //     rankObject[1] = 'SJ/SSJ'
+        // }
         return {
             matchNo: item.number,
             teams: item.match,
@@ -376,7 +364,7 @@ const closeNav = () => {
 
 //This funcion is triggered on DOM load and loads default charts on dashbaord.
 const domLoaded = () => {
-    fetch('https://api.npoint.io/f8c5dbf9ae6decd43e32')
+    fetch('https://api.npoint.io/781b99ffafaead6f476f')
         .then(resp => resp.json())
         .then(response => {
             masterData = response
