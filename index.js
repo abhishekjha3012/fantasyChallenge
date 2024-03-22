@@ -343,7 +343,8 @@ const triggerButtonSelection = node => {
             populateMasterTable();
             break;
         case 'v2':
-            document.querySelector('.v2-upcoming').parentElement.classList.add('active');
+            const newURL = new URL('dashboard.html', window.location.href).href;
+            window.location.href = newURL;
             break;
         default:
             break;
