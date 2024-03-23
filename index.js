@@ -20,7 +20,8 @@ const prizeMoney = {
     "4": [0, 300, 100, 0, 0],
     "5": [0, 300, 200, 0, 0, 0],
     "6": [0, 350, 250, 0, 0, 0, 0],
-    "7": [0, 400, 300, 0, 0, 0, 0, 0]
+    "7": [0, 400, 300, 0, 0, 0, 0, 0],
+    "8": [0, 400, 300, 100, 0, 0, 0, 0]
 }
 
 const conversionFactor = {
@@ -323,6 +324,7 @@ const populateRecordTable = () => {
 //This function shows/hides chart based on user click on left menu nav.
 const triggerButtonSelection = node => {
     document.querySelector('.active')?.classList.remove('active');
+    let newURL = '';
     switch (node) {
         case 'avg':
             document.querySelector('#playerDetails').parentElement.parentElement.classList.add('active');
@@ -343,7 +345,11 @@ const triggerButtonSelection = node => {
             populateMasterTable();
             break;
         case 'v2':
-            const newURL = new URL('dashboard.html', window.location.href).href;
+            newURL = new URL('dashboard.html', window.location.href).href;
+            window.location.href = newURL;
+            break;
+        case 'past':
+            newURL = new URL('past-performance.html', window.location.href).href;
             window.location.href = newURL;
             break;
         default:
