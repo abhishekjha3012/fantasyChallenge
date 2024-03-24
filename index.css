@@ -194,7 +194,7 @@ p.AM {
 }
 
 .player-card-back {
-    font-size: 11px;
+    font-size: 10px;
     transform: rotateY(180deg);
     padding: 10px 0;
     line-height: 1.5;
