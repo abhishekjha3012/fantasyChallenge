@@ -9,6 +9,7 @@ const playerArray = [
     { name: 'Saurabh', id: 'SSJ', num: 4, color: '#F7FF8E', imageAddress: 'asset/SSJ.png' },
     { name: 'Aishwaryah', id: 'AM', num: 5, color: '#8EFFF7', imageAddress: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-gfQe8gjby3PROpW_GW0K2-3OjoVXYM_EvA&usqp=CAU' },
     { name: 'Chanchal', id: 'CJ', num: 6, color: '#800080', imageAddress: 'asset/CJ.jpeg' }
+    { name: 'Nikhil', id: 'NT', num: 7, color: '#330080', imageAddress: 'asset/NT.jpeg' }
 ]
 
 const teamArray = [

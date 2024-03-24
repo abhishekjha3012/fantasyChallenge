@@ -8,7 +8,8 @@ const playerArray = [
     { name: 'Keshav', id: 'KT', num: 3, color: '#566573', imageAddress: 'asset/KT.png' },
     { name: 'Saurabh', id: 'SSJ', num: 4, color: '#F7FF8E', imageAddress: 'asset/SSJ.png' },
     { name: 'Aishwaryah', id: 'AM', num: 5, color: '#8EFFF7', imageAddress: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-gfQe8gjby3PROpW_GW0K2-3OjoVXYM_EvA&usqp=CAU' },
-    { name: 'Chanchal', id: 'CJ', num: 6, color: '#800080', imageAddress: 'asset/CJ.jpeg' }
+    { name: 'Chanchal', id: 'CJ', num: 6, color: '#800080', imageAddress: 'asset/CJ.jpeg' },
+    { name: 'Nikhil', id: 'NT', num: 7, color: '#330080', imageAddress: 'asset/NT.jpeg' }
 ]
 
 const ENTRY_FEE = 100;
@@ -25,13 +26,14 @@ const prizeMoney = {
 }
 
 const conversionFactor = {
-    "1": [0, 6],
-    "2": [0, 1, 6],
-    "3": [0, 1, 3, 6],
-    "4": [0, 1, 2, 4, 6],
-    "5": [0, 1, 1.5, 3, 4.5, 6],
-    "6": [0, 1, 2, 3, 4, 5, 6],
-    "7": [0, 1, 2, 3, 4, 5, 6, 7]
+    "1": [0, 8],
+    "2": [0, 1, 8], //done
+    "3": [0, 1, 4.5, 8], // done
+    "4": [0, 1, 3.35, 5.70, 8], // done
+    "5": [0, 1, 2.75, 4.5, 6.25, 8], //done
+    "6": [0, 1, 2.6, 3.2, 4.8, 6.4, 8], //done
+    "7": [0, 1, 2.15, 3.20, 4.45, 5.6, 6.75, 8], //done
+    "8": [0, 1, 2, 3, 4, 5, 6, 7, 8] // done
 }
 
 //This function returns the winning array minus match fees for individual player
