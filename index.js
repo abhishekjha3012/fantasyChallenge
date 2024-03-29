@@ -125,37 +125,22 @@ const populateRankTable = () => {
             avgRank,
             weightedRank,
             matchesPlayed,
-            rankSum
         })
-
-        document.querySelector('.loading-msg').style.display = 'none';
-        document.querySelector('#rankTable').style.display = 'block';
-    }
-    displayOrder.sort((a, b) => a.avgRank > b.avgRank ? -1 : 1)
-    const gridOptions = {
-        columnDefs: [
-            { field: "player", headerName: 'Player' },
-            { field: "weightedRank", headerName: 'Weighted Rank' },
-            { field: "matchesPlayed", headerName: 'Matches Played' },
-        ],
-        defaultColDef: { sortable: true, filter: true },
-        animateRows: true,
-        domLayout: 'autoHeight'
-    }
-    const eGridDiv = document.getElementById("rankTable");
-    eGridDiv.innerHTML = '';
-    new agGrid.Grid(eGridDiv, gridOptions);
-    gridOptions.api.setRowData(displayOrder);
-    gridOptions.api.sizeColumnsToFit();
-
-    const lastMatchData = Object.fromEntries(Object.entries(masterData[masterData.length - 1].result).map(a => {
-        a[1] = Math.abs(a[1]);
-        return a.reverse();
-    }))
-    document.querySelector('.hall-fame-name').textContent = lastMatchData[1];
-    document.querySelector('.shout-out-audio').src = `asset/A${lastMatchData[1]}.mp3`;
-    document.querySelector('.last-match-detail').innerHTML = `
-        Last match updated:  ${masterData[masterData.length - 1].number} : ${masterData[masterData.length - 1].match}`
+    } 
+    document.querySelector('.loading-msg').style.display = 'none';
+    document.querySelector('#rankTable').style.display = 'block';
+    displayOrder.sort((a, b) => a.avgRank > b.avgRank ? 1 : -1);
+    const rowData = displayOrder.map(item => `<tr><td>${item.player}</td><td>${item.avgRank}</td><td>${item.weightedRank}</td><td>${item.matchesPlayed}</td></tr>`)
+    document.querySelector('#rankTable tbody').innerHTML = rowData.join('');
+   
+    // const lastMatchData = Object.fromEntries(Object.entries(masterData[masterData.length - 1].result).map(a => {
+    //     a[1] = Math.abs(a[1]);
+    //     return a.reverse();
+    // }))
+    // document.querySelector('.hall-fame-name').textContent = lastMatchData[1];
+    // document.querySelector('.shout-out-audio').src = `asset/A${lastMatchData[1]}.mp3`;
+    // document.querySelector('.last-match-detail').innerHTML = `
+    //     Last match updated:  ${masterData[masterData.length - 1].number} : ${masterData[masterData.length - 1].match}`
 }
 
 //This functions generates the chart with only winning data.
@@ -205,24 +190,33 @@ const populateNetChart = () => {
 //This function generates the chart with final winning amount till update date
 const populateNet2Chart = () => {
     const dataseries = playerArray.map(item => calculateNetTotal(item.id).pop());
-    const colorSeries = playerArray.map(item => item.color);
     const options = {
-        type: 'bar',
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
+        chart: {
+            type: 'bar',
+            width: "100%",
+            height: 500,
+            toolbar: {
+                show: false,
+            }
         },
-        data: {
-            labels: playerArray.map(item => item.name),
-            datasets: [{
-                label: 'NET WINNING',
-                data: dataseries,
-                backgroundColor: colorSeries
-            }],
+        dataLabels: {
+            enabled: false
         },
+        stroke: {
+            width: 1,
+            colors: ["#fff"]
+        },
+        series: [{
+            name: 'Win',
+            data: dataseries
+        }],
+        xaxis: {
+            categories: playerArray.map(item => item.id)
+        }
     }
-    const chartDom = document.getElementById('paymentChart2');
-    new Chart(chartDom, options);
+
+    const chart = new ApexCharts(document.querySelector("#paymentChart2"), options);
+    chart.render();
 }
 
 //This populates master table with each match data rank list.
@@ -334,10 +328,10 @@ const triggerButtonSelection = node => {
     let newURL = '';
     switch (node) {
         case 'avg':
-            document.querySelector('#playerDetails').parentElement.parentElement.classList.add('active');
+            // document.querySelector('#playerDetails').parentElement.parentElement.classList.add('active');
             populateRankTable();
             populateNet2Chart();
-            populateRecordTable();
+            // populateRecordTable();
             break;
         case 'winning':
             document.querySelector('#winningChart').parentElement.classList.add('active');
