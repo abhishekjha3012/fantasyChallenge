@@ -8,7 +8,7 @@ const playerArray = [
     { name: 'Keshav', id: 'KT', num: 3, color: '#566573', imageAddress: 'asset/KT.png' },
     { name: 'Saurabh', id: 'SSJ', num: 4, color: '#F7FF8E', imageAddress: 'asset/SSJ.png' },
     { name: 'Aishwaryah', id: 'AM', num: 5, color: '#8EFFF7', imageAddress: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-gfQe8gjby3PROpW_GW0K2-3OjoVXYM_EvA&usqp=CAU' },
-    { name: 'Chanchal', id: 'CJ', num: 6, color: '#800080', imageAddress: 'asset/CJ.jpeg' }
+    { name: 'Chanchal', id: 'CJ', num: 6, color: '#800080', imageAddress: 'asset/CJ.jpeg' },
     { name: 'Nikhil', id: 'NT', num: 7, color: '#330080', imageAddress: 'asset/NT.jpeg' }
 ]
 
@@ -31,13 +31,11 @@ const triggerPersonalDataView = () => {
 
     const team1Array = teamArray.map(item => `<option>${item.name}</option>`);
     team1Array.unshift(`<option>All</option>`)
-    document.querySelector('.first-team').innerHTML = team1Array;
+    document.querySelector('.first-team').innerHTML = team1Array.join(',');
 
     const team2Array = teamArray.map(item => `<option>${item.name}</option>`);
     team2Array.unshift(`<option>All</option>`)
-    document.querySelector('.second-team').innerHTML = team2Array;
-
-    console.log(allYearMatchData)
+    document.querySelector('.second-team').innerHTML = team2Array.join(',');
 }
 
 const playerId = () => {
@@ -86,11 +84,16 @@ const filteredResult = allData => {
 }
 
 const generatePastResult = () => {
-    // const playerName = document.querySelector('.player-name').value;
-    // const firstTeam = document.querySelector('.first-team').value;
-    // const secondTeam = document.querySelector('.second-team').value;
     const data = filteredResult(allYearMatchData);
-    document.querySelector('.past-results').innerHTML = `<table>${getPastResult(data)}</table>`;
+    document.querySelector('.past-results').innerHTML = 
+    `<table class="table">
+        <thead> 
+            <th scope="col">Match details</th>
+            <th scope="col">Rank</th>
+            <th scope="col">Match winner</th>
+        </thead>
+        <tbody>${getPastResult(data)}</tbody>
+    </table>`;
 }
 
 const domLoaded = async () => {
