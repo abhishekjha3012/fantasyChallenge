@@ -249,6 +249,7 @@ const populateMasterTable = () => {
             rank5: rankObject[5] || '--',
             rank6: rankObject[6] || '--',
             rank7: rankObject[7] || '--',
+            rank8: rankObject[8] || '--',
         };
     });
     const gridOptions = {
@@ -262,7 +263,8 @@ const populateMasterTable = () => {
             { field: "rank4", headerName: "Rank 4" },
             { field: "rank5", headerName: "Rank 5" },
             { field: "rank6", headerName: "Rank 6" },
-            { field: "rank7", headerName: "Rank 7" }
+            { field: "rank7", headerName: "Rank 7" }, 
+            { field: "rank8", headerName: "Rank 8" }
         ],
         defaultColDef: { sortable: false, filter: true },
         animateRows: true,
