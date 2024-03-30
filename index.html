@@ -44,16 +44,23 @@
                     <a class="nav-link active" aria-current="page" href="./index.html">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./past-performance.html">Past Performance</a>
+                    <a class="nav-link" href="./past-performance.html">Check your past performance</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./track-record.html">Winning graph</a>
                 </li>
                 </ul>
             </div>
         </div>
     </nav>
    
-    <div class="container text-center bg-primary-subtle">
+    <div class="container-fluid text-center bg-primary-subtle content-section py-5">
+        <div class='row'>
+            <h1>Dashboard</h1>
+        </div>
         <div class='card mb-5'>
-            <div class='row align-items-center'>
+            <div class="card-body">
+                <h5 class="card-title">Snapshot</h5>
                 <table id="rankTable" class="table">
                     <thead> 
                         <th scope="col">Player Name</th>
@@ -66,8 +73,11 @@
             </div>
         </div>
 
-        <div class='card mb-5'>
-            <div id='paymentChart2'></div>
+        <div class='card'>
+            <div class="card-body">
+                <h5 class="card-title">Winning</h5>
+                <div id='paymentChart2'></div>
+            </div>
         </div>
     </div>
     <p class="loading-msg">Calculating Ranks. Hold Tight!! <span>&hearts;</span></p>
@@ -75,7 +85,6 @@
         <div id="recordtable"></div>
         <div class="flex-block">
             <div id="playerDetails">
-                
                 <div class="hall-fame-parent">
                     <button class='btn shout-out-button hall-fame-name' onclick="triggershoutOut()">SHOUTOUT</button>
                     <audio class='shout-out-audio' type="audio/mp3"></audio>

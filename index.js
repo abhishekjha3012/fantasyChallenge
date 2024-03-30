@@ -36,73 +36,6 @@ const conversionFactor = {
     "8": [0, 1, 2, 3, 4, 5, 6, 7, 8] // done
 }
 
-//This function returns the winning array minus match fees for individual player
-const calculateNetTotal = playerName => {
-    let resultArray = [];
-    for (let i = 0; i < masterData.length; i++) {
-        const prizeArray = prizeMoney[masterData[i].played.length.toString()];
-        let winning = prizeArray[masterData[i].result[playerName]];
-        //Condition for winner takes all
-        // if(masterData[i].number === 4){
-            // SCORES TIED
-            // Condition for specifci match where scores were tied
-            // if (playerName === 'VJ' || playerName === 'KT') {
-            //     winning = resultArray[i - 1] + 300;
-            // } else {
-            //     winning = resultArray[i - 1]
-            // }
-        //} else if (masterData[i].number === 6){
-            // SCORES TIED
-            // Condition for specifci match where scores were tied
-            // if (playerName === 'SJ' || playerName === 'SSJ') {
-            //     winning = resultArray[i - 1] + 200;
-            // } else {
-            //     winning = resultArray[i - 1]
-            // }
-        //} else 
-        if (Object.values(masterData[i].result).includes(-1)) {
-            // Condition for winner takes all
-            if (masterData[i].result[playerName] === -1) {
-                winning = resultArray[i - 1] + ((prizeArray.length - 1) * ENTRY_FEE)
-            } else {
-                winning = resultArray[i - 1]
-            }
-        } else if (winning === undefined) {
-            winning = resultArray[i - 1] ? resultArray[i - 1] : 0
-        } else if (i !== 0) {
-            winning += resultArray[i - 1];
-        }
-        if (masterData[i].played.includes(playerName)) {
-            winning -= ENTRY_FEE
-        }
-        resultArray.push(winning)
-    }
-    return resultArray;
-}
-
-//This function returns the winning array for individual player
-const calculateWinning = playerName => {
-    let resultArray = [];
-    for (let i = 0; i < masterData.length; i++) {
-        const prizeArray = prizeMoney[masterData[i].played.length.toString()];
-        let winning = prizeArray[masterData[i].result[playerName]];
-        if (Object.values(masterData[i].result).includes(-1)) {
-            if (masterData[i].result[playerName] === -1) {
-                //Condition for winner takes all
-                winning = resultArray[i - 1] + ((prizeArray.length - 1) * ENTRY_FEE)
-            } else {
-                winning = resultArray[i - 1]
-            }
-        } else if (winning === undefined) {
-            winning = resultArray[i - 1] ? resultArray[i - 1] : 0
-        } else if (i !== 0) {
-            winning += resultArray[i - 1];
-        }
-        resultArray.push(winning)
-    }
-    return resultArray;
-}
-
 //This function generates the table with basic detail which can be seen on dashboard.
 const populateRankTable = () => {
     const displayOrder = [];
@@ -143,81 +76,37 @@ const populateRankTable = () => {
     //     Last match updated:  ${masterData[masterData.length - 1].number} : ${masterData[masterData.length - 1].match}`
 }
 
-//This functions generates the chart with only winning data.
-const populateWinningChart = () => {
-    const seriesData = playerArray.map(item => ({
-        label: item.name,
-        borderColor: item.color,
-        data: calculateWinning(item.id)
-    }));
-    const options = {
-        type: 'line',
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-        },
-        data: {
-            labels: [...masterData.map(item => item.match)],
-            datasets: seriesData
-        },
-    };
-    const chartDom = document.getElementById('winningChart');
-    new Chart(chartDom, options)
-}
-
-//This functions generates the chart with winning data minus match fees.
-const populateNetChart = () => {
-    const seriesData = playerArray.map(item => ({
-        label: item.name,
-        borderColor: item.color,
-        data: calculateNetTotal(item.id)
-    }))
-    const options = {
-        type: 'line',
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-        },
-        data: {
-            labels: [...masterData.map(item => item.match)],
-            datasets: seriesData
-        },
-    }
-    const chartDom = document.getElementById('paymentChart');
-    new Chart(chartDom, options)
-}
-
 //This function generates the chart with final winning amount till update date
-const populateNet2Chart = () => {
-    const dataseries = playerArray.map(item => calculateNetTotal(item.id).pop());
-    const options = {
-        chart: {
-            type: 'bar',
-            width: "100%",
-            height: 500,
-            toolbar: {
-                show: false,
-            }
-        },
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            width: 1,
-            colors: ["#fff"]
-        },
-        series: [{
-            name: 'Win',
-            data: dataseries
-        }],
-        xaxis: {
-            categories: playerArray.map(item => item.id)
-        }
-    }
+// const populateNet2Chart = () => {
+//     const dataseries = playerArray.map(item => calculateNetTotal(item.id).pop());
+//     const options = {
+//         chart: {
+//             type: 'bar',
+//             width: "100%",
+//             height: 500,
+//             toolbar: {
+//                 show: false,
+//             }
+//         },
+//         dataLabels: {
+//             enabled: false
+//         },
+//         stroke: {
+//             width: 1,
+//             colors: ["#fff"]
+//         },
+//         series: [{
+//             name: 'Win',
+//             data: dataseries
+//         }],
+//         xaxis: {
+//             categories: playerArray.map(item => item.id)
+//         }
+//     }
 
-    const chart = new ApexCharts(document.querySelector("#paymentChart2"), options);
-    chart.render();
-}
+//     const chart = new ApexCharts(document.querySelector("#paymentChart2"), options);
+//     chart.render();
+// }
 
 //This populates master table with each match data rank list.
 const populateMasterTable = () => {
@@ -323,40 +212,6 @@ const populateRecordTable = () => {
 }
 
 //This function shows/hides chart based on user click on left menu nav.
-const triggerButtonSelection = node => {
-    document.querySelector('.active')?.classList.remove('active');
-    let newURL = '';
-    switch (node) {
-        case 'avg':
-            // document.querySelector('#playerDetails').parentElement.parentElement.classList.add('active');
-            populateRankTable();
-            populateNet2Chart();
-            // populateRecordTable();
-            break;
-        case 'winning':
-            document.querySelector('#winningChart').parentElement.classList.add('active');
-            populateWinningChart();
-            break;
-        case 'net':
-            document.querySelector('#paymentChart').parentElement.classList.add('active');
-            populateNetChart();
-            break;
-        case 'result':
-            document.querySelector('#resultTable').parentElement.classList.add('active');
-            populateMasterTable();
-            break;
-        case 'v2':
-            newURL = new URL('dashboard.html', window.location.href).href;
-            window.location.href = newURL;
-            break;
-        case 'past':
-            newURL = new URL('past-performance.html', window.location.href).href;
-            window.location.href = newURL;
-            break;
-        default:
-            break;
-    }
-}
 
 //This function triggers play when audio is clicked.
 const triggershoutOut = () => {
@@ -379,7 +234,6 @@ const domLoaded = () => {
         .then(resp => resp.json())
         .then(response => {
             masterData = response
-            triggerButtonSelection('avg');
             document.querySelector('.loading-msg').style.display = 'none';
         });
 }

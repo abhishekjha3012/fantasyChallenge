@@ -1,0 +1,9 @@
+.past-results {
+    max-height: 50vh;
+    overflow: scroll;
+
+    thead {
+        position: sticky; 
+        top: 0;
+    }
+}

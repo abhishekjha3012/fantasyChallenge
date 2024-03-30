@@ -1,5 +1,6 @@
 //This funcion is triggered on DOM load and loads default charts on dashbaord.
 let allYearMatchData= [];
+
 //List of players who are playing
 const playerArray = [
     { name: 'Abhishek', id: 'AJ', num: 0, color: '#B1FFAD', imageAddress: 'asset/AJ.jpeg' },
@@ -23,7 +24,6 @@ const teamArray = [
     {name: 'LKN', id:'lkn', values:['lkn']},
     {name: 'SRH', id:'srh', values:['srh']},
 ]
-
 
 const triggerPersonalDataView = () => {
     const playerOptions = playerArray.map(item => `<option>${item.name}</option>`);
@@ -86,13 +86,13 @@ const filteredResult = allData => {
 const generatePastResult = () => {
     const data = filteredResult(allYearMatchData);
     document.querySelector('.past-results').innerHTML = 
-    `<table class="table">
+    `<table class="table" data-sticky-header=true>
         <thead> 
             <th scope="col">Match details</th>
             <th scope="col">Rank</th>
             <th scope="col">Match winner</th>
         </thead>
-        <tbody>${getPastResult(data)}</tbody>
+        <tbody class="table-group-divider">${getPastResult(data)}</tbody>
     </table>`;
 }
 
