@@ -1,2 +1,2 @@
-const name = "Testing in progress!!!Press OK to get excited";
+const name = "Testing in progress!!";
 alert(name);

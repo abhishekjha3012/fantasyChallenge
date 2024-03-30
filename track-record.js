@@ -137,7 +137,7 @@ const showWinningChart = () => {
             categories: trackRecordMasterData.map(item => item.id),
         }
     }
-
+    document.querySelector('.card.d-none').classList.remove('d-none')
     const chart = new ApexCharts(document.querySelector(".track-record-chart"), options);
     chart.render();
 };
