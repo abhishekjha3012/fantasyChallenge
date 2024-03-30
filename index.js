@@ -93,6 +93,10 @@ const calculateNetTotal = playerName => {
         if(masterData[i].number === 11){
             if (playerName === 'VJ' || playerName === 'SSJ') {
                 winning = resultArray[i - 1] + 50;
+            } else if(playerName === 'AM'){
+                winning = resultArray[i - 1] + 400
+            } else if(playerName === 'CJ'){
+                winning = resultArray[i - 1] + 300
             } else {
                 winning = resultArray[i - 1]
             }

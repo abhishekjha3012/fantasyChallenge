@@ -49,6 +49,10 @@ const calculateNetTotal = playerName => {
         if(trackRecordMasterData[i].number === 11){
             if (playerName === 'VJ' || playerName === 'SSJ') {
                 winning = resultArray[i - 1] + 50;
+            } else if(playerName === 'AM'){
+                winning = resultArray[i - 1] + 400
+            } else if(playerName === 'CJ'){
+                winning = resultArray[i - 1] + 300
             } else {
                 winning = resultArray[i - 1]
             }
@@ -111,7 +115,7 @@ const showWinningChart = () => {
             categories: trackRecordMasterData.map(item => item.id),
         }
     }
-    document.querySelector('.card.d-none').classList.remove('d-none')
+    document.querySelector('.card').classList.remove('d-none')
     const chart = new ApexCharts(document.querySelector(".track-record-chart"), options);
     chart.render();
 };
