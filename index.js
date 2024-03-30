@@ -81,16 +81,7 @@ const calculateNetTotal = playerName => {
     for (let i = 0; i < masterData.length; i++) {
         const prizeArray = prizeMoney[masterData[i].played.length.toString()];
         let winning = prizeArray[masterData[i].result[playerName]];
-        //Condition for winner takes all
-        // if(masterData[i].number === 4){
-            // SCORES TIED
-            // Condition for specifci match where scores were tied
-            // if (playerName === 'VJ' || playerName === 'KT') {
-            //     winning = resultArray[i - 1] + 300;
-            // } else {
-            //     winning = resultArray[i - 1]
-            // }
-        //} else if (masterData[i].number === 6){
+        // if (masterData[i].number === 6){
             // SCORES TIED
             // Condition for specifci match where scores were tied
             // if (playerName === 'SJ' || playerName === 'SSJ') {
@@ -99,7 +90,13 @@ const calculateNetTotal = playerName => {
             //     winning = resultArray[i - 1]
             // }
         //} else 
-        if (Object.values(masterData[i].result).includes(-1)) {
+        if(masterData[i].number === 11){
+            if (playerName === 'VJ' || playerName === 'SSJ') {
+                winning = resultArray[i - 1] + 50;
+            } else {
+                winning = resultArray[i - 1]
+            }
+        } else if (Object.values(masterData[i].result).includes(-1)) {
             // Condition for winner takes all
             if (masterData[i].result[playerName] === -1) {
                 winning = resultArray[i - 1] + ((prizeArray.length - 1) * ENTRY_FEE)

@@ -32,44 +32,12 @@ const getPlayerId = () => {
     return playerId || 'all'
 }
 
-//This function returns the winning array for individual player
-const calculateWinning = playerName => {
-    let resultArray = [];
-    for (let i = 0; i < trackRecordMasterData.length; i++) {
-        const prizeArray = prizeMoney[trackRecordMasterData[i].played.length.toString()];
-        let winning = prizeArray[trackRecordMasterData[i].result[playerName]];
-        if (Object.values(trackRecordMasterData[i].result).includes(-1)) {
-            if (trackRecordMasterData[i].result[playerName] === -1) {
-                //Condition for winner takes all
-                winning = resultArray[i - 1] + ((prizeArray.length - 1) * ENTRY_FEE)
-            } else {
-                winning = resultArray[i - 1]
-            }
-        } else if (winning === undefined) {
-            winning = resultArray[i - 1] ? resultArray[i - 1] : 0
-        } else if (i !== 0) {
-            winning += resultArray[i - 1];
-        }
-        resultArray.push(winning)
-    }
-    return resultArray;
-}
-
 const calculateNetTotal = playerName => {
     let resultArray = [];
     for (let i = 0; i < trackRecordMasterData.length; i++) {
         const prizeArray = prizeMoney[trackRecordMasterData[i].played.length.toString()];
         let winning = prizeArray[trackRecordMasterData[i].result[playerName]];
-        //Condition for winner takes all
-        // if(masterData[i].number === 4){
-            // SCORES TIED
-            // Condition for specifci match where scores were tied
-            // if (playerName === 'VJ' || playerName === 'KT') {
-            //     winning = resultArray[i - 1] + 300;
-            // } else {
-            //     winning = resultArray[i - 1]
-            // }
-        //} else if (masterData[i].number === 6){
+        // if (masterData[i].number === 6){
             // SCORES TIED
             // Condition for specifci match where scores were tied
             // if (playerName === 'SJ' || playerName === 'SSJ') {
@@ -78,7 +46,13 @@ const calculateNetTotal = playerName => {
             //     winning = resultArray[i - 1]
             // }
         //} else 
-        if (Object.values(trackRecordMasterData[i].result).includes(-1)) {
+        if(trackRecordMasterData[i].number === 11){
+            if (playerName === 'VJ' || playerName === 'SSJ') {
+                winning = resultArray[i - 1] + 50;
+            } else {
+                winning = resultArray[i - 1]
+            }
+        } else if (Object.values(trackRecordMasterData[i].result).includes(-1)) {
             // Condition for winner takes all
             if (trackRecordMasterData[i].result[playerName] === -1) {
                 winning = resultArray[i - 1] + ((prizeArray.length - 1) * ENTRY_FEE)
