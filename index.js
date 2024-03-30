@@ -204,59 +204,6 @@ const populateNetChart = () => {
 //     gridOptions.api.sizeColumnsToFit();
 // }
 
-// This populates card with individual wins for all ranks.
-// const populateRecordTable = () => {
-//     let recordObj = {};
-//     playerArray.map(item => {
-//         recordObj = {
-//             ...recordObj,
-//             [item.id]: {
-//                 0: 0,
-//                 1: 0,
-//                 2: 0,
-//                 3: 0,
-//                 4: 0,
-//                 5: 0,
-//                 6: 0,
-//                 7: 0,
-//                 8: 0
-//             }
-//         }
-//     });
-//     masterData.map(item => {
-//         playerArray.forEach(player => {
-//             const { id } = player
-//             recordObj[id] = {
-//                 ...recordObj[id],
-//                 [Math.abs(item.result[id])]: recordObj[id][Math.abs(item.result[id])] + 1,
-//             }
-//         })
-//     });
-//     let recordHtml = '';
-//     playerArray.map(item => {
-//         const { id, imageAddress } = item;
-//         recordHtml += `<div class='player-card'>
-//             <div class='player-card-fix'><img src='${imageAddress}'></div>
-//             <div class='player-card-inner'>
-//                 <div class='player-card-front'>
-//                     <p class='player-name'>${id}</p>
-//                 </div>
-//                 <div class='player-card-back'>
-//                     <p>Rank 1: <span>${recordObj[id][1]}</span></p><p>Rank 2: <span>${recordObj[id][2]}</span></p>
-//                     <p>Rank 3: <span>${recordObj[id][3]}</span></p><p>Rank 4: <span>${recordObj[id][4]}</span></p>
-//                     <p>Rank 5: <span>${recordObj[id][5]}</span></p><p>Rank 6: <span>${recordObj[id][6]}</span></p>
-//                     <p>Rank 7: <span>${recordObj[id][7]}</span></p><p>Rank 8: <span>${recordObj[id][8]}</span></p>
-//                     <p>Not played: <span>${recordObj[id][0]}</span></p>
-//                 </div>
-//             </div>
-//         </div>`
-
-//     })
-//     document.querySelector('#recordtable').innerHTML = recordHtml
-// }
-
-//This function shows/hides chart based on user click on left menu nav.
-
 //This function triggers play when audio is clicked.
 const triggershoutOut = () => {
     document.querySelector('.shout-out-audio').play();
