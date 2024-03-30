@@ -76,140 +76,183 @@ const populateRankTable = () => {
     //     Last match updated:  ${masterData[masterData.length - 1].number} : ${masterData[masterData.length - 1].match}`
 }
 
-//This function generates the chart with final winning amount till update date
-// const populateNet2Chart = () => {
-//     const dataseries = playerArray.map(item => calculateNetTotal(item.id).pop());
-//     const options = {
-//         chart: {
-//             type: 'bar',
-//             width: "100%",
-//             height: 500,
-//             toolbar: {
-//                 show: false,
-//             }
-//         },
-//         dataLabels: {
-//             enabled: false
-//         },
-//         stroke: {
-//             width: 1,
-//             colors: ["#fff"]
-//         },
-//         series: [{
-//             name: 'Win',
-//             data: dataseries
-//         }],
-//         xaxis: {
-//             categories: playerArray.map(item => item.id)
-//         }
-//     }
+const calculateNetTotal = playerName => {
+    let resultArray = [];
+    for (let i = 0; i < masterData.length; i++) {
+        const prizeArray = prizeMoney[masterData[i].played.length.toString()];
+        let winning = prizeArray[masterData[i].result[playerName]];
+        //Condition for winner takes all
+        // if(masterData[i].number === 4){
+            // SCORES TIED
+            // Condition for specifci match where scores were tied
+            // if (playerName === 'VJ' || playerName === 'KT') {
+            //     winning = resultArray[i - 1] + 300;
+            // } else {
+            //     winning = resultArray[i - 1]
+            // }
+        //} else if (masterData[i].number === 6){
+            // SCORES TIED
+            // Condition for specifci match where scores were tied
+            // if (playerName === 'SJ' || playerName === 'SSJ') {
+            //     winning = resultArray[i - 1] + 200;
+            // } else {
+            //     winning = resultArray[i - 1]
+            // }
+        //} else 
+        if (Object.values(masterData[i].result).includes(-1)) {
+            // Condition for winner takes all
+            if (masterData[i].result[playerName] === -1) {
+                winning = resultArray[i - 1] + ((prizeArray.length - 1) * ENTRY_FEE)
+            } else {
+                winning = resultArray[i - 1]
+            }
+        } else if (winning === undefined) {
+            winning = resultArray[i - 1] ? resultArray[i - 1] : 0
+        } else if (i !== 0) {
+            winning += resultArray[i - 1];
+        }
+        if (masterData[i].played.includes(playerName)) {
+            winning -= ENTRY_FEE
+        }
+        resultArray.push(winning)
+    }
+    return resultArray;
+}
 
-//     const chart = new ApexCharts(document.querySelector("#paymentChart2"), options);
-//     chart.render();
-// }
+//This function generates the chart with final winning amount till update date
+const populateNetChart = () => {
+    const dataseries = playerArray.map(item => calculateNetTotal(item.id).pop());
+    const options = {
+        chart: {
+            type: 'bar',
+            width: "100%",
+            height: 500,
+            toolbar: {
+                show: false,
+            }
+        },
+        dataLabels: {
+            enabled: false
+        },
+        stroke: {
+            width: 1,
+            colors: ["#fff"]
+        },
+        series: [{
+            name: 'Win',
+            data: dataseries
+        }],
+        xaxis: {
+            categories: playerArray.map(item => item.id)
+        }
+    }
+
+    const chart = new ApexCharts(document.querySelector("#paymentChart2"), options);
+    chart.render();
+}
 
 //This populates master table with each match data rank list.
-const populateMasterTable = () => {
-    const displayOrder = masterData.map(item => {
-        const rankObject = Object.fromEntries(Object.entries(item.result).map(a => {
-            a[1] = Math.abs(a[1]);
-            return a.reverse();
-        }))
-        // SCORES TIED
-        // if(item.number === 4) {
-        //     rankObject[1] = 'VJ/KT'
-        // } else if(item.number === 6) {
-        //     rankObject[1] = 'SJ/SSJ'
-        // }
-        return {
-            matchNo: item.number,
-            teams: item.match,
-            winner: item.winner,
-            rank1: rankObject[1] || '--',
-            rank2: rankObject[2] || '--',
-            rank3: rankObject[3] || '--',
-            rank4: rankObject[4] || '--',
-            rank5: rankObject[5] || '--',
-            rank6: rankObject[6] || '--',
-            rank7: rankObject[7] || '--',
-            rank8: rankObject[8] || '--',
-        };
-    });
-    const gridOptions = {
-        columnDefs: [
-            { field: "matchNo", headerName: 'Match No' },
-            { field: "teams", headerName: 'Teams' },
-            { field: "winner", headerName: 'Winner' },
-            { field: "rank1", headerName: "Rank 1" },
-            { field: "rank2", headerName: "Rank 2" },
-            { field: "rank3", headerName: "Rank 3" },
-            { field: "rank4", headerName: "Rank 4" },
-            { field: "rank5", headerName: "Rank 5" },
-            { field: "rank6", headerName: "Rank 6" },
-            { field: "rank7", headerName: "Rank 7" }, 
-            { field: "rank8", headerName: "Rank 8" }
-        ],
-        defaultColDef: { sortable: false, filter: true },
-        animateRows: true,
-        domLayout: 'autoHeight'
-    }
-    const eGridDiv = document.getElementById("resultTable");
-    eGridDiv.innerHTML = '';
-    new agGrid.Grid(eGridDiv, gridOptions);
-    gridOptions.api.setRowData(displayOrder);
-    gridOptions.api.sizeColumnsToFit();
-}
+// const populateMasterTable = () => {
+//     const displayOrder = masterData.map(item => {
+//         const rankObject = Object.fromEntries(Object.entries(item.result).map(a => {
+//             a[1] = Math.abs(a[1]);
+//             return a.reverse();
+//         }))
+//         // SCORES TIED
+//         // if(item.number === 4) {
+//         //     rankObject[1] = 'VJ/KT'
+//         // } else if(item.number === 6) {
+//         //     rankObject[1] = 'SJ/SSJ'
+//         // }
+//         return {
+//             matchNo: item.number,
+//             teams: item.match,
+//             winner: item.winner,
+//             rank1: rankObject[1] || '--',
+//             rank2: rankObject[2] || '--',
+//             rank3: rankObject[3] || '--',
+//             rank4: rankObject[4] || '--',
+//             rank5: rankObject[5] || '--',
+//             rank6: rankObject[6] || '--',
+//             rank7: rankObject[7] || '--',
+//             rank8: rankObject[8] || '--',
+//         };
+//     });
+//     const gridOptions = {
+//         columnDefs: [
+//             { field: "matchNo", headerName: 'Match No' },
+//             { field: "teams", headerName: 'Teams' },
+//             { field: "winner", headerName: 'Winner' },
+//             { field: "rank1", headerName: "Rank 1" },
+//             { field: "rank2", headerName: "Rank 2" },
+//             { field: "rank3", headerName: "Rank 3" },
+//             { field: "rank4", headerName: "Rank 4" },
+//             { field: "rank5", headerName: "Rank 5" },
+//             { field: "rank6", headerName: "Rank 6" },
+//             { field: "rank7", headerName: "Rank 7" }, 
+//             { field: "rank8", headerName: "Rank 8" }
+//         ],
+//         defaultColDef: { sortable: false, filter: true },
+//         animateRows: true,
+//         domLayout: 'autoHeight'
+//     }
+//     const eGridDiv = document.getElementById("resultTable");
+//     eGridDiv.innerHTML = '';
+//     new agGrid.Grid(eGridDiv, gridOptions);
+//     gridOptions.api.setRowData(displayOrder);
+//     gridOptions.api.sizeColumnsToFit();
+// }
 
 // This populates card with individual wins for all ranks.
-const populateRecordTable = () => {
-    let recordObj = {};
-    playerArray.map(item => {
-        recordObj = {
-            ...recordObj,
-            [item.id]: {
-                0: 0,
-                1: 0,
-                2: 0,
-                3: 0,
-                4: 0,
-                5: 0,
-                6: 0,
-                7: 0,
-                8: 0
-            }
-        }
-    });
-    masterData.map(item => {
-        playerArray.forEach(player => {
-            const { id } = player
-            recordObj[id] = {
-                ...recordObj[id],
-                [Math.abs(item.result[id])]: recordObj[id][Math.abs(item.result[id])] + 1,
-            }
-        })
-    });
-    let recordHtml = '';
-    playerArray.map(item => {
-        const { id, imageAddress } = item;
-        recordHtml += `<div class='player-card'>
-            <div class='player-card-fix'><img src='${imageAddress}'></div>
-            <div class='player-card-inner'>
-                <div class='player-card-front'>
-                    <p class='player-name'>${id}</p>
-                </div>
-                <div class='player-card-back'>
-                    <p>Rank 1: <span>${recordObj[id][1]}</span></p><p>Rank 2: <span>${recordObj[id][2]}</span></p>
-                    <p>Rank 3: <span>${recordObj[id][3]}</span></p><p>Rank 4: <span>${recordObj[id][4]}</span></p>
-                    <p>Rank 5: <span>${recordObj[id][5]}</span></p><p>Rank 6: <span>${recordObj[id][6]}</span></p>
-                    <p>Rank 7: <span>${recordObj[id][7]}</span></p><p>Rank 8: <span>${recordObj[id][8]}</span></p>
-                    <p>Not played: <span>${recordObj[id][0]}</span></p>
-                </div>
-            </div>
-        </div>`
+// const populateRecordTable = () => {
+//     let recordObj = {};
+//     playerArray.map(item => {
+//         recordObj = {
+//             ...recordObj,
+//             [item.id]: {
+//                 0: 0,
+//                 1: 0,
+//                 2: 0,
+//                 3: 0,
+//                 4: 0,
+//                 5: 0,
+//                 6: 0,
+//                 7: 0,
+//                 8: 0
+//             }
+//         }
+//     });
+//     masterData.map(item => {
+//         playerArray.forEach(player => {
+//             const { id } = player
+//             recordObj[id] = {
+//                 ...recordObj[id],
+//                 [Math.abs(item.result[id])]: recordObj[id][Math.abs(item.result[id])] + 1,
+//             }
+//         })
+//     });
+//     let recordHtml = '';
+//     playerArray.map(item => {
+//         const { id, imageAddress } = item;
+//         recordHtml += `<div class='player-card'>
+//             <div class='player-card-fix'><img src='${imageAddress}'></div>
+//             <div class='player-card-inner'>
+//                 <div class='player-card-front'>
+//                     <p class='player-name'>${id}</p>
+//                 </div>
+//                 <div class='player-card-back'>
+//                     <p>Rank 1: <span>${recordObj[id][1]}</span></p><p>Rank 2: <span>${recordObj[id][2]}</span></p>
+//                     <p>Rank 3: <span>${recordObj[id][3]}</span></p><p>Rank 4: <span>${recordObj[id][4]}</span></p>
+//                     <p>Rank 5: <span>${recordObj[id][5]}</span></p><p>Rank 6: <span>${recordObj[id][6]}</span></p>
+//                     <p>Rank 7: <span>${recordObj[id][7]}</span></p><p>Rank 8: <span>${recordObj[id][8]}</span></p>
+//                     <p>Not played: <span>${recordObj[id][0]}</span></p>
+//                 </div>
+//             </div>
+//         </div>`
 
-    })
-    document.querySelector('#recordtable').innerHTML = recordHtml
-}
+//     })
+//     document.querySelector('#recordtable').innerHTML = recordHtml
+// }
 
 //This function shows/hides chart based on user click on left menu nav.
 
@@ -218,22 +261,14 @@ const triggershoutOut = () => {
     document.querySelector('.shout-out-audio').play();
 }
 
-//This function opens the left nav when clicked.
-const openNav = () => {
-    document.getElementById("mySidenav").style.width = "250px";
-}
-
-//This function closes the left nav when clicked.
-const closeNav = () => {
-    document.getElementById("mySidenav").style.width = "0";
-}
-
 //This funcion is triggered on DOM load and loads default charts on dashbaord.
 const domLoaded = () => {
     fetch('https://api.npoint.io/781b99ffafaead6f476f')
         .then(resp => resp.json())
         .then(response => {
-            masterData = response
+            masterData = response;
+            populateRankTable();
+            populateNetChart();
             document.querySelector('.loading-msg').style.display = 'none';
         });
 }
