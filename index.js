@@ -61,8 +61,6 @@ const populateRankTable = () => {
             matchesPlayed,
         })
     } 
-    document.querySelector('.loading-msg').style.display = 'none';
-    document.querySelector('.rankTable').style.display = 'block';
     displayOrder.sort((a, b) => a.avgRank > b.avgRank ? 1 : -1);
     const rowData = displayOrder.map(item => `<tr><td>${item.nickName}</td><td>${item.avgRank}</td><td>${item.weightedRank}</td><td>${item.matchesPlayed}</td></tr>`)
     document.querySelector('.rankTable tbody').innerHTML = rowData.join('');
@@ -73,8 +71,7 @@ const populateRankTable = () => {
     // }))
     // document.querySelector('.hall-fame-name').textContent = lastMatchData[1];
     // document.querySelector('.shout-out-audio').src = `asset/A${lastMatchData[1]}.mp3`;
-    // document.querySelector('.last-match-detail').innerHTML = `
-    //     Last match updated:  ${masterData[masterData.length - 1].number} : ${masterData[masterData.length - 1].match}`
+    
 }
 
 const calculateNetTotal = playerName => {
@@ -210,15 +207,22 @@ const triggershoutOut = () => {
     document.querySelector('.shout-out-audio').play();
 }
 
+const populateLastMatchDetail = () => {
+    document.querySelector('.last-match-detail').innerHTML = `
+        Last match updated:  ${masterData[masterData.length - 1].number} : ${masterData[masterData.length - 1].match}`
+}
+
 //This funcion is triggered on DOM load and loads default charts on dashbaord.
 const domLoaded = () => {
     fetch('https://api.npoint.io/781b99ffafaead6f476f')
         .then(resp => resp.json())
         .then(response => {
             masterData = response;
+            document.querySelector('.d-none').classList.remove('d-none');
+            document.querySelector('.d-block').classList.replace('d-block', 'd-none');
             populateRankTable();
             populateNetChart();
-            document.querySelector('.loading-msg').style.display = 'none';
+            populateLastMatchDetail();
         });
 }
 document.addEventListener('DOMContentLoaded', domLoaded, false);

@@ -60,7 +60,7 @@
         </div>
     </nav>
    
-    <div class="container-fluid text-center bg-primary-subtle content-section py-1">
+    <div class="container-fluid text-center bg-primary-subtle content-section py-1 d-none">
         <div class='row'>
             <h1>Dashboard</h1>
         </div>
@@ -77,6 +77,7 @@
                     </thead>
                     <tbody></tbody>
                 </table>
+                <p class="last-match-detail"></p>
             </div>
         </div>
 
@@ -87,7 +88,11 @@
             </div>
         </div>
     </div>
-    <p class="loading-msg">Calculating Ranks. Hold Tight!! <span>&hearts;</span></p>
+
+    <div class="container-fluid text-center bg-primary-subtle content-section py-1 d-block">
+        <p>Calculating Ranks. Hold Tight!! <span>&hearts;</span></p>
+    </div>
+    
     <!-- <div class='result-element'>
         <div id="recordtable"></div>
         <div class="flex-block">
@@ -102,15 +107,6 @@
                 
             </div>
         </div>
-    </div>
-    <div class='result-element'>
-        <canvas id='winningChart'></canvas>
-    </div>
-    <div class='result-element'>
-        <canvas id='paymentChart'></canvas>
-    </div> 
-    <div class='result-element'>
-        <div id='resultTable' class='ag-theme-alpine'></div>
     </div> -->
 </body>
 <script src="index.js"></script>
