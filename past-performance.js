@@ -109,18 +109,26 @@ const generatePredictionCard = data => {
 };
 
 const generatePastResult = () => {
-    const data = filteredResult(allYearMatchData);
-    generatePredictionCard(data);
-    document.querySelector('.d-none')?.classList.remove('d-none');
-    document.querySelector('.past-results').innerHTML = 
-    `<table class="table" data-sticky-header=true>
-        <thead> 
-            <th scope="col">Match details</th>
-            <th scope="col">Rank</th>
-            <th scope="col">Match winner</th>
-        </thead>
-        <tbody class="table-group-divider">${getPastResult(data)}</tbody>
-    </table>`;
+    document.querySelector('.spinner-border').classList.remove('d-none');
+    document.querySelector('.prediction-card').classList.add('d-none');
+    document.querySelector('.result-card').classList.add('d-none');
+    setTimeout(()=> {
+        const data = filteredResult(allYearMatchData);
+        generatePredictionCard(data);
+        document.querySelector('.d-none')?.classList.remove('d-none');
+        document.querySelector('.past-results').innerHTML = 
+        `<table class="table" data-sticky-header=true>
+            <thead> 
+                <th scope="col">Match details</th>
+                <th scope="col">Rank</th>
+                <th scope="col">Match winner</th>
+            </thead>
+            <tbody class="table-group-divider">${getPastResult(data)}</tbody>
+        </table>`;
+        document.querySelector('.spinner-border').classList.add('d-none');
+        document.querySelector('.prediction-card').classList.remove('d-none');
+        document.querySelector('.result-card').classList.remove('d-none');
+    }, 1000)
 }
 
 const domLoaded = async () => {
