@@ -98,7 +98,14 @@ const calculateNetTotal = playerName => {
             } else {
                 winning = resultArray[i - 1]
             }
-        } else if (Object.values(masterData[i].result).includes(-1)) {
+        } else if(masterData[i].number === 29){
+            // Condition for winner takes all and rank tied
+            if(playerName === 'VJ' || playerName === 'AM' ){
+                winning = resultArray[i - 1] + 400
+            } else {
+                winning = resultArray[i - 1]
+            }
+        }else if (Object.values(masterData[i].result).includes(-1)) {
             // Condition for winner takes all
             if (masterData[i].result[playerName] === -1) {
                 winning = resultArray[i - 1] + ((prizeArray.length - 1) * ENTRY_FEE)
