@@ -14,15 +14,16 @@ const playerArray = [
 ];
 
 const teamArray = [
-    {name: 'RCB', id:'rcb', values:['rcb','blr']},
-    {name: 'CSK', id:'csk', values:['csk']},
-    {name: 'KKR', id:'kkr', values:['kkr']},
-    {name: 'DC', id:'dc', values:['dc']},
-    {name: 'MI', id:'mi', values:['mi']},
-    {name: 'GT', id:'gt', values:['gt']},
-    {name: 'PBKS', id:'pbks', values:['pbks']},
-    {name: 'LKN', id:'lkn', values:['lkn']},
-    {name: 'SRH', id:'srh', values:['srh']},
+    {name: 'RCB', id:'rcb'},
+    {name: 'CSK', id:'csk'},
+    {name: 'KKR', id:'kkr'},
+    {name: 'DC', id:'dc'},
+    {name: 'MI', id:'mi'},
+    {name: 'GT', id:'gt'},
+    {name: 'PBKS', id:'pbks'},
+    {name: 'LKN', id:'lkn'},
+    {name: 'SRH', id:'srh'},
+    {name: 'RR', id:'rr'},
 ]
 
 const triggerPersonalDataView = () => {
@@ -65,7 +66,8 @@ const filteredResult = allData => {
     const filterByName = allData.filter(item => item?.played?.includes(id))
 
     const filterbyTeam = filterByName.filter(item => {
-        const playedTeamArray = item?.match.split('vs').map(item => item.trim().toLowerCase());
+        let playedTeamArray = item?.match.split('vs').map(item => item.trim().toLowerCase());
+        playedTeamArray = playedTeamArray.map(item => item === 'blr' ? 'rcb' : item)
         if(firstTeam === 'all' && secondTeam === 'all'){
             return true;
         } else if(firstTeam !== 'all' && secondTeam !== 'all') {
