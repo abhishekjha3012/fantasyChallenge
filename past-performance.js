@@ -43,13 +43,13 @@ const playerId = () => {
     const playerName = document.querySelector('.player-name').value;
     const playerId = playerArray.find(item => item?.nickName === playerName)?.id;
     return playerId
-}
+};
 
 const getPlayerRank = (matchResult) => {
     const id = playerId();
     const playerRank = matchResult[id];
     return playerRank;
-}
+};
 
 const getPastResult = (matchList) => {
     let rowData = [];
@@ -57,7 +57,7 @@ const getPastResult = (matchList) => {
         rowData += `<tr><td>${data?.match}</td><td>${getPlayerRank(data?.result)}</td><td>${data?.winner}</td></tr>`;
     });
     return rowData;
-}
+};
 
 const filteredResult = allData => {
     const id = playerId();
@@ -83,10 +83,35 @@ const filteredResult = allData => {
     });
 
     return filterbyTeam;
-}
+};
+
+const generatePredictionCard = data => {
+    let rankSum = 0;
+    let matchesPlayed = data?.length;
+    data?.forEach(data => {
+        rankSum += getPlayerRank(data?.result);
+    });
+    const avgRank = rankSum/matchesPlayed;
+    document.querySelector('.prediction-card').classList.remove('d-none');
+    document.querySelector('.text-bg-success')?.classList.remove('text-bg-success');
+    document.querySelector('.text-bg-info')?.classList.remove('text-bg-info');
+    document.querySelector('.text-bg-danger')?.classList.remove('text-bg-danger');
+    if(avgRank <= 3){
+        document.querySelector('.prediction-text').innerHTML = `Popcorn? Check. Drinks? Check. Let the comedic gaming commence!`;
+        document.querySelector('.prediction-card').classList.add('text-bg-success');
+    } else  if(avgRank > 3 && avgRank < 4) {
+        document.querySelector('.prediction-text').innerHTML = `Take a chance, it's all in good fun!`;
+        document.querySelector('.prediction-card').classList.add('text-bg-info');
+    } else {
+        document.querySelector('.prediction-text').innerHTML = `If boredom were a game, this would be it -- skip!`;
+        document.querySelector('.prediction-card').classList.add('text-bg-danger');
+    }
+};
 
 const generatePastResult = () => {
     const data = filteredResult(allYearMatchData);
+    generatePredictionCard(data);
+    document.querySelector('.d-none')?.classList.remove('d-none');
     document.querySelector('.past-results').innerHTML = 
     `<table class="table" data-sticky-header=true>
         <thead> 
@@ -111,6 +136,6 @@ const domLoaded = async () => {
         });
       }
     triggerPersonalDataView();
-    
 }
+
 document.addEventListener('DOMContentLoaded', domLoaded, false);
