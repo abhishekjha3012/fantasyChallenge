@@ -24,14 +24,10 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
         crossorigin="anonymous">
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <title>IPL 2024</title>
 </head>
 
 <body id="body-pd">
-
     <nav class="navbar navbar-expand-lg bg-dark sticky-top" data-bs-theme="dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">IPL 2024</a>
@@ -53,7 +49,7 @@
                     <a class="nav-link" href="./profile.html">Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./update.html">Update Data</a>
+                    <a class="nav-link active" href="./update.html">Update Data</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="./dashboard.html">Dashboard 2.0</a>
@@ -63,58 +59,56 @@
         </div>
     </nav>
    
-    <div class="container-fluid text-center bg-primary-subtle content-section py-1 d-none">
+    <div class="container-fluid text-center bg-primary-subtle content-section py-1">
         <div class='row'>
-            <h1>Dashboard</h1>
+            <h1>Update Data</h1>
         </div>
 
-        <div class='card mb-5'>
+        <div class='card mb-5 login-card'>
             <div class="card-body">
-                <h5 class="card-title">Snapshot</h5>
-                <table class="table rankTable">
-                    <thead> 
-                        <th scope="col">Player Name</th>
-                        <th scope="col">Avg Rank</th>
-                        <th scope="col">Weighted Rank</th>
-                        <th scope="col">Matches played</th>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-                <p class="last-match-detail"></p>
-            </div>
-        </div>
-
-        <div class='card'>
-            <div class="card-body">
-                <h5 class="card-title">Winning</h5>
-                <div id='paymentChart2'></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container-fluid text-center bg-primary-subtle content-section py-1 d-block">
-        <p>Calculating Ranks. Hold Tight!! <span>&hearts;</span></p>
-        <div class="spinner-border text-success" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-    </div>
-    
-    <!-- <div class='result-element'>
-        <div id="recordtable"></div>
-        <div class="flex-block">
-            <div id="playerDetails">
-                <div class="hall-fame-parent">
-                    <button class='btn shout-out-button hall-fame-name' onclick="triggershoutOut()">SHOUTOUT</button>
-                    <audio class='shout-out-audio' type="audio/mp3"></audio>
+                <div class="mb-3">
+                    <label class="form-label">Username</label>
+                    <input type="email" class="form-control" id="login-username">
                 </div>
-                <div class="last-match-detail"></div>
-            </div>
-            <div class='payment-chart-parent'>
-                
+                <div class="mb-3">
+                    <label for="login-password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="login-password">
+                </div>
+                <p class="incorrect-detail text-danger d-none">Wrong details entered</p>
+                <button type="submit" class="btn btn-primary" onclick="authenticateUser()">Submit</button>
             </div>
         </div>
-    </div> -->
-</body>
-<script src="index.js"></script>
 
+        <div class='card mb-5 py-3 match-detail-card d-none'>
+            <h5 class="card-title">Match details</h5>
+            <div class="card-body">
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Match number</span>
+                    <input type="text" class="form-control" placeholder="Match number">
+                </div>
+
+                <div class="col-12 col-md-3 mb-2">
+                    <label for="first-team">Team 1:</label>
+                    <select name="first-team" class="form-select first-team">
+                    </select>
+                </div>
+    
+                <div class="col-12 col-md-3 mb-2">
+                    <label for="second-team">Team 2:</label>
+                    <select name="second-team" class="form-select second-team">
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class='card mb-5 py-3 player-rank-card d-none'>
+            <h5 class="card-title">Player list</h5>
+            <div class="card-body">
+                <div class="update-player-list-group">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="update.js"></script>
 </html>

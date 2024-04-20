@@ -225,8 +225,8 @@ const domLoaded = () => {
         .then(resp => resp.json())
         .then(response => {
             masterData = response;
-            document.querySelector('.d-none').classList.remove('d-none');
-            document.querySelector('.d-block').classList.replace('d-block', 'd-none');
+            document.querySelector('.d-none')?.classList.remove('d-none');
+            document.querySelector('.d-block')?.classList.replace('d-block', 'd-none');
             populateRankTable();
             populateNetChart();
             populateLastMatchDetail();
