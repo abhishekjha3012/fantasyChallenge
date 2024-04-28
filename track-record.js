@@ -66,7 +66,7 @@ const calculateNetTotal = playerName => {
         } else if (Object.values(trackRecordMasterData[i].result).includes(-1)) {
             // Condition for winner takes all
             if (trackRecordMasterData[i].result[playerName] === -1) {
-                winning = resultArray[i - 1] + ((prizeArray.length - 1) * ENTRY_FEE)
+                winning = resultArray[i - 1] + (prizeArray.length * ENTRY_FEE)
             } else {
                 winning = resultArray[i - 1]
             }
