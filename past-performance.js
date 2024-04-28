@@ -133,8 +133,8 @@ const generatePastResult = () => {
 
 const domLoaded = async () => {
     const allSeasonURL = [
-        'https://api.npoint.io/781b99ffafaead6f476f',
         'https://api.npoint.io/551de43a8627ff944b27',
+        'https://api.npoint.io/781b99ffafaead6f476f',
     ];
     for (const url of allSeasonURL) {
         await fetch(url)
