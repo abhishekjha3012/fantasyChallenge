@@ -127,7 +127,8 @@ const calculateNetTotal = playerName => {
 
 //This function generates the chart with final winning amount till update date
 const populateNetChart = () => {
-    const dataseries = playerArray.map(item => calculateNetTotal(item.id).pop());
+    let dataseries = playerArray.map(item => calculateNetTotal(item.id).pop());
+    dataseries = dataseries.map(item => -1*item)
     const options = {
         chart: {
             type: 'bar',
