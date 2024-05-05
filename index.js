@@ -22,7 +22,7 @@ const prizeMoney = {
     "5": [0, 300, 200, 0, 0, 0],
     "6": [0, 350, 250, 0, 0, 0, 0],
     "7": [0, 400, 300, 0, 0, 0, 0, 0],
-    "8": [0, 400, 300, 100, 0, 0, 0, 0]
+    "8": [0, 400, 300, 100, 0, 0, 0, 0, 0]
 }
 
 const conversionFactor = {
@@ -105,10 +105,10 @@ const calculateNetTotal = playerName => {
             } else {
                 winning = resultArray[i - 1]
             }
-        }else if (Object.values(masterData[i].result).includes(-1)) {
+        } else if (Object.values(masterData[i].result).includes(-1)) {
             // Condition for winner takes all
             if (masterData[i].result[playerName] === -1) {
-                winning = resultArray[i - 1] + (prizeArray.length * ENTRY_FEE)
+                winning = resultArray[i - 1] + ((prizeArray.length-1) * ENTRY_FEE);
             } else {
                 winning = resultArray[i - 1]
             }
@@ -216,8 +216,19 @@ const triggershoutOut = () => {
 
 const populateLastMatchDetail = () => {
     document.querySelector('.last-match-detail').innerHTML = `
-        Last match updated:  ${masterData[masterData.length - 1].number} : ${masterData[masterData.length - 1].match}`
+        Last match updated:  ${masterData[masterData.length - 1].number} : ${masterData[masterData.length - 1].match}
+        <br>Last match absolute winning: ${populateAbsoluteWinningForLastMatch()}`
 }
+
+const populateAbsoluteWinningForLastMatch = () => {
+    const winningArray = playerArray.map(item => calculateNetTotal(item.id));
+    const lastMatchIndex = masterData.length - 1;
+    let lastMatchSum = 0;
+    for(let j=0; j<8; j++){
+        lastMatchSum += winningArray[j][lastMatchIndex];
+    }
+    return lastMatchSum;
+};
 
 //This funcion is triggered on DOM load and loads default charts on dashbaord.
 const domLoaded = () => {
