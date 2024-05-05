@@ -27,8 +27,8 @@ const populateRecordTable = () => {
     const playerId = getPlayerId();
     let rankArray = Array(playerArray.length+1).fill(0);
     profilePageMasterData.forEach(item => {
-        const rankToUpdate = item.result[playerId] || 0;
-        rankArray[rankToUpdate] = rankArray[rankToUpdate]+1;
+        const rankToUpdate = Math.abs(item.result[playerId]) || 0;
+        rankArray[rankToUpdate] += 1 ;
     });
     return rankArray;
 }

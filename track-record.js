@@ -12,6 +12,19 @@ const playerArray = [
     { name: 'Nikhil', nickName:'Bhaukali Bhalu', id: 'NT', num: 7, color: '#330080', imageAddress: 'asset/NT.jpeg' }
 ];
 
+const teamArray = [
+    {name: 'RCB', id:'rcb'},
+    {name: 'CSK', id:'csk'},
+    {name: 'KKR', id:'kkr'},
+    {name: 'DC', id:'dc'},
+    {name: 'MI', id:'mi'},
+    {name: 'GT', id:'gt'},
+    {name: 'PBKS', id:'pbks'},
+    {name: 'LKN', id:'lkn'},
+    {name: 'SRH', id:'srh'},
+    {name: 'RR', id:'rr'},
+]
+
 const ENTRY_FEE = 100;
 
 //Prize money array based on no:of players playing
@@ -23,7 +36,7 @@ const prizeMoney = {
     "5": [0, 300, 200, 0, 0, 0],
     "6": [0, 350, 250, 0, 0, 0, 0],
     "7": [0, 400, 300, 0, 0, 0, 0, 0],
-    "8": [0, 400, 300, 100, 0, 0, 0, 0]
+    "8": [0, 400, 300, 100, 0, 0, 0, 0, 0]
 }
 
 const getPlayerId = () => {
@@ -83,7 +96,94 @@ const calculateNetTotal = playerName => {
     return resultArray;
 }
 
+const populateWinningByTeamChart = () => {
+    const playerId = getPlayerId();
+    if(playerId !== 'all') {
+        let winningObject = {
+            rcb: 0,
+            csk: 0,
+            kkr: 0,
+            dc: 0,
+            mi: 0,
+            gt: 0,
+            pbks: 0,
+            lkn: 0,
+            srh: 0,
+            rr: 0,
+        }
+        for (let i = 0; i < trackRecordMasterData.length; i++) {
+            if(trackRecordMasterData[i].played.includes(playerId)){
+                let winning = 0;
+                const prizeArray = prizeMoney[trackRecordMasterData[i].played.length.toString()];
+                if(trackRecordMasterData[i].number === 11){
+                    if (playerId === 'VJ' || playerId === 'SSJ') {
+                        winning = 50;
+                    } else if(playerId === 'AM'){
+                        winning = 400;
+                    } else if(playerId === 'CJ'){
+                        winning = 300;
+                    } else {
+                        winning = 0;
+                    }
+                } else if(trackRecordMasterData[i].number === 29){
+                    if(playerId === 'VJ' || playerId === 'AM' ){
+                        winning = 400;
+                    } else {
+                        winning = 0;
+                    }
+                } else if(trackRecordMasterData[i].result[playerId] === -1 ){
+                    winning = trackRecordMasterData[i].played.length * ENTRY_FEE;
+                } else {
+                    winning = prizeArray[trackRecordMasterData[i].result[playerId]] || 0;
+                }
+                
+                let [firstTeam, secondTeam] = trackRecordMasterData[i]?.match.split('vs').map(item => item.trim().toLowerCase());
+                winningObject[firstTeam] = winningObject[firstTeam] + (winning/2) - (ENTRY_FEE/2);
+                winningObject[secondTeam] = winningObject[secondTeam] + (winning/2) - (ENTRY_FEE/2);
+
+                if(firstTeam === 'csk' || secondTeam === 'csk'){
+                    console.log(winningObject['csk'], 'winning')
+                }
+            }
+        }
+
+        const options = {
+            chart: {
+                type: 'bar',
+                width: "100%",
+                height: 500,
+                toolbar: {
+                    show: false,
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                show: true,
+                curve: 'smooth',
+                lineCap: 'butt',
+                colors: undefined,
+                width: 2,
+                dashArray: 0, 
+            },
+            series: [{
+                name: 'Winning by team',
+                data: Object.values(winningObject),
+            }],
+            xaxis: {
+                categories: Object.keys(winningObject).map(item => item.toUpperCase()),
+            }
+        }
+        document.querySelector('.d-none')?.classList.remove('d-none');
+        const chart = new ApexCharts(document.querySelector(".team-record-chart"), options);
+        chart.render();
+    }
+    
+}
+
 const showWinningChart = () => {
+    document.querySelector(".track-record-chart").innerHTML = '';
     const selectedPlayerId = getPlayerId();
     let seriesData = [];
     if(selectedPlayerId == 'all') {
@@ -122,9 +222,10 @@ const showWinningChart = () => {
             categories: trackRecordMasterData.map(item => item.nickName),
         }
     }
-    document.querySelector('.card').classList.remove('d-none')
+    document.querySelector('.d-none')?.classList.remove('d-none');
     const chart = new ApexCharts(document.querySelector(".track-record-chart"), options);
     chart.render();
+    populateWinningByTeamChart();
 };
 
 const populateDropdown = () => {
