@@ -76,6 +76,17 @@ const calculateNetTotal = playerName => {
             } else {
                 winning = resultArray[i - 1]
             }
+        } else if(trackRecordMasterData[i].number === 72) {
+            if(playerName === 'VJ' || playerName === 'AM'){
+                winning = resultArray[i - 1] + 700;
+            } else if(playerName === 'CJ'){
+                winning = resultArray[i - 1] + 200;
+            }else {
+                winning = resultArray[i - 1];
+            }
+        } else if([71,73,74].includes(trackRecordMasterData[i].number)){
+            // eliminator 2/3
+            winning = resultArray[i - 1] + (winning * 2);
         } else if (Object.values(trackRecordMasterData[i].result).includes(-1)) {
             // Condition for winner takes all
             if (trackRecordMasterData[i].result[playerName] === -1) {
@@ -89,7 +100,11 @@ const calculateNetTotal = playerName => {
             winning += resultArray[i - 1];
         }
         if (trackRecordMasterData[i].played.includes(playerName)) {
-            winning -= ENTRY_FEE
+            if(trackRecordMasterData[i].number >= 71 && trackRecordMasterData[i].number <= 74){
+                winning = winning - (ENTRY_FEE * 2);
+            } else {
+                winning -= ENTRY_FEE
+            }
         }
         resultArray.push(winning)
     }
@@ -140,10 +155,6 @@ const populateWinningByTeamChart = () => {
                 let [firstTeam, secondTeam] = trackRecordMasterData[i]?.match.split('vs').map(item => item.trim().toLowerCase());
                 winningObject[firstTeam] = winningObject[firstTeam] + (winning/2) - (ENTRY_FEE/2);
                 winningObject[secondTeam] = winningObject[secondTeam] + (winning/2) - (ENTRY_FEE/2);
-
-                if(firstTeam === 'csk' || secondTeam === 'csk'){
-                    console.log(winningObject['csk'], 'winning')
-                }
             }
         }
 
