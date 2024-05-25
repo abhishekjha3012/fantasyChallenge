@@ -105,6 +105,17 @@ const calculateNetTotal = playerName => {
             } else {
                 winning = resultArray[i - 1]
             }
+        } else if(masterData[i].number === 72) {
+            if(playerName === 'VJ' || playerName === 'AM'){
+                winning = resultArray[i - 1] + 700;
+            } else if(playerName === 'CJ'){
+                winning = resultArray[i - 1] + 200;
+            }else {
+                winning = resultArray[i - 1];
+            }
+        } else if([71,73,74].includes(masterData[i].number)){
+            // eliminator 2/3
+            winning = resultArray[i - 1] + (winning * 2);
         } else if (Object.values(masterData[i].result).includes(-1)) {
             // Condition for winner takes all
             if (masterData[i].result[playerName] === -1) {
@@ -118,7 +129,11 @@ const calculateNetTotal = playerName => {
             winning += resultArray[i - 1];
         }
         if (masterData[i].played.includes(playerName)) {
-            winning -= ENTRY_FEE
+            if(masterData[i].number >= 71 && masterData[i].number <= 74){
+                winning = winning - (ENTRY_FEE * 2);
+            } else {
+                winning -= ENTRY_FEE
+            }
         }
         resultArray.push(winning)
     }
@@ -156,58 +171,6 @@ const populateNetChart = () => {
     const chart = new ApexCharts(document.querySelector("#paymentChart2"), options);
     chart.render();
 }
-
-//This populates master table with each match data rank list.
-// const populateMasterTable = () => {
-//     const displayOrder = masterData.map(item => {
-//         const rankObject = Object.fromEntries(Object.entries(item.result).map(a => {
-//             a[1] = Math.abs(a[1]);
-//             return a.reverse();
-//         }))
-//         // SCORES TIED
-//         // if(item.number === 4) {
-//         //     rankObject[1] = 'VJ/KT'
-//         // } else if(item.number === 6) {
-//         //     rankObject[1] = 'SJ/SSJ'
-//         // }
-//         return {
-//             matchNo: item.number,
-//             teams: item.match,
-//             winner: item.winner,
-//             rank1: rankObject[1] || '--',
-//             rank2: rankObject[2] || '--',
-//             rank3: rankObject[3] || '--',
-//             rank4: rankObject[4] || '--',
-//             rank5: rankObject[5] || '--',
-//             rank6: rankObject[6] || '--',
-//             rank7: rankObject[7] || '--',
-//             rank8: rankObject[8] || '--',
-//         };
-//     });
-//     const gridOptions = {
-//         columnDefs: [
-//             { field: "matchNo", headerName: 'Match No' },
-//             { field: "teams", headerName: 'Teams' },
-//             { field: "winner", headerName: 'Winner' },
-//             { field: "rank1", headerName: "Rank 1" },
-//             { field: "rank2", headerName: "Rank 2" },
-//             { field: "rank3", headerName: "Rank 3" },
-//             { field: "rank4", headerName: "Rank 4" },
-//             { field: "rank5", headerName: "Rank 5" },
-//             { field: "rank6", headerName: "Rank 6" },
-//             { field: "rank7", headerName: "Rank 7" }, 
-//             { field: "rank8", headerName: "Rank 8" }
-//         ],
-//         defaultColDef: { sortable: false, filter: true },
-//         animateRows: true,
-//         domLayout: 'autoHeight'
-//     }
-//     const eGridDiv = document.getElementById("resultTable");
-//     eGridDiv.innerHTML = '';
-//     new agGrid.Grid(eGridDiv, gridOptions);
-//     gridOptions.api.setRowData(displayOrder);
-//     gridOptions.api.sizeColumnsToFit();
-// }
 
 //This function triggers play when audio is clicked.
 const triggershoutOut = () => {
