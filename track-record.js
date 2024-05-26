@@ -50,15 +50,6 @@ const calculateNetTotal = playerName => {
     for (let i = 0; i < trackRecordMasterData.length; i++) {
         const prizeArray = prizeMoney[trackRecordMasterData[i].played.length.toString()];
         let winning = prizeArray[trackRecordMasterData[i].result[playerName]];
-        // if (masterData[i].number === 6){
-            // SCORES TIED
-            // Condition for specifci match where scores were tied
-            // if (playerName === 'SJ' || playerName === 'SSJ') {
-            //     winning = resultArray[i - 1] + 200;
-            // } else {
-            //     winning = resultArray[i - 1]
-            // }
-        //} else 
         if(trackRecordMasterData[i].number === 11){
             if (playerName === 'VJ' || playerName === 'SSJ') {
                 winning = resultArray[i - 1] + 50;
@@ -94,7 +85,7 @@ const calculateNetTotal = playerName => {
         } else if (Object.values(trackRecordMasterData[i].result).includes(-1)) {
             // Condition for winner takes all
             if (trackRecordMasterData[i].result[playerName] === -1) {
-                winning = resultArray[i - 1] + (prizeArray.length * ENTRY_FEE)
+                winning = resultArray[i - 1] + ((prizeArray.length-1) * ENTRY_FEE)
             } else {
                 winning = resultArray[i - 1]
             }
@@ -152,6 +143,21 @@ const populateWinningByTeamChart = () => {
                     } else {
                         winning = 0;
                     }
+                } else if(trackRecordMasterData[i].number === 72) {
+                    // eliminator 2
+                    if(playerId === 'VJ' || playerId === 'AM'){
+                        winning = 700;
+                    } else if(playerId === 'CJ'){
+                        winning = 200;
+                    }else {
+                        winning = 0;
+                    }
+                } else if([71,73].includes(trackRecordMasterData[i].number)){
+                    // eliminator 1/3
+                    winning = prizeArray[trackRecordMasterData[i].result[playerId]] * 2;
+                } else if(trackRecordMasterData[i].number === 74){
+                    // final
+                    winning = prizeArray[trackRecordMasterData[i].result[playerId]] * 4;
                 } else if(trackRecordMasterData[i].result[playerId] === -1 ){
                     winning = trackRecordMasterData[i].played.length * ENTRY_FEE;
                 } else {
