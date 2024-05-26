@@ -77,6 +77,7 @@ const calculateNetTotal = playerName => {
                 winning = resultArray[i - 1]
             }
         } else if(trackRecordMasterData[i].number === 72) {
+            // eliminator 2
             if(playerName === 'VJ' || playerName === 'AM'){
                 winning = resultArray[i - 1] + 700;
             } else if(playerName === 'CJ'){
@@ -84,9 +85,12 @@ const calculateNetTotal = playerName => {
             }else {
                 winning = resultArray[i - 1];
             }
-        } else if([71,73,74].includes(trackRecordMasterData[i].number)){
-            // eliminator 2/3
+        } else if([71,73].includes(trackRecordMasterData[i].number)){
+            // eliminator 1/3
             winning = resultArray[i - 1] + (winning * 2);
+        } else if(trackRecordMasterData[i].number === 74){
+            // final
+            winning = resultArray[i - 1] + (winning * 4);
         } else if (Object.values(trackRecordMasterData[i].result).includes(-1)) {
             // Condition for winner takes all
             if (trackRecordMasterData[i].result[playerName] === -1) {
@@ -100,8 +104,10 @@ const calculateNetTotal = playerName => {
             winning += resultArray[i - 1];
         }
         if (trackRecordMasterData[i].played.includes(playerName)) {
-            if(trackRecordMasterData[i].number >= 71 && trackRecordMasterData[i].number <= 74){
+            if(trackRecordMasterData[i].number >= 71 && trackRecordMasterData[i].number <= 73){
                 winning = winning - (ENTRY_FEE * 2);
+            } else if(trackRecordMasterData[i].number === 74){
+                winning = winning - (ENTRY_FEE * 4);
             } else {
                 winning -= ENTRY_FEE
             }
