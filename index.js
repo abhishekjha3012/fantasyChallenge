@@ -12,7 +12,7 @@ const playerArray = [
     { name: 'Nikhil', nickName:'Bhaukali Bhalu', id: 'NT', num: 7, color: '#330080', imageAddress: 'asset/NT.jpeg' },
     { name: 'Parinav', nickName:'Jumbo Haathi', id: 'PJ', num: 8, color: '#14AE80', imageAddress: '' },
     { name: 'Swati', nickName:'Chakri Bakri', id: 'SWJ', num: 9, color: '#03AA78', imageAddress: '' },
-    { name: 'Neha', nickName:'Chanakya Cheetah', id: 'NJ', num: 10, color: '#66EE51', imageAddress: '' }
+    { name: 'Neha', nickName:'Chanakya Cheetah', id: 'NP', num: 10, color: '#66EE51', imageAddress: '' }
 ];
 
 const ENTRY_FEE = 50; // 100
@@ -32,14 +32,17 @@ const prizeMoney = {
 }
 
 const conversionFactor = {
-    "1": [0, 8],
-    "2": [0, 1, 8], //done
-    "3": [0, 1, 4.5, 8], // done
-    "4": [0, 1, 3.35, 5.70, 8], // done
-    "5": [0, 1, 2.75, 4.5, 6.25, 8], //done
-    "6": [0, 1, 2.6, 3.2, 4.8, 6.4, 8], //done
-    "7": [0, 1, 2.15, 3.20, 4.45, 5.6, 6.75, 8], //done
-    "8": [0, 1, 2, 3, 4, 5, 6, 7, 8] // done
+    "1": [0, 11],
+    "2": [0, 1, 11], //done
+    "3": [0, 1, 6, 11], // done
+    "4": [0, 1, 4.3, 7.6, 11], // done
+    "5": [0, 1, 3.5, 6, 8.5, 11], //done 
+    "6": [0, 1, 3, 5, 7, 9, 11], //done 
+    "7": [0, 1, 2.6, 4.2, 6, 7.6, 9.2, 11], // done
+    "8": [0, 1, 2.4, 3.8, 5.2, 6.6, 8, 9.4, 11], //done
+    "9": [0, 1, 2.25, 3.5, 4.75, 6, 7.25, 8.5, 9.75, 11], //done
+    "10": [0, 1, 2.1, 3.2, 4.3, 5.4, 6.5, 7.6, 8.9, 9.8, 11], //done
+    "11": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], //done
 }
 
 //This function generates the table with basic detail which can be seen on dashboard.
@@ -57,8 +60,11 @@ const populateRankTable = () => {
                 weightedSum += conversionFactor[masterData[i].played.length][Math.abs([masterData[i].result[player]])];
             }
         }
-        const avgRank = (rankSum / matchesPlayed).toFixed(2);
-        const weightedRank = (weightedSum / matchesPlayed).toFixed(2);
+        let avgRank = (rankSum / matchesPlayed).toFixed(2);
+        let weightedRank = (weightedSum / matchesPlayed).toFixed(2);
+
+        avgRank = isNaN(avgRank) ? 'N/A' : avgRank;
+        weightedRank = isNaN(weightedRank) ? 'N/A' : weightedRank;
         displayOrder.push({
             player,
             nickName,
@@ -94,44 +100,45 @@ const calculateNetTotal = playerName => {
             //     winning = resultArray[i - 1]
             // }
         //} else 
-        if(masterData[i].number === 11){
-            if (playerName === 'VJ' || playerName === 'SSJ') {
-                winning = resultArray[i - 1] + 50;
-            } else if(playerName === 'AM'){
-                winning = resultArray[i - 1] + 400
-            } else if(playerName === 'CJ'){
-                winning = resultArray[i - 1] + 300
-            } else {
-                winning = resultArray[i - 1]
-            }
-        } else if(masterData[i].number === 29){
-            // Condition for winner takes all and rank tied
-            if(playerName === 'VJ' || playerName === 'AM' ){
-                winning = resultArray[i - 1] + 400
-            } else {
-                winning = resultArray[i - 1]
-            }
-        } else if(masterData[i].number === 72) {
-            // eliminator 2
-            if(playerName === 'VJ' || playerName === 'AM'){
-                winning = resultArray[i - 1] + 700;
-            } else if(playerName === 'CJ'){
-                winning = resultArray[i - 1] + 200;
-            }else {
-                winning = resultArray[i - 1];
-            }
-        } else if([71,73].includes(masterData[i].number)){
-            // eliminator 1/3
-            winning = resultArray[i - 1] + (winning * 2);
-        } else if(masterData[i].number === 74){
-            // final
-            winning = resultArray[i - 1] + (winning * 4);
-        } else if (Object.values(masterData[i].result).includes(-1)) {
+        // if(masterData[i].number === 11){
+        //     if (playerName === 'VJ' || playerName === 'SSJ') {
+        //         winning = resultArray[i - 1] + 50;
+        //     } else if(playerName === 'AM'){
+        //         winning = resultArray[i - 1] + 400
+        //     } else if(playerName === 'CJ'){
+        //         winning = resultArray[i - 1] + 300
+        //     } else {
+        //         winning = resultArray[i - 1]
+        //     }
+        // } else if(masterData[i].number === 29){
+        //     // Condition for winner takes all and rank tied
+        //     if(playerName === 'VJ' || playerName === 'AM' ){
+        //         winning = resultArray[i - 1] + 400
+        //     } else {
+        //         winning = resultArray[i - 1]
+        //     }
+        // } else if(masterData[i].number === 72) {
+        //     // eliminator 2
+        //     if(playerName === 'VJ' || playerName === 'AM'){
+        //         winning = resultArray[i - 1] + 700;
+        //     } else if(playerName === 'CJ'){
+        //         winning = resultArray[i - 1] + 200;
+        //     }else {
+        //         winning = resultArray[i - 1];
+        //     }
+        // } else if([71,73].includes(masterData[i].number)){
+        //     // eliminator 1/3
+        //     winning = resultArray[i - 1] + (winning * 2);
+        // } else if(masterData[i].number === 74){
+        //     // final
+        //     winning = resultArray[i - 1] + (winning * 4);
+        // } else 
+        if (Object.values(masterData[i].result).includes(-1)) {
             // Condition for winner takes all
             if (masterData[i].result[playerName] === -1) {
-                winning = resultArray[i - 1] + ((prizeArray.length-1) * ENTRY_FEE);
+                winning = (resultArray[i - 1] || 0) + ((prizeArray.length-1) * ENTRY_FEE);
             } else {
-                winning = resultArray[i - 1]
+                winning = resultArray[i - 1] || 0;
             }
         } else if (winning === undefined) {
             winning = resultArray[i - 1] ? resultArray[i - 1] : 0
@@ -139,13 +146,13 @@ const calculateNetTotal = playerName => {
             winning += resultArray[i - 1];
         }
         if (masterData[i].played.includes(playerName)) {
-            if(masterData[i].number >= 71 && masterData[i].number <= 73){
-                winning = winning - (ENTRY_FEE * 2);
-            } else if(masterData[i].number === 74){
-                winning = winning - (ENTRY_FEE * 4);
-            } else {
+            // if(masterData[i].number >= 71 && masterData[i].number <= 73){
+            //     winning = winning - (ENTRY_FEE * 2);
+            // } else if(masterData[i].number === 74){
+            //     winning = winning - (ENTRY_FEE * 4);
+            // } else {
                 winning -= ENTRY_FEE
-            }
+            // }
         }
         resultArray.push(winning)
     }
@@ -199,7 +206,7 @@ const populateAbsoluteWinningForLastMatch = () => {
     const winningArray = playerArray.map(item => calculateNetTotal(item.id));
     const lastMatchIndex = masterData.length - 1;
     let lastMatchSum = 0;
-    for(let j=0; j<8; j++){
+    for(let j=0; j<11; j++){
         lastMatchSum += winningArray[j][lastMatchIndex];
     }
     return lastMatchSum;
