@@ -9,20 +9,26 @@ const playerArray = [
     { name: 'Saurabh', nickName:'Pankaj Panda', id: 'SSJ', num: 4, color: '#F7FF8E', imageAddress: 'asset/SSJ.png' },
     { name: 'Aishwaryah', nickName:'Birpuria Bagh', id: 'AM', num: 5, color: '#8EFFF7', imageAddress: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-gfQe8gjby3PROpW_GW0K2-3OjoVXYM_EvA&usqp=CAU' },
     { name: 'Chanchal', nickName:'Rangeela Rohu', id: 'CJ', num: 6, color: '#800080', imageAddress: 'asset/CJ.jpeg' },
-    { name: 'Nikhil', nickName:'Bhaukali Bhalu', id: 'NT', num: 7, color: '#330080', imageAddress: 'asset/NT.jpeg' }
+    { name: 'Nikhil', nickName:'Bhaukali Bhalu', id: 'NT', num: 7, color: '#330080', imageAddress: 'asset/NT.jpeg' },
+    { name: 'Parinav', nickName:'Jumbo Haathi', id: 'PJ', num: 8, color: '#14AE80', imageAddress: '' },
+    { name: 'Swati', nickName:'Chakri Bakri', id: 'SWJ', num: 9, color: '#03AA78', imageAddress: '' },
+    { name: 'Neha', nickName:'Chanakya Cheetah', id: 'NJ', num: 10, color: '#66EE51', imageAddress: '' }
 ];
 
-const ENTRY_FEE = 100;
+const ENTRY_FEE = 50; // 100
 //Prize money array based on no:of players playing
 const prizeMoney = {
-    "1": [0, 100],
-    "2": [0, 200, 0],
-    "3": [0, 300, 0, 0],
-    "4": [0, 300, 100, 0, 0],
-    "5": [0, 300, 200, 0, 0, 0],
-    "6": [0, 350, 250, 0, 0, 0, 0],
-    "7": [0, 400, 300, 0, 0, 0, 0, 0],
-    "8": [0, 400, 300, 100, 0, 0, 0, 0, 0]
+    "1": [0, 50], //50
+    "2": [0, 100, 0], //100
+    "3": [0, 150, 0, 0], //150
+    "4": [0, 150, 50, 0, 0], //200
+    "5": [0, 150, 100, 0, 0, 0], //250
+    "6": [0, 175, 125, 0, 0, 0, 0], //300
+    "7": [0, 200, 150, 0, 0, 0, 0, 0], //350
+    "8": [0, 200, 150, 50, 0, 0, 0, 0, 0], // 400
+    "9": [0, 225, 175, 50, 0, 0, 0, 0, 0, 0], //450
+    "10": [0, 250, 175, 75, 0, 0, 0, 0, 0, 0, 0], //500
+    "11": [0, 275, 175, 100, 0, 0, 0, 0, 0, 0, 0, 0] //550
 }
 
 const conversionFactor = {
@@ -201,7 +207,7 @@ const populateAbsoluteWinningForLastMatch = () => {
 
 //This funcion is triggered on DOM load and loads default charts on dashbaord.
 const domLoaded = () => {
-    fetch('https://api.npoint.io/781b99ffafaead6f476f')
+    fetch('https://api.npoint.io/9e9b4019fec4946a0f9a')
         .then(resp => resp.json())
         .then(response => {
             masterData = response;
