@@ -91,43 +91,12 @@ const calculateNetTotal = playerName => {
     for (let i = 0; i < masterData.length; i++) {
         const prizeArray = prizeMoney[masterData[i].played.length.toString()];
         let winning = prizeArray[masterData[i].result[playerName]];
-        if (masterData[i].number === 6){
-            // SCORES TIED
-            // Condition for specifci match where scores were tied
-            if (playerName === 'AM') {
-                winning = resultArray[i - 1] + 275;
-            } else if (playerName === 'SJ' || playerName === 'KT') {
-                winning = resultArray[i - 1] + 137.5;
-            } else {
-                winning = resultArray[i - 1]
-            }
-        } 
-        // else 
-        // if(masterData[i].number === 11){
-        //     if (playerName === 'VJ' || playerName === 'SSJ') {
-        //         winning = resultArray[i - 1] + 50;
-        //     } else if(playerName === 'AM'){
-        //         winning = resultArray[i - 1] + 400
-        //     } else if(playerName === 'CJ'){
-        //         winning = resultArray[i - 1] + 300
-        //     } else {
-        //         winning = resultArray[i - 1]
-        //     }
         // } else if(masterData[i].number === 29){
         //     // Condition for winner takes all and rank tied
         //     if(playerName === 'VJ' || playerName === 'AM' ){
         //         winning = resultArray[i - 1] + 400
         //     } else {
         //         winning = resultArray[i - 1]
-        //     }
-        // } else if(masterData[i].number === 72) {
-        //     // eliminator 2
-        //     if(playerName === 'VJ' || playerName === 'AM'){
-        //         winning = resultArray[i - 1] + 700;
-        //     } else if(playerName === 'CJ'){
-        //         winning = resultArray[i - 1] + 200;
-        //     }else {
-        //         winning = resultArray[i - 1];
         //     }
         // } else if([71,73].includes(masterData[i].number)){
         //     // eliminator 1/3
@@ -136,7 +105,22 @@ const calculateNetTotal = playerName => {
         //     // final
         //     winning = resultArray[i - 1] + (winning * 4);
         // } else 
-        if (Object.values(masterData[i].result).includes(-1)) {
+
+        if (masterData[i].number === 6){
+            // SCORES TIED
+            // Condition for specifci match where scores were tied
+            if (playerName === 'AM') {
+                winning = resultArray[i - 1] + 275;
+            } else if (playerName === 'NPJ') {
+                winning = resultArray[i - 1] + 175;
+            } else if (playerName === 'SJ') {
+                winning = resultArray[i - 1] + 50;
+            } else if (playerName === 'KT') {
+                winning = resultArray[i - 1] + 50;
+            } else {
+                winning = resultArray[i - 1]
+            }
+        } else if (Object.values(masterData[i].result).includes(-1)) {
             // Condition for winner takes all
             if (masterData[i].result[playerName] === -1) {
                 winning = (resultArray[i - 1] || 0) + ((prizeArray.length-1) * ENTRY_FEE);
