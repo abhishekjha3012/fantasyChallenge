@@ -91,15 +91,18 @@ const calculateNetTotal = playerName => {
     for (let i = 0; i < masterData.length; i++) {
         const prizeArray = prizeMoney[masterData[i].played.length.toString()];
         let winning = prizeArray[masterData[i].result[playerName]];
-        // if (masterData[i].number === 6){
+        if (masterData[i].number === 6){
             // SCORES TIED
             // Condition for specifci match where scores were tied
-            // if (playerName === 'SJ' || playerName === 'SSJ') {
-            //     winning = resultArray[i - 1] + 200;
-            // } else {
-            //     winning = resultArray[i - 1]
-            // }
-        //} else 
+            if (playerName === 'AM') {
+                winning = resultArray[i - 1] + 275;
+            } else if (playerName === 'SJ' || playerName === 'KT') {
+                winning = resultArray[i - 1] + 137.5;
+            } else {
+                winning = resultArray[i - 1]
+            }
+        } 
+        // else 
         // if(masterData[i].number === 11){
         //     if (playerName === 'VJ' || playerName === 'SSJ') {
         //         winning = resultArray[i - 1] + 50;
