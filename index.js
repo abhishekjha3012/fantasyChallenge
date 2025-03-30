@@ -49,7 +49,7 @@ const conversionFactor = {
 const populateRankTable = () => {
     const displayOrder = [];
     for (let i = 0; i < playerArray.length; i++) {
-        const { id: player, nickName } = playerArray[i];
+        const { id: player, nickName, name } = playerArray[i];
         let matchesPlayed = 0;
         let rankSum = 0;
         let weightedSum = 0;
@@ -67,6 +67,7 @@ const populateRankTable = () => {
         weightedRank = isNaN(weightedRank) ? 'N/A' : weightedRank;
         displayOrder.push({
             player,
+            name,
             nickName,
             avgRank,
             weightedRank,
@@ -74,7 +75,7 @@ const populateRankTable = () => {
         })
     } 
     displayOrder.sort((a, b) => a.avgRank > b.avgRank ? 1 : -1);
-    const rowData = displayOrder.map(item => `<tr><td>${item.nickName}</td><td>${item.avgRank}</td><td>${item.weightedRank}</td><td>${item.matchesPlayed}</td></tr>`)
+    const rowData = displayOrder.map(item => `<tr><td><b>${item.nickName}</b>(${item.name})</td><td>${item.avgRank}</td><td>${item.weightedRank}</td><td>${item.matchesPlayed}</td></tr>`)
     document.querySelector('.rankTable tbody').innerHTML = rowData.join('');
    
     // const lastMatchData = Object.fromEntries(Object.entries(masterData[masterData.length - 1].result).map(a => {
