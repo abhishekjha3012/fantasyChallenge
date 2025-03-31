@@ -148,6 +148,7 @@ const populateWinningByTeamChart = () => {
                 type: 'bar',
                 width: "100%",
                 height: 500,
+                foreColor: '#ffffff',
                 toolbar: {
                     show: false,
                 }
@@ -198,6 +199,7 @@ const showWinningChart = () => {
             type: 'line',
             width: "100%",
             height: 500,
+            foreColor: '#ffffff',
             toolbar: {
                 show: false,
             }

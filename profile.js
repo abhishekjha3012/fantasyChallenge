@@ -41,7 +41,7 @@ const populateDonutChart = () => {
         chart: {
             type: 'donut',
             width: "100%",
-            height: 600,
+            height: 800,
             toolbar: {
                 show: false,
             }

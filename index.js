@@ -155,6 +155,7 @@ const populateNetChart = () => {
             type: 'bar',
             width: "100%",
             height: 500,
+            foreColor: '#ffffff',
             toolbar: {
                 show: false,
             }

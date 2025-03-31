@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 
 <head>
     <meta name="description" content="COCO CHAMPIONSHIP 2024">
@@ -30,7 +30,7 @@
 </head>
 
 
-<body id="pastPerformance vh-100">
+<body id="pastPerformance vh-100" data-bs-theme="dark">
     <nav class="navbar navbar-expand-lg bg-dark sticky-top" data-bs-theme="dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">IPL 2025</a>
@@ -61,45 +61,50 @@
             </div>
         </div>
     </nav>
-    <div class="container-fluid px-4 text-center bg-primary-subtle content-section py-1">
-        <div class='row'>
-            <h1>Past performance</h1>
+    <div class="container-fluid px-4 text-center bg-primary-subtle content-section py-1" >
+        <div class='row mb-3'>
+            <h1 class="mb-0">Past performance</h1>
         </div>
     
         <div class='row past-performance align-items-end mb-3'>
-            <div class="col-12 col-md-3 mb-2">
+            <div class="col-12 col-md-3">
                 <select name="player-name" class="form-select player-name">
                 </select>
             </div>
 
-            <div class="col-4 col-md-3 mb-2">
+            <div class="col-4 col-md-3">
                 <label for="first-team">Team 1:</label>
                 <select name="first-team" class="form-select first-team">
                 </select>
             </div>
 
-            <div class="col-4 col-md-3 mb-2">
+            <div class="col-4 col-md-3">
                 <label for="second-team">Team 2:</label>
                 <select name="second-team" class="form-select second-team">
                 </select>
             </div>
 
-            <div class="col-4 col-md-3 mb-2 d-grid">
+            <div class="col-4 col-md-3 d-grid">
                 <button type="button" onclick="generatePastResult()" class="btn btn-primary">Load</button>
             </div>
         </div>
 
-        <div class="spinner-border text-success d-none" role="status">
+        <div class="spinner-border text-success d-none mb-3" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
 
         <div class='card d-none prediction-card mb-3 p-3'>
             <h5 class="card-title">Our Prediction</h5>
             <div class="card-body">
+                <div class="row">
+                    <p class="col-8 prediction-avg-rank-title border border-warning">Expected rank</p>
+                    <p class="col-4 prediction-avg-rank-value border border-warning"></p>
+                </div>
                 <p class="prediction-text"></p>
             </div>
         </div>
-        <div class='card d-none result-card'>
+
+        <div class='card d-none result-card mb-3'>
             <div class="card-body">
                 <div class="past-results row">
                 </div>

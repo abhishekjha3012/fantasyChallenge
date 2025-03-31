@@ -100,6 +100,7 @@ const generatePredictionCard = data => {
     document.querySelector('.text-bg-success')?.classList.remove('text-bg-success');
     document.querySelector('.text-bg-info')?.classList.remove('text-bg-info');
     document.querySelector('.text-bg-danger')?.classList.remove('text-bg-danger');
+    document.querySelector('.prediction-avg-rank-value').innerHTML = Math.round(avgRank)
     if(avgRank <= 3){
         document.querySelector('.prediction-text').innerHTML = `Popcorn? Check. Drinks? Check. Let the comedic gaming commence!`;
         document.querySelector('.prediction-card').classList.add('text-bg-success');

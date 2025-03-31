@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html lang="en" data-bs-theme="dark">
 
 <head>
     <meta name="description" content="COCO CHAMPIONSHIP 2024">
@@ -63,22 +64,22 @@
     </nav>
    
     <div class="container-fluid bg-primary-subtle content-section py-1">
-        <div class='row text-center'>
-            <h1>Profile</h1>
+        <div class='row text-center mb-3'>
+            <h1 class="mb-0">Profile</h1>
         </div>
 
-        <div class='row align-items-center text-center'>
-            <div class="col-9 mb-2">
+        <div class='row align-items-center text-center mb-3'>
+            <div class="col-9">
                 <!-- <label for="player-name">Player name:</label> -->
                 <select name="player-name" class="form-select profile-player-select">
                 </select>
             </div>
-            <div class="col-3 mb-2 d-grid">
+            <div class="col-3 d-grid">
                 <button type="button" onclick="showProfileData()" class="btn btn-primary">Load</button>
             </div>
         </div>
 
-        <div class='card mb-5 d-none'>
+        <div class='card mb-3 d-none'>
             <div class="card-body">
                 <h5 class="card-title text-center">Details</h5>
                 <div class="row text-center d-flex justify-content-center"">
@@ -95,7 +96,7 @@
             </div>
         </div>
 
-        <div class='card mb-5 d-none'>
+        <div class='card mb-3 d-none'>
             <div class="card-body">
                 <h5 class="card-title text-center">Rank Donut</h5>
                 <div class="rank-donut-chart"></div>
