@@ -8,7 +8,10 @@ const playerArray = [
     { name: 'Saurabh', nickName:'Pankaj Panda', id: 'SSJ', num: 4, color: '#F7FF8E', imageAddress: 'asset/SSJ.png' },
     { name: 'Aishwaryah', nickName:'Birpuria Bagh', id: 'AM', num: 5, color: '#8EFFF7', imageAddress: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-gfQe8gjby3PROpW_GW0K2-3OjoVXYM_EvA&usqp=CAU' },
     { name: 'Chanchal', nickName:'Rangeela Rohu', id: 'CJ', num: 6, color: '#800080', imageAddress: 'asset/CJ.jpeg' },
-    { name: 'Nikhil', nickName:'Bhaukali Bhalu', id: 'NT', num: 7, color: '#330080', imageAddress: 'asset/NT.jpeg' }
+    { name: 'Nikhil', nickName:'Bhaukali Bhalu', id: 'NT', num: 7, color: '#330080', imageAddress: 'asset/NT.jpeg' },
+    { name: 'Parinav', nickName:'Jumbo Haathi', id: 'PJ', num: 8, color: '#14AE80', imageAddress: '' },
+    { name: 'Swati', nickName:'Chakri Bakri', id: 'SWJ', num: 9, color: '#03AA78', imageAddress: '' },
+    { name: 'Neha', nickName:'Chanakya Cheetah', id: 'NPJ', num: 10, color: '#66EE51', imageAddress: '' }
 ];
 
 const getPlayerId = () => {
@@ -44,7 +47,7 @@ const populateDonutChart = () => {
             }
         },
         series: populateRecordTable(),
-        labels:['Not played', 'Rank 1', 'Rank 2', 'Rank 3', 'Rank 4', 'Rank 5', 'Rank 6','Rank 7', 'Rank 8'],
+        labels:['Not played', 'Rank 1', 'Rank 2', 'Rank 3', 'Rank 4', 'Rank 5', 'Rank 6','Rank 7', 'Rank 8', 'Rank 9', 'Rank 10', 'Rank 11'],
         dataLabels: {
             enabled: true,
             formatter: function (val) {
@@ -113,7 +116,7 @@ const showProfileData = () => {
 }
 
 const domLoaded = () => {
-    fetch('https://api.npoint.io/781b99ffafaead6f476f')
+    fetch('https://api.npoint.io/9e9b4019fec4946a0f9a')
         .then(resp => resp.json())
         .then(response => {
             profilePageMasterData = response;

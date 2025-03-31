@@ -10,7 +10,10 @@ const playerArray = [
     { name: 'Saurabh', nickName:'Pankaj Panda', id: 'SSJ', num: 4, color: '#F7FF8E', imageAddress: 'asset/SSJ.png' },
     { name: 'Aishwaryah', nickName:'Birpuria Bagh', id: 'AM', num: 5, color: '#8EFFF7', imageAddress: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-gfQe8gjby3PROpW_GW0K2-3OjoVXYM_EvA&usqp=CAU' },
     { name: 'Chanchal', nickName:'Rangeela Rohu', id: 'CJ', num: 6, color: '#800080', imageAddress: 'asset/CJ.jpeg' },
-    { name: 'Nikhil', nickName:'Bhaukali Bhalu', id: 'NT', num: 7, color: '#330080', imageAddress: 'asset/NT.jpeg' }
+    { name: 'Nikhil', nickName:'Bhaukali Bhalu', id: 'NT', num: 7, color: '#330080', imageAddress: 'asset/NT.jpeg' },
+    { name: 'Parinav', nickName:'Jumbo Haathi', id: 'PJ', num: 8, color: '#14AE80', imageAddress: '' },
+    { name: 'Swati', nickName:'Chakri Bakri', id: 'SWJ', num: 9, color: '#03AA78', imageAddress: '' },
+    { name: 'Neha', nickName:'Chanakya Cheetah', id: 'NPJ', num: 10, color: '#66EE51', imageAddress: '' }
 ];
 
 const teamArray = [
@@ -27,7 +30,7 @@ const teamArray = [
 ]
 
 const triggerPersonalDataView = () => {
-    const playerOptions = playerArray.map(item => `<option>${item.nickName}</option>`);
+    const playerOptions = playerArray.map(item => `<option>${item.nickName}(${item.name})</option>`);
     document.querySelector('.player-name').innerHTML = playerOptions.join(',');
 
     const team1Array = teamArray.map(item => `<option>${item.name}</option>`);
@@ -40,7 +43,7 @@ const triggerPersonalDataView = () => {
 }
 
 const playerId = () => {
-    const playerName = document.querySelector('.player-name').value;
+    const playerName = document.querySelector('.player-name').value.split('(')[0];
     const playerId = playerArray.find(item => item?.nickName === playerName)?.id;
     return playerId
 };
@@ -53,7 +56,8 @@ const getPlayerRank = (matchResult) => {
 
 const getPastResult = (matchList) => {
     let rowData = [];
-    matchList.forEach(data => {
+    const reverseMatchList = matchList.reverse();
+    reverseMatchList.forEach(data => {
         rowData += `<tr><td>${data?.match}</td><td>${getPlayerRank(data?.result)}</td><td>${data?.winner}</td></tr>`;
     });
     return rowData;
@@ -135,6 +139,7 @@ const domLoaded = async () => {
     const allSeasonURL = [
         'https://api.npoint.io/551de43a8627ff944b27',
         'https://api.npoint.io/781b99ffafaead6f476f',
+        'https://api.npoint.io/9e9b4019fec4946a0f9a',
     ];
     for (const url of allSeasonURL) {
         await fetch(url)

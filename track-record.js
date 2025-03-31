@@ -9,8 +9,12 @@ const playerArray = [
     { name: 'Saurabh', nickName:'Pankaj Panda', id: 'SSJ', num: 4, color: '#F7FF8E', imageAddress: 'asset/SSJ.png' },
     { name: 'Aishwaryah', nickName:'Birpuria Bagh', id: 'AM', num: 5, color: '#8EFFF7', imageAddress: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-gfQe8gjby3PROpW_GW0K2-3OjoVXYM_EvA&usqp=CAU' },
     { name: 'Chanchal', nickName:'Rangeela Rohu', id: 'CJ', num: 6, color: '#800080', imageAddress: 'asset/CJ.jpeg' },
-    { name: 'Nikhil', nickName:'Bhaukali Bhalu', id: 'NT', num: 7, color: '#330080', imageAddress: 'asset/NT.jpeg' }
+    { name: 'Nikhil', nickName:'Bhaukali Bhalu', id: 'NT', num: 7, color: '#330080', imageAddress: 'asset/NT.jpeg' },
+    { name: 'Parinav', nickName:'Jumbo Haathi', id: 'PJ', num: 8, color: '#14AE80', imageAddress: '' },
+    { name: 'Swati', nickName:'Chakri Bakri', id: 'SWJ', num: 9, color: '#03AA78', imageAddress: '' },
+    { name: 'Neha', nickName:'Chanakya Cheetah', id: 'NPJ', num: 10, color: '#66EE51', imageAddress: '' }
 ];
+
 
 const teamArray = [
     {name: 'RCB', id:'rcb'},
@@ -25,18 +29,21 @@ const teamArray = [
     {name: 'RR', id:'rr'},
 ]
 
-const ENTRY_FEE = 100;
+const ENTRY_FEE = 50; // 100
 
 //Prize money array based on no:of players playing
 const prizeMoney = {
-    "1": [0, 100],
-    "2": [0, 200, 0],
-    "3": [0, 300, 0, 0],
-    "4": [0, 300, 100, 0, 0],
-    "5": [0, 300, 200, 0, 0, 0],
-    "6": [0, 350, 250, 0, 0, 0, 0],
-    "7": [0, 400, 300, 0, 0, 0, 0, 0],
-    "8": [0, 400, 300, 100, 0, 0, 0, 0, 0]
+    "1": [0, 50], //50
+    "2": [0, 100, 0], //100
+    "3": [0, 150, 0, 0], //150
+    "4": [0, 150, 50, 0, 0], //200
+    "5": [0, 150, 100, 0, 0, 0], //250
+    "6": [0, 175, 125, 0, 0, 0, 0], //300
+    "7": [0, 200, 150, 0, 0, 0, 0, 0], //350
+    "8": [0, 200, 150, 50, 0, 0, 0, 0, 0], // 400
+    "9": [0, 225, 175, 50, 0, 0, 0, 0, 0, 0], //450
+    "10": [0, 250, 175, 75, 0, 0, 0, 0, 0, 0, 0], //500
+    "11": [0, 275, 175, 100, 0, 0, 0, 0, 0, 0, 0, 0] //550
 }
 
 const getPlayerId = () => {
@@ -50,38 +57,20 @@ const calculateNetTotal = playerName => {
     for (let i = 0; i < trackRecordMasterData.length; i++) {
         const prizeArray = prizeMoney[trackRecordMasterData[i].played.length.toString()];
         let winning = prizeArray[trackRecordMasterData[i].result[playerName]];
-        if(trackRecordMasterData[i].number === 11){
-            if (playerName === 'VJ' || playerName === 'SSJ') {
+        if (trackRecordMasterData[i].number === 6){
+            // SCORES TIED
+            // Condition for specifci match where scores were tied
+            if (playerName === 'AM') {
+                winning = resultArray[i - 1] + 275;
+            } else if (playerName === 'NPJ') {
+                winning = resultArray[i - 1] + 175;
+            } else if (playerName === 'SJ') {
                 winning = resultArray[i - 1] + 50;
-            } else if(playerName === 'AM'){
-                winning = resultArray[i - 1] + 400
-            } else if(playerName === 'CJ'){
-                winning = resultArray[i - 1] + 300
+            } else if (playerName === 'KT') {
+                winning = resultArray[i - 1] + 50;
             } else {
                 winning = resultArray[i - 1]
             }
-        } else if(trackRecordMasterData[i].number === 29){
-            // Condition for winner takes all and rank tied
-            if(playerName === 'VJ' || playerName === 'AM' ){
-                winning = resultArray[i - 1] + 400
-            } else {
-                winning = resultArray[i - 1]
-            }
-        } else if(trackRecordMasterData[i].number === 72) {
-            // eliminator 2
-            if(playerName === 'VJ' || playerName === 'AM'){
-                winning = resultArray[i - 1] + 700;
-            } else if(playerName === 'CJ'){
-                winning = resultArray[i - 1] + 200;
-            }else {
-                winning = resultArray[i - 1];
-            }
-        } else if([71,73].includes(trackRecordMasterData[i].number)){
-            // eliminator 1/3
-            winning = resultArray[i - 1] + (winning * 2);
-        } else if(trackRecordMasterData[i].number === 74){
-            // final
-            winning = resultArray[i - 1] + (winning * 4);
         } else if (Object.values(trackRecordMasterData[i].result).includes(-1)) {
             // Condition for winner takes all
             if (trackRecordMasterData[i].result[playerName] === -1) {
@@ -127,37 +116,20 @@ const populateWinningByTeamChart = () => {
             if(trackRecordMasterData[i].played.includes(playerId)){
                 let winning = 0;
                 const prizeArray = prizeMoney[trackRecordMasterData[i].played.length.toString()];
-                if(trackRecordMasterData[i].number === 11){
-                    if (playerId === 'VJ' || playerId === 'SSJ') {
+                if (trackRecordMasterData[i].number === 6){
+                    // SCORES TIED
+                    // Condition for specifci match where scores were tied
+                    if (playerName === 'AM') {
+                        winning = 275;
+                    } else if (playerName === 'NPJ') {
+                        winning = 175;
+                    } else if (playerName === 'SJ') {
                         winning = 50;
-                    } else if(playerId === 'AM'){
-                        winning = 400;
-                    } else if(playerId === 'CJ'){
-                        winning = 300;
+                    } else if (playerName === 'KT') {
+                        winning = 50;
                     } else {
                         winning = 0;
                     }
-                } else if(trackRecordMasterData[i].number === 29){
-                    if(playerId === 'VJ' || playerId === 'AM' ){
-                        winning = 400;
-                    } else {
-                        winning = 0;
-                    }
-                } else if(trackRecordMasterData[i].number === 72) {
-                    // eliminator 2
-                    if(playerId === 'VJ' || playerId === 'AM'){
-                        winning = 700;
-                    } else if(playerId === 'CJ'){
-                        winning = 200;
-                    }else {
-                        winning = 0;
-                    }
-                } else if([71,73].includes(trackRecordMasterData[i].number)){
-                    // eliminator 1/3
-                    winning = prizeArray[trackRecordMasterData[i].result[playerId]] * 2;
-                } else if(trackRecordMasterData[i].number === 74){
-                    // final
-                    winning = prizeArray[trackRecordMasterData[i].result[playerId]] * 4;
                 } else if(trackRecordMasterData[i].result[playerId] === -1 ){
                     winning = trackRecordMasterData[i].played.length * ENTRY_FEE;
                 } else {
@@ -258,7 +230,7 @@ const populateDropdown = () => {
 }
 
 const domLoaded = async () => {
-    fetch('https://api.npoint.io/781b99ffafaead6f476f')
+    fetch('https://api.npoint.io/9e9b4019fec4946a0f9a')
     .then(resp => resp.json())
     .then(response => {
         trackRecordMasterData = response;
