@@ -47,7 +47,7 @@ const prizeMoney = {
 }
 
 const getPlayerId = () => {
-    const playerName = document.querySelector('.player-name').value;
+    const playerName = document.querySelector('.player-name').value.split('(')[0].trim();
     const playerId = playerArray.find(item => item?.nickName === playerName)?.id;
     return playerId || 'all'
 }
@@ -74,9 +74,9 @@ const calculateNetTotal = playerName => {
         } else if (Object.values(trackRecordMasterData[i].result).includes(-1)) {
             // Condition for winner takes all
             if (trackRecordMasterData[i].result[playerName] === -1) {
-                winning = resultArray[i - 1] + ((prizeArray.length-1) * ENTRY_FEE)
+                winning = (resultArray[i - 1] || 0) + ((prizeArray.length-1) * ENTRY_FEE);
             } else {
-                winning = resultArray[i - 1]
+                winning = resultArray[i - 1] || 0;
             }
         } else if (winning === undefined) {
             winning = resultArray[i - 1] ? resultArray[i - 1] : 0
@@ -84,13 +84,7 @@ const calculateNetTotal = playerName => {
             winning += resultArray[i - 1];
         }
         if (trackRecordMasterData[i].played.includes(playerName)) {
-            if(trackRecordMasterData[i].number >= 71 && trackRecordMasterData[i].number <= 73){
-                winning = winning - (ENTRY_FEE * 2);
-            } else if(trackRecordMasterData[i].number === 74){
-                winning = winning - (ENTRY_FEE * 4);
-            } else {
-                winning -= ENTRY_FEE
-            }
+            winning -= ENTRY_FEE
         }
         resultArray.push(winning)
     }
@@ -103,12 +97,14 @@ const populateWinningByTeamChart = () => {
         let winningObject = {
             rcb: 0,
             csk: 0,
+            che: 0,
             kkr: 0,
             dc: 0,
             mi: 0,
             gt: 0,
             pbks: 0,
             lkn: 0,
+            lsg: 0,
             srh: 0,
             rr: 0,
         }
@@ -119,13 +115,13 @@ const populateWinningByTeamChart = () => {
                 if (trackRecordMasterData[i].number === 6){
                     // SCORES TIED
                     // Condition for specifci match where scores were tied
-                    if (playerName === 'AM') {
+                    if (playerId === 'AM') {
                         winning = 275;
-                    } else if (playerName === 'NPJ') {
+                    } else if (playerId === 'NPJ') {
                         winning = 175;
-                    } else if (playerName === 'SJ') {
+                    } else if (playerId === 'SJ') {
                         winning = 50;
-                    } else if (playerName === 'KT') {
+                    } else if (playerId === 'KT') {
                         winning = 50;
                     } else {
                         winning = 0;
@@ -141,6 +137,11 @@ const populateWinningByTeamChart = () => {
                 winningObject[secondTeam] = winningObject[secondTeam] + (winning/2) - (ENTRY_FEE/2);
             }
         }
+
+        winningObject.lkn = winningObject.lkn + winningObject.lsg;
+        winningObject.csk = winningObject.csk + winningObject.che;
+        delete winningObject.lsg;
+        delete winningObject.che;
 
         const options = {
             chart: {
@@ -214,7 +215,7 @@ const showWinningChart = () => {
         },
         series: [...seriesData],
         xaxis: {
-            categories: trackRecordMasterData.map(item => item.nickName),
+            categories: trackRecordMasterData.map(item => item.match),
         }
     }
     document.querySelector('.d-none')?.classList.remove('d-none');
@@ -224,7 +225,7 @@ const showWinningChart = () => {
 };
 
 const populateDropdown = () => {
-    const team1Array = playerArray.map(item => `<option>${item.nickName}</option>`);
+    const team1Array = playerArray.map(item => `<option>${item.nickName}(${item.name})</option>`);
     team1Array.unshift(`<option>All</option>`)
     document.querySelector('.player-name').innerHTML = team1Array.join(',');
 }
