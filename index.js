@@ -160,12 +160,8 @@ const populateNetChart = () => {
                 show: false,
             }
         },
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            width: 1,
-            colors: ["#fff"]
+        tooltip: {
+            enabled: false,
         },
         series: [{
             name: 'Win',
