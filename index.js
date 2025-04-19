@@ -121,7 +121,7 @@ const calculateNetTotal = playerName => {
             } else {
                 winning = resultArray[i - 1]
             }
-        } else if (masterData[i].number === 29){
+        } else if (masterData[i].number === 30){
             // SCORES TIED
             // Condition for specifci match where scores were tied
             if (playerName === 'SSJ') {
