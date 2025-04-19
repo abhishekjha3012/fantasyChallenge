@@ -71,6 +71,20 @@ const calculateNetTotal = playerName => {
             } else {
                 winning = resultArray[i - 1]
             }
+        } else if (trackRecordMasterData[i].number === 30){
+            // SCORES TIED
+            // Condition for specifci match where scores were tied
+            if (playerName === 'SSJ') {
+                winning = resultArray[i - 1] + 275;
+            } else if (playerName === 'AM') {
+                winning = resultArray[i - 1] + 175;
+            } else if (playerName === 'SJ') {
+                winning = resultArray[i - 1] + 50;
+            } else if (playerName === 'KT') {
+                winning = resultArray[i - 1] + 50;
+            } else {
+                winning = resultArray[i - 1]
+            }
         } else if (Object.values(trackRecordMasterData[i].result).includes(-1)) {
             // Condition for winner takes all
             if (trackRecordMasterData[i].result[playerName] === -1) {
