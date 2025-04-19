@@ -121,6 +121,20 @@ const calculateNetTotal = playerName => {
             } else {
                 winning = resultArray[i - 1]
             }
+        } else if (masterData[i].number === 29){
+            // SCORES TIED
+            // Condition for specifci match where scores were tied
+            if (playerName === 'SSJ') {
+                winning = resultArray[i - 1] + 275;
+            } else if (playerName === 'AM') {
+                winning = resultArray[i - 1] + 175;
+            } else if (playerName === 'SJ') {
+                winning = resultArray[i - 1] + 50;
+            } else if (playerName === 'CJ') {
+                winning = resultArray[i - 1] + 50;
+            } else {
+                winning = resultArray[i - 1]
+            }
         } else if (Object.values(masterData[i].result).includes(-1)) {
             // Condition for winner takes all
             if (masterData[i].result[playerName] === -1) {
