@@ -167,6 +167,10 @@ const populateWinningByTeamChart = () => {
                     show: false,
                 }
             },
+            tooltip: {
+                enabled: true,
+                theme: 'dark',
+            },
             dataLabels: {
                 enabled: false
             },
@@ -217,6 +221,10 @@ const showWinningChart = () => {
             toolbar: {
                 show: false,
             }
+        },
+        tooltip: {
+            enabled: true,
+            theme: 'dark',
         },
         dataLabels: {
             enabled: false
