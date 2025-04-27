@@ -29,7 +29,8 @@ const prizeMoney = {
     "8": [0, 200, 150, 50, 0, 0, 0, 0, 0], // 400
     "9": [0, 225, 175, 50, 0, 0, 0, 0, 0, 0], //450
     "10": [0, 250, 175, 75, 0, 0, 0, 0, 0, 0, 0], //500
-    "11": [0, 275, 175, 100, 0, 0, 0, 0, 0, 0, 0, 0] //550
+    "11": [0, 275, 175, 100, 0, 0, 0, 0, 0, 0, 0, 0], //550
+    "12": [0, 275, 175, 100, 50, 0, 0, 0, 0, 0, 0, 0, 0] //600
 }
 
 const conversionFactor = {
@@ -44,6 +45,7 @@ const conversionFactor = {
     "9": [0, 1, 2.25, 3.5, 4.75, 6, 7.25, 8.5, 9.75, 11], //done
     "10": [0, 1, 2.1, 3.2, 4.3, 5.4, 6.5, 7.6, 8.9, 9.8, 11], //done
     "11": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], //done
+    "12": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], //done
 }
 
 //This function generates the table with basic detail which can be seen on dashboard.
@@ -206,7 +208,7 @@ const populateAbsoluteWinningForLastMatch = () => {
     const winningArray = playerArray.map(item => calculateNetTotal(item.id));
     const lastMatchIndex = masterData.length - 1;
     let lastMatchSum = 0;
-    for(let j=0; j<11; j++){
+    for(let j=0; j<12; j++){
         lastMatchSum += winningArray[j][lastMatchIndex];
     }
     return lastMatchSum;

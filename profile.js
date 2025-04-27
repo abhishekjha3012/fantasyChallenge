@@ -48,7 +48,7 @@ const populateDonutChart = () => {
             }
         },
         series: populateRecordTable(),
-        labels:['Not played', 'Rank 1', 'Rank 2', 'Rank 3', 'Rank 4', 'Rank 5', 'Rank 6','Rank 7', 'Rank 8', 'Rank 9', 'Rank 10', 'Rank 11'],
+        labels:['Not played', 'Rank 1', 'Rank 2', 'Rank 3', 'Rank 4', 'Rank 5', 'Rank 6','Rank 7', 'Rank 8', 'Rank 9', 'Rank 10', 'Rank 11', 'Rank 12'],
         dataLabels: {
             enabled: true,
             formatter: function (val) {
