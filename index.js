@@ -12,7 +12,8 @@ const playerArray = [
     { name: 'Nikhil', nickName:'Bhaukali Bhalu', id: 'NT', num: 7, color: '#330080', imageAddress: 'asset/NT.jpeg' },
     { name: 'Parinav', nickName:'Jumbo Haathi', id: 'PJ', num: 8, color: '#14AE80', imageAddress: '' },
     { name: 'Swati', nickName:'Chakri Bakri', id: 'SWJ', num: 9, color: '#03AA78', imageAddress: '' },
-    { name: 'Neha', nickName:'Chanakya Cheetah', id: 'NPJ', num: 10, color: '#66EE51', imageAddress: '' }
+    { name: 'Neha', nickName:'Chanakya Cheetah', id: 'NPJ', num: 10, color: '#66EE51', imageAddress: '' },
+    { name: 'Jaya', nickName:'Ponga Pandit', id: 'JJ', num: 11, color: '#7D8421', imageAddress: '' }
 ];
 
 const ENTRY_FEE = 50; // 100
