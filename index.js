@@ -17,6 +17,7 @@ const playerArray = [
 ];
 
 const ENTRY_FEE = 50; // 100
+const MIN_MATCHES = 50;
 //Prize money array based on no:of players playing
 const prizeMoney = {
     "1": [0, 50], //50
@@ -65,6 +66,11 @@ const populateRankTable = () => {
         }
         let avgRank = (rankSum / matchesPlayed).toFixed(2);
         let weightedRank = (weightedSum / matchesPlayed).toFixed(2);
+        let matchesPendingForPlayer = Math.max(MIN_MATCHES - matchesPlayed, 0);
+        let matchesPendingForIPL = 70 - masterData.length - 3;
+        if(player === 'JJ'){
+            matchesPendingForPlayer = matchesPendingForPlayer - 34;
+        }
 
         avgRank = isNaN(avgRank) ? 'N/A' : avgRank;
         weightedRank = isNaN(weightedRank) ? 'N/A' : weightedRank;
@@ -75,10 +81,18 @@ const populateRankTable = () => {
             avgRank,
             weightedRank,
             matchesPlayed,
+            matchesPendingForPlayer,
+            matchesPendingForIPL,
         })
     } 
     displayOrder.sort((a, b) => a.avgRank > b.avgRank ? 1 : -1);
-    const rowData = displayOrder.map(item => `<tr><td><b>${item.nickName}</b>(${item.name})</td><td>${item.avgRank}</td><td>${item.weightedRank}</td><td>${item.matchesPlayed}</td></tr>`)
+    const rowData = displayOrder.map(item => `<tr>
+        <td><b>${item.nickName}</b>(${item.name})</td>
+        <td>${item.avgRank}</td>
+        <td>${item.weightedRank}</td>
+        <td>${item.matchesPlayed}</td>
+        <td><b>${item.matchesPendingForPlayer} out of ${item.matchesPendingForIPL}</b></td>
+    </tr>`);
     document.querySelector('.rankTable tbody').innerHTML = rowData.join('');
    
     // const lastMatchData = Object.fromEntries(Object.entries(masterData[masterData.length - 1].result).map(a => {
