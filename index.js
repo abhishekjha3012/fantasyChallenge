@@ -89,9 +89,8 @@ const populateRankTable = () => {
     const rowData = displayOrder.map(item => `<tr>
         <td><b>${item.nickName}</b>(${item.name})</td>
         <td>${item.avgRank}</td>
-        <td>${item.weightedRank}</td>
         <td>${item.matchesPlayed}</td>
-        <td><b>${item.matchesPendingForPlayer} out of ${item.matchesPendingForIPL}</b></td>
+        <td><b>${item.matchesPendingForPlayer} / ${item.matchesPendingForIPL}</b></td>
     </tr>`);
     document.querySelector('.rankTable tbody').innerHTML = rowData.join('');
    
