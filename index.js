@@ -151,7 +151,19 @@ const calculateNetTotal = playerName => {
             } else {
                 winning = resultArray[i - 1]
             }
-        } else if (Object.values(masterData[i].result).includes(-1)) {
+        } else if (masterData[i].number === 64){
+            // SCORES TIED
+            // Condition for specifci match where scores were tied
+            if (playerName === 'VJ') {
+                winning = resultArray[i - 1] + 250;
+            } else if (playerName === 'AM') {
+                winning = resultArray[i - 1] + 125;
+            } else if (playerName === 'SJ') {
+                winning = resultArray[i - 1] + 125;
+            } else {
+                winning = resultArray[i - 1]
+            }
+        }  else if (Object.values(masterData[i].result).includes(-1)) {
             // Condition for winner takes all
             if (masterData[i].result[playerName] === -1) {
                 winning = (resultArray[i - 1] || 0) + ((prizeArray.length-1) * ENTRY_FEE);
