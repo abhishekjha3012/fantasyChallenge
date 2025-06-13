@@ -115,15 +115,14 @@ const calculateNetTotal = playerName => {
         //     } else {
         //         winning = resultArray[i - 1]
         //     }
-        // } else if([71,73].includes(masterData[i].number)){
-        //     // eliminator 1/3
-        //     winning = resultArray[i - 1] + (winning * 2);
-        // } else if(masterData[i].number === 74){
-        //     // final
-        //     winning = resultArray[i - 1] + (winning * 4);
         // } else 
-
-        if (masterData[i].number === 6){
+        if([67, 68, 69].includes(masterData[i].number)){
+            // eliminator 1/2/3
+            winning = resultArray[i - 1] + (winning * 2);
+        } else if(masterData[i].number === 70){
+            // final
+            winning = resultArray[i - 1] + (winning * 4);
+        } else  if (masterData[i].number === 6){
             // SCORES TIED
             // Condition for specifci match where scores were tied
             if (playerName === 'AM') {
@@ -176,13 +175,13 @@ const calculateNetTotal = playerName => {
             winning += resultArray[i - 1];
         }
         if (masterData[i].played.includes(playerName)) {
-            // if(masterData[i].number >= 71 && masterData[i].number <= 73){
-            //     winning = winning - (ENTRY_FEE * 2);
-            // } else if(masterData[i].number === 74){
-            //     winning = winning - (ENTRY_FEE * 4);
-            // } else {
+            if(masterData[i].number >= 67 && masterData[i].number <= 69){
+                winning = winning - (ENTRY_FEE * 2);
+            } else if(masterData[i].number === 70){
+                winning = winning - (ENTRY_FEE * 4);
+            } else {
                 winning -= ENTRY_FEE
-            // }
+            }
         }
         resultArray.push(winning)
     }
